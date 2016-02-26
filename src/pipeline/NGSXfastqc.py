@@ -10,6 +10,8 @@ NGSXfastqc:     Generate makefile NGSXfastqc.mk for automated fastqc profiling.
 Author:         Katherine Eaton     ktmeaton [at sign here] gmail.com
 Date Created:   2016-0218
 Edited:         2016-0226 - Uploaded to github, added usage comments.
+Notes:		It is recommended to run "make -f NGSXfastqc.mk clean" before if this
+		is not the first time you are running this pipeline script.
 """
 
 # An attempt at cross-platform support, TO BE CHANGED IF USING WINDOWS
@@ -45,7 +47,8 @@ mandatoryArgs.add_argument('-t', '--threads',
 # Output directory
 # Directories will be created in this directory for each sample.
 # Individual sample directories will take everything before the first underscore in the filename
-# Ex. L156_2016-0222
+# Ex. Sample file name: L156_2016-0222_L001_R1_001.fastq.gz
+# Ex. Output sample dir: L156_fastqc
 mandatoryArgs.add_argument('-o', '--output_dir',
                     dest='output_directory',
                     help='Output directory',
@@ -88,7 +91,7 @@ makefile.write('Default:' + '\t' + 'all' + '\n\n')
 
 
 # Collect path information to individual sample directories
-# Directories must start with "Sample_XXX" where XXX is user specific
+# Directories must start with "Sample_XXX..." where XXX... is user specific
 for item in os.listdir(samples_dir):
     item_path = samples_dir + OS_SEP + item
     if os.path.isdir(item_path) and item.startswith("Sample_"):
@@ -105,15 +108,14 @@ for ind_sample_dir in samples_list:
         file_path = ind_sample_path + OS_SEP + file
         if os.path.isfile(file_path) and (file_path.endswith('.fastq') or file_path.endswith('.fastq.gz')):
 
-            # Make directories for individual sample output
+            # Make directories for individual sample output (if they don't already exist)
             output_dir_fastqc = (output_dir + OS_SEP +
                                     file.split('_')[0] + "_fastqc")
             if not os.path.exists(output_dir_fastqc):
                 os.makedirs(output_dir_fastqc)
                 clean_target_list.append(output_dir_fastqc)
 
-            # Find fastq files
-
+            # Find fastq files in input sample directories
             fastq_file_path = file_path
 
             if file.endswith('.fastq'):
@@ -121,18 +123,21 @@ for ind_sample_dir in samples_list:
                 fastqc_target = (output_dir_fastqc + OS_SEP +
                             file.strip('.fastq') + '_fastqc.zip')
 
-                # Write fastqc commands to makefile for execution
+                # Write echo fastqc commands to makefile for shell output
                 makefile.write(fastqc_target + ':' + ' ' + fastq_file_path + '\n')
                 makefile.write('\t' + "@echo -e '\e[32m" + "fastqc -t " +
                             str(threads) + ' -o ' + output_dir_fastqc + ' ' +
                             fastq_file_path + "\e[39m'" +
                             '\n')
 
+		# Write execution fastqc commands to makefile for sample processing
                 makefile.write('\t' + '@fastqc -t ' +
                             str(threads) + ' -o ' + output_dir_fastqc + ' ' +
                             fastq_file_path + '\n')
                 all_target_list.append(fastqc_target)
 
+		# Copy each *.zip output file to the safety folder
+		# The safety folder will not be erased by "make -f NGSXfastqc.mk clean"
 	        makefile.write('\t' + '@cp ' + fastqc_target + ' ' +
 			             safety_dir + OS_SEP + '\n\n')
 
@@ -146,7 +151,7 @@ for target in all_target_list:
     makefile.write(target + ' ')
 makefile.write('\n\n')
 
-# Write all targets to clean file
+# Write all clean targets to clean file
 makefile.write('clean:' + '\n' + '\t' + '@rm -rfv' )
 for target in clean_target_list:
     makefile.write(' ' + target)
@@ -155,5 +160,3 @@ for target in clean_target_list:
 makefile.close()
 
 print( '\n' + TextColor.GREEN + 'Completed Module: NGSXfastqc' + TextColor.RESET + '\n')
-# Reset text color, just in case
-print(TextColor.RESET)
