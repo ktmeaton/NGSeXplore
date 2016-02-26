@@ -1,15 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 ## @package NGSXfastqc
-#  Documentation for module NGSXfastqc
+#  Module NGSXfastqc
 #
-#  More details.
+#  Automated profile with fastqc
 
 """
 NGSXfastqc:     Generate makefile NGSXfastqc.mk for automated fastqc profiling.
 Author:         Katherine Eaton     ktmeaton [at sign here] gmail.com
 Date Created:   2016-0218
-Edited:         2016-0222
+Edited:         2016-0226 - Uploaded to github, added usage comments.
 """
 
 # An attempt at cross-platform support, TO BE CHANGED IF USING WINDOWS
@@ -19,6 +19,7 @@ import os                                                                       
 import argparse                                                                 # Command-line argument parsing
 
 # I do not know how coloring output will work on windows platforms
+# Meaning I do know: it will not work.
 from TextColor import TextColor                                                 # TextColor Class
 
 #-------------------------------------------------------------------------------#
@@ -28,22 +29,28 @@ from TextColor import TextColor                                                 
 parser = argparse.ArgumentParser(description='Generate makefile NGSXfastqc.mk for automated fastqc profiling.')
 mandatoryArgs = parser.add_argument_group('Mandatory')
 
+# Input directory holding sample directories
 mandatoryArgs.add_argument('-d', '--dir',
                     dest='samples_directory',
                     help='Full path to directory of sample folders.',
                     required=True)
 
+# Number of CPU threads
 mandatoryArgs.add_argument('-t', '--threads',
                     type = int,
                     dest='num_threads',
                     help="Number of CPU threads to use.",
                     required=True)
 
-#Output directory
+# Output directory
+# Directories will be created in this directory for each sample.
+# Individual sample directories will take everything before the first underscore in the filename
+# Ex. L156_2016-0222
 mandatoryArgs.add_argument('-o', '--output_dir',
                     dest='output_directory',
                     help='Output directory',
                     required=True)
+                   
 
 args = parser.parse_args()                                                      # Store command line arguments
 
@@ -57,15 +64,15 @@ threads = args.num_threads                                                      
 output_dir = args.output_directory                                              # Directory for output files
 
 
-# Safety Folder
-safety_dir = output_dir + OS_SEP + 'safety'
+# Safety Folder - Not affected by "make clean"
+safety_dir = output_dir + OS_SEP + 'safety'					# Output fastqc.zip file will be copied here
 if not os.path.exists(safety_dir):
     os.makedirs(safety_dir)
 
 
 
 makefile = open('NGSXfastqc.mk', 'w')                                           # Create the makefile
-all_target_list = []                                                            # list of targets for makefile
+all_target_list = []                                                            # List of targets for makefile
 clean_target_list = []                                                          # This module needs a separate for cleaning targets
 samples_list = []                                                               # List of individual sample directories
 
@@ -73,14 +80,15 @@ samples_list = []                                                               
 #-------------------------------------------------------------------------------#
 #                                  Processing                                   #
 #-------------------------------------------------------------------------------#
-print(TextColor.GREEN + 'Beginning Module: NGSXfastqc\n' + TextColor.RESET)                       # Processing Begins
+print(TextColor.GREEN + 'Beginning Module: NGSXfastqc\n' + TextColor.RESET)                       
 
-# Write the mandatory beginning of the makefile
+# Write the mandatory beginning of the makefile (note: requires bash shell in /bin/bash)
 makefile.write('SHELL := /bin/bash' + '\n\n')
 makefile.write('Default:' + '\t' + 'all' + '\n\n')
 
 
 # Collect path information to individual sample directories
+# Directories must start with "Sample_XXX" where XXX is user specific
 for item in os.listdir(samples_dir):
     item_path = samples_dir + OS_SEP + item
     if os.path.isdir(item_path) and item.startswith("Sample_"):
