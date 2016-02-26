@@ -1,2 +1,2 @@
 # NGSeXplore
-Exploratory Data Analysis of NGS Seqeucen Data
+Exploratory Data Analysis of NGS Sequence Data
