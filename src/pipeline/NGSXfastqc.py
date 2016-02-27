@@ -7,7 +7,8 @@
 
 """
 NGSXfastqc:     Generate makefile NGSXfastqc.mk for automated fastqc profiling.
-Author:         Katherine Eaton     ktmeaton [at sign here] gmail.com
+Author:         Katherine Eaton     
+Contact:	ktmeaton [at sign here] gmail.com
 Date Created:   2016-0218
 Edited:         2016-0222
 """
