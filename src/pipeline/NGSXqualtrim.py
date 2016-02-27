@@ -1,13 +1,25 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+## @package NGSXqualtrim
+#  Documentation for module NGSXqualtrim
+#
+#  Autoamted quality and length filtering.
 """
-NGSXqualtrim:  Generate makefile NGSXremovedup.mk for automated quality and length filtering.
-Author:         Katherine Eaton     ktmeaton [at sign here] gmail.com
+NGSXqualtrim:  	Generate makefile NGSXrqualtrim.mk for automated quality and length filtering.
+Author:         Katherine Eaton     
+Contact: 	ktmeaton [at sign here] gmail.com
 Date Created:   2016-0218
+Date Edited:	2016-0226 - Uploaded to github, added usage comments.
+Notes:		It is recommended to run "make -f NGSXqualtrim.mk clean" before if this
+		is not the first time you are running this pipeline script.
+To be done:	Fix command-line argument parsing to include the flags themselves.
 """
 
 import os                                                                       # OS directory and file navigation
 import argparse                                                                 # Command-line argument parsing
 
 # I do not know how coloring output will work on windows platforms
+# Meaning I do know: it will not work.
 from TextColor import TextColor                                                 # TextColor Class
 
 #-------------------------------------------------------------------------------#
