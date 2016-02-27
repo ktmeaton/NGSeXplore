@@ -9,7 +9,8 @@ NGSXqualtrim:  	Generate makefile NGSXrqualtrim.mk for automated quality and len
 Author:         Katherine Eaton     
 Contact: 	ktmeaton [at sign here] gmail.com
 Date Created:   2016-0218
-Date Edited:	2016-0226 - Uploaded to github, added usage comments.
+Date Edited:	2016-0226 - Uploaded to github, added usage comments, attempted to remove 
+				relative path dependence.
 Notes:		It is recommended to run "make -f NGSXqualtrim.mk clean" before if this
 		is not the first time you are running this pipeline script.
 To be done:	Fix command-line argument parsing to include the flags themselves.
@@ -55,14 +56,14 @@ mandatoryArgs.add_argument('-q','--qual',
                     help='Minimum quality threshold.',
                     required=True)
 
-# Minimum quality
+# Minimum proportion of read
 mandatoryArgs.add_argument('-p','--prop',
                     type = float,
                     dest='proportion',
                     help='Proportion of bases in a read that must meet the minimum quality threshold.',
                     required=True)
 
-# Minimum quality
+# Minimum length
 mandatoryArgs.add_argument('-l','--length',
                     type = int,
                     dest='min_length',
@@ -81,7 +82,9 @@ args = parser.parse_args()                                                      
 # An attempt at cross-platform support, TO BE CHANGED IF USING WINDOWS
 OS_SEP = "/"
 
-# Remove duplicate binary
+SCRIPT_LOCATION = os.path.dirname(os.path.abspath(__file__))
+
+# Quality Trimming binary (RELATIVE PATH TO PACAKGE ROOT DIRECTORY)
 QUALTRIM = 'bin/NGSXqualtrim'
 
 
