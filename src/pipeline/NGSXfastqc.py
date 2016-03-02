@@ -118,22 +118,23 @@ for ind_sample_dir in samples_list:
                 print (TextColor.RED + fastq_file_path)
                 fastqc_target = (output_dir_fastqc + OS_SEP +
                             file.strip('.fastq.gz') + '_fastqc.zip')
+                            
             else: 
             	continue
 
-                # Write fastqc commands to makefile for execution
-                makefile.write(fastqc_target + ':' + ' ' + fastq_file_path + '\n')
-                makefile.write('\t' + "@echo -e '\e[32m" + "fastqc -t " +
+            # Write fastqc commands to makefile for execution
+            makefile.write(fastqc_target + ':' + ' ' + fastq_file_path + '\n')
+            makefile.write('\t' + "@echo -e '\e[32m" + "fastqc -t " +
                             str(threads) + ' -o ' + output_dir_fastqc + ' ' +
                             fastq_file_path + "\e[39m'" +
                             '\n')
 
-                makefile.write('\t' + '@fastqc -t ' +
+            makefile.write('\t' + '@fastqc -t ' +
                             str(threads) + ' -o ' + output_dir_fastqc + ' ' +
                             fastq_file_path + '\n')
-                all_target_list.append(fastqc_target)
+            all_target_list.append(fastqc_target)
 
-	        makefile.write('\t' + '@cp ' + fastqc_target + ' ' +
+	    makefile.write('\t' + '@cp ' + fastqc_target + ' ' +
 			             safety_dir + OS_SEP + '\n\n')
 
 #-------------------------------------------------------------------------------#
