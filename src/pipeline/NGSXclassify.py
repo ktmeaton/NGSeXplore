@@ -1,3 +1,10 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+## @package NGSXclassify.py
+#  Documentation for module NGSXclassify.py
+#
+#  More details.
+
 """
 NGSXclassify:  Generate makefile NGSXclassify.mk for automated BLASTN and LCA binning.
 Author:         Katherine Eaton     ktmeaton [at sign here] gmail.com
@@ -82,10 +89,10 @@ CWD = os.getcwd()
 # Script path
 script_path = os.path.realpath(__file__)
 split_path = script_path.split(OS_SEP)
-root_list = split_path[:len(split_path)-3]
-root_path = ""
-for directory in root_list:
-    root_path += OS_SEP + directory
+NGSX_root_list = split_path[:len(split_path)-3]
+NGSX_root_path = ""
+for directory in NGSX_root_list:
+    NGSX_root_path += OS_SEP + directory
 
 
 samples_dir = args.samples_directory                                            # Directory of sample directories
@@ -95,6 +102,8 @@ max_num_hits = args.max_num_hits
 KRONABIN = args.krona_bin_dir
 NAMES = args.NCBI_names_path
 PYTHON27 = python27_path
+TAXID2NAME = NGSX_root_path + OS_SEP + "src" + OS_SEP + "pipeline" + OS_SEP + "taxid2name.py"
+
 # Safety Dir
 safety_dir = output_dir + OS_SEP + 'safety'
 if not os.path.exists(safety_dir):
