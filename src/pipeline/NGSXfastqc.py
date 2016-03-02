@@ -10,7 +10,8 @@ NGSXfastqc:     Generate makefile NGSXfastqc.mk for automated fastqc profiling.
 Author:         Katherine Eaton     
 Contact:	ktmeaton [at sign here] gmail.com
 Date Created:   2016-0218
-Edited:         2016-0222
+Edited:         2016-0222 - Upload to github
+		2016-0302 - Enable gzipped fastq compatibility
 """
 
 # An attempt at cross-platform support, TO BE CHANGED IF USING WINDOWS
