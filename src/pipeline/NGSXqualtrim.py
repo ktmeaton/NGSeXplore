@@ -59,7 +59,7 @@ mandatoryArgs.add_argument('-l','--length',
 
 # Read type (pe or se)
 mandatoryArgs.add_argument('-r','--read-type',
-		    choices=["se","pe"]
+		    choices=["se","pe"],
                     dest='read_type',
                     help='Read type (single-end or paired-end).',
                     required=True)     
