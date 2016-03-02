@@ -69,6 +69,7 @@ int main(int argc, char* argv[])
 	std::ofstream filter_fastq_file;										// Creates an output file stream for the filtered output fastq file
 	std::ofstream stats_file;													  // Creates an output file stream for the stats file
 	
+	/*
 	std::istringstream ss_phred;
 	std::istringstream ss_min_qual;
 	std::istringstream ss_prop_thresh;
@@ -83,6 +84,7 @@ int main(int argc, char* argv[])
 	    continue;
 	}	
 	}
+	*/
 
 	//----------------------------Variables: CONSTANT---------------------------//
 	std::istringstream ss_phred(argv[1]);
