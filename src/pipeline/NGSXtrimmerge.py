@@ -122,10 +122,17 @@ for ind_sample_dir in samples_list:
 
         # Get reverse read fastq path
         elif os.path.isfile(file_path) and file_path.endswith('R2_001.fastq.gz'):
+       	    # Make directories for individual sample output
+            output_dir_leeHom = output_dir + OS_SEP + file.split('_')[0] + "_leeHom"
+            if not os.path.exists(output_dir_leeHom):
+                os.makedirs(output_dir_leeHom)
+                clean_target_list.append(output_dir_leeHom)
+                
             fastq_2_file_path = file_path
             print (TextColor.RED + fastq_2_file_path)
-
-
+        
+        else:
+            continue
 
 
     # At this point, fastq paths have been acquired for forward and reverse reads
@@ -137,7 +144,7 @@ for ind_sample_dir in samples_list:
 
     # Write the echo sample statement for shell output
     makefile.write('\t' + "@echo -e '\e[31m" +
-                'Running leeHom for sample: ' + file.split('_')[0] +
+                'Running leeHom for sample: ' + leeHom_prefix.split('.')[0] +
                 "'" + '\n')
 
 
