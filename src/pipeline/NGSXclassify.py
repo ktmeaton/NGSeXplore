@@ -2,6 +2,9 @@
 NGSXclassify:  Generate makefile NGSXclassify.mk for automated BLASTN and LCA binning.
 Author:         Katherine Eaton     ktmeaton [at sign here] gmail.com
 Date Created:   2016-0218
+Date Edited:	2016-0302, enabled user to specify krona directories
+Notes:		Requires input directory to end in *_qualtrim.
+		Requires input files to end in *.qualtrim.fastq
 """
 
 import os                                                                       # OS directory and file navigation
@@ -43,6 +46,24 @@ mandatoryArgs.add_argument('-m', '--max_num_hits',
                     help="Maximum of blast hits to keep.",
                     required=True)
 
+# Krona bin directory
+mandatoryArgs.add_argument('-k', '--krona-bin-dir',
+                    dest='krona_bin_dir',
+                    help="Krona binary directory.",
+                    required=True)
+
+# NCBI names file path
+mandatoryArgs.add_argument('-n', '--names-path',
+                    dest='NCBI_names_path',
+                    help="Path to NCBI names.dmp.",
+                    required=True)
+
+# Path to python 2.7
+mandatoryArgs.add_argument('-p', '--python27',
+                    dest='python27_path',
+                    help="Path to python 2.7.",
+                    required=True)                   
+
 
 args = parser.parse_args()                                                      # Store command line arguments
 
@@ -55,20 +76,25 @@ args = parser.parse_args()                                                      
 # An attempt at cross-platform support, TO BE CHANGED IF USING WINDOWS
 OS_SEP = "/"
 
-# KRONA bin folder PATH
-KRONABIN = '/home/keaton/myapps/krona-git/KronaTools/bin/'
-
 # Current working directory
 CWD = os.getcwd()
 
-# names.dmp PATH
-NAMES = '/home/keaton/scripts/names.dmp'
+# Script path
+script_path = os.path.realpath(__file__)
+split_path = script_path.split(OS_SEP)
+root_list = split_path[:len(split_path)-3]
+root_path = ""
+for directory in root_list:
+    root_path += OS_SEP + directory
+
 
 samples_dir = args.samples_directory                                            # Directory of sample directories
 output_dir = args.output_directory                                              # Directory for output files
 num_threads = args.num_threads
 max_num_hits = args.max_num_hits
-
+KRONABIN = args.krona_bin_dir
+NAMES = args.NCBI_names_path
+PYTHON27 = python27_path
 # Safety Dir
 safety_dir = output_dir + OS_SEP + 'safety'
 if not os.path.exists(safety_dir):
@@ -222,7 +248,7 @@ for qualtrim_ind_sample_dir in os.listdir(samples_dir):
                     '\e[0m' + "'" + '\n')
 
             makefile.write('\t' +
-                            '@/home/keaton/myapps/Python-2.7.11/python src' + OS_SEP + 'taxid2name.py ' +
+                            '@' + PYTHON27 + ' src' + OS_SEP + 'taxid2name.py ' +
                             NAMES + ' ' +
                             classify_target + ' ' +
 		            translate_target + ' ' +
