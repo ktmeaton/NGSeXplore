@@ -257,13 +257,14 @@ for qualtrim_ind_sample_dir in os.listdir(samples_dir):
                     '\e[0m' + "'" + '\n')
 
             makefile.write('\t' +
-                            '@' + PYTHON27 + ' src' + OS_SEP + 'taxid2name.py ' +
-                            NAMES + ' ' +
-                            classify_target + ' ' +
-		            translate_target + ' ' +
-                            stats + ' ' +
-                            stats_binned +
+                            '@' + PYTHON27 + ' ' + TAXID2NAME + ' ' +
+                            '-n ' + NAMES + ' ' +
+                            '-k' + classify_target + ' ' +
+		            '-o' + translate_target + ' ' +
+                            '-i' + stats + ' ' +
+                            '-b' + stats_binned +
                             '\n')
+                            
 	    makefile.write('\t' +
 			    '@cp ' + stats_binned + ' ' +
 			    safety_dir + '\n\n')
