@@ -77,13 +77,13 @@ int main(int argc, char* argv[])
 	
 	for(int i=1; i<(argc-1); i++)
 	{ 
-	    if(strcmp(argv[i],"--phred"))
+	    if(std::strcmp(argv[i],"--phred"))
 	    {
 	        ss_phred =string(argv[i+1]);
 	        i++;
 	        continue;
 	    }
-	    else if(strcmp(argv[i],"--phred"))
+	    else if(std::strcmp(argv[i],"--phred"))
 	    {
 	        ss_phred =string(argv[i+1]);
 	        i++;
