@@ -113,6 +113,13 @@ for ind_sample_dir in samples_list:
                 print (TextColor.RED + fastq_file_path)
                 fastqc_target = (output_dir_fastqc + OS_SEP +
                             file.strip('.fastq') + '_fastqc.zip')
+                            
+            elif file.endswith('.fastq.gz'):
+                print (TextColor.RED + fastq_file_path)
+                fastqc_target = (output_dir_fastqc + OS_SEP +
+                            file.strip('.fastq.gz') + '_fastqc.zip')
+            else: 
+            	continue
 
                 # Write fastqc commands to makefile for execution
                 makefile.write(fastqc_target + ':' + ' ' + fastq_file_path + '\n')
