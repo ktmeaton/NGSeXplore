@@ -79,17 +79,10 @@ int main(int argc, char* argv[])
 	{ 
 	    if(std::strcmp(argv[i],"--phred"))
 	    {
-	        ss_phred =string(argv[i+1]);
+	        ss_phred(std::string(argv[i+1]));
 	        i++;
 	        continue;
 	    }
-	    else if(std::strcmp(argv[i],"--phred"))
-	    {
-	        ss_phred =string(argv[i+1]);
-	        i++;
-	        continue;
-	    }
-	
 	}
 
 	//----------------------------Variables: CONSTANT---------------------------//
