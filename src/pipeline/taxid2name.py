@@ -1,8 +1,14 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+## @package taxid2name.py
+#  Documentation for script taxid2name.py
+#
+#  Convert file of NCBI taxid to Taxonomic names
 """
-Created on Wed Feb 17 12:08:00 2016
-
-@author: harle
+taxid2name	Convert file of NCBI taxid to Taxonomic names.
+Author:         Katherine Eaton     ktmeaton [at sign here] gmail.com
+Date Created:   2016-0223
+Date Edited:	2016-0302 - Uploaded to github, branch 1.0.3
 """
 
 
