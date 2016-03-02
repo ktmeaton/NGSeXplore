@@ -3,7 +3,10 @@
  *  \verbinclude NGSXQualityControl.cpp
  * NGSXQualityControl: Implementation
  *\date $Date: 2016-0222
- * Author : Katherine Eaton ktmeaton [at sign here ] gmail.com
+ *
+ *Dated Edited: 2016-0302 - Added proper command-line argument parsing
+ *
+ *\author Author : Katherine Eaton ktmeaton [at sign here ] gmail.com
  *
  */
 
@@ -65,28 +68,42 @@ int main(int argc, char* argv[])
 
 	std::ofstream filter_fastq_file;										// Creates an output file stream for the filtered output fastq file
 	std::ofstream stats_file;													  // Creates an output file stream for the stats file
+	
+	std::istringstream ss_phred;
+	std::istringstream ss_min_qual;
+	std::istringstream ss_prop_thresh;
+	std::istringstream ss_min_len;
+	
+	for(int i=1; i<(argc-1); i++)
+	{ 
+	if(strcmp(argv[i],"-fq1") == 0 ){
+	    fastqfile1=string(argv[i+1]);
+	    fastqFormat=true;
+	    i++;
+	    continue;
+	}	
+	}
 
 	//----------------------------Variables: CONSTANT---------------------------//
 	std::istringstream ss_phred(argv[1]);
-  int i_phred;
-  if (!(ss_phred >> i_phred))  std::cerr << "Invalid phred base. " << argv[1] << '\n';
+  	int i_phred;
+  	if (!(ss_phred >> i_phred))  std::cerr << "Invalid phred base. " << argv[1] << '\n';
 	const int PHRED_BASE = i_phred;						// Phred base quality
 
-  std::istringstream ss_min_qual(argv[2]);
-  int i_min_qual;
-  if (!(ss_min_qual >> i_min_qual))  std::cerr << "Invalid minimum quality " << argv[2] << '\n';
-  const int MIN_QUAL = i_min_qual;
+  	std::istringstream ss_min_qual(argv[2]);
+  	int i_min_qual;
+  	if (!(ss_min_qual >> i_min_qual))  std::cerr << "Invalid minimum quality " << argv[2] << '\n';
+  	const int MIN_QUAL = i_min_qual;
 
-  std::istringstream ss_prop_thresh(argv[3]);
-  float f_prop_thresh;
-  if (!(ss_prop_thresh >> f_prop_thresh))  std::cerr << "Invalid proportion threshold " << argv[3] << '\n';
+  	std::istringstream ss_prop_thresh(argv[3]);
+  	float f_prop_thresh;
+  	if (!(ss_prop_thresh >> f_prop_thresh))  std::cerr << "Invalid proportion threshold " << argv[3] << '\n';
 	const float PROP_THRESHOLD = f_prop_thresh;				// Proportion of reads that must meet minimum quality threshold
 
-
-  std::istringstream ss_min_len(argv[4]);
-  int i_min_len;
-  if (!(ss_min_len >> i_min_len))  std::cerr << "Invalid minimum length. " << argv[4] << '\n';
-  const int MIN_LENGTH = i_min_len;
+  	std::istringstream ss_min_len(argv[4]);
+  	int i_min_len;
+  	if (!(ss_min_len >> i_min_len))  std::cerr << "Invalid minimum length. " << argv[4] << '\n';
+  	const int MIN_LENGTH = i_min_len;
 
 	//---------------------------Variables: STAT--------------------------------//
 	int total_num_lines;																// Number of lines in the copy fastq file
