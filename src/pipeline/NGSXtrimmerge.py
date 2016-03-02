@@ -97,19 +97,19 @@ print(TextColor.BLUE + 'Creating commands to run leeHom on the following files:'
 for ind_sample_dir in samples_list:
     ind_sample_path = samples_dir + OS_SEP + ind_sample_dir
     for file in os.listdir(ind_sample_path):
-
-        # Make directories for individual sample output
-        output_dir_leeHom = output_dir + OS_SEP + file.split('_')[0] + "_leeHom"
-        if not os.path.exists(output_dir_leeHom):
-            os.makedirs(output_dir_leeHom)
-            clean_target_list.append(output_dir_leeHom)
-
-
+    	
         file_path = ind_sample_path + OS_SEP + file
 
         # Get forward read fastq path
         # I am choosing to only update targets for Read 1 (for paired-end data)
+        
         if os.path.isfile(file_path) and file_path.endswith('R1_001.fastq.gz'):
+            # Make directories for individual sample output
+            output_dir_leeHom = output_dir + OS_SEP + file.split('_')[0] + "_leeHom"
+            if not os.path.exists(output_dir_leeHom):
+                os.makedirs(output_dir_leeHom)
+                clean_target_list.append(output_dir_leeHom)
+            
             fastq_1_file_path = file_path
             print (TextColor.RED + fastq_1_file_path)
             leeHom_prefix = file.split('_')[0] + '.leeHom'
