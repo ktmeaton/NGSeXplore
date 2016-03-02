@@ -3,9 +3,9 @@
 ## @package taxid2name.py
 #  Documentation for script taxid2name.py
 #
-#  Convert file of NCBI taxid to Taxonomic names
+#  Convert krona file of NCBI taxid to Taxonomic names
 """
-taxid2name	Convert file of NCBI taxid to Taxonomic names.
+taxid2name	Convert krona file of NCBI taxid to Taxonomic names.
 Author:         Katherine Eaton     ktmeaton [at sign here] gmail.com
 Date Created:   2016-0223
 Date Edited:	2016-0302 - Uploaded to github, branch 1.0.3
@@ -16,28 +16,59 @@ Date Edited:	2016-0302 - Uploaded to github, branch 1.0.3
 import sys                                                                     # Command line arguments
 from collections import Counter                                                # Counting occurrences
 
+#-------------------------------------------------------------------------------#
+#                             Argument Parsing                                  #
+#-------------------------------------------------------------------------------#
+
+parser = argparse.ArgumentParser(description='Convert krona file of NCBI taxid to Taxonomic names.')
+mandatoryArgs = parser.add_argument_group('Mandatory')
+
+# Taxid file (names.dmp)
+mandatoryArgs.add_argument('-n', '--names',
+                    dest='names_file',
+                    help='Path to NCBI names file (names.dmp)',
+                    required=True)
+
+# Krona classified file
+mandatoryArgs.add_argument('-k', '--krona',
+                    dest='krona_file',
+                    help='Path to Krona classified file',
+                    required=True)
+
+# Output file (translated krona)
+mandatoryArgs.add_argument('-o', '--output-krona-file',
+                    dest='output_krona_file',
+                    help='File to output translated Krona results',
+                    required=True)
+                    
+# Input stats file
+mandatoryArgs.add_argument('-i', '--input-stats',
+                    dest='input_stats_file',
+                    help='Input fasta stats file.',
+                    required=True)
+                    
+# Output binned stats file
+mandatoryArgs.add_argument('-b', '--output-binned',
+                    dest='output_stats_file',
+                    help='File to output annotated stats file with taxonomic bin.',
+                    required=True)
+                    
+args = parser.parse_args()                                                      # Store command line arguments
+
 
 #------------------------------------------------------------------------#
 #                                  Files                                 #
 #------------------------------------------------------------------------#
-taxid_file_name = sys.argv[1]
-#taxid_file_name = "names.dmp"
+taxid_file_name = args.names_file
+krona_file_name = args.krona_file
+output_file_name = args.output_krona_file
+input_stats_file_name = args.input_stats_file
+output_stats_file_name = args.output_stats_file
+
 taxid_file = open(taxid_file_name)
-
-krona_file_name = sys.argv[2]
-#krona_file_name = "contigs.blast.krona.classified" 
 krona_file = open(krona_file_name, "r") 
-
-output_file_name = sys.argv[3]
-#output_file_name = "output.translate.krona"
 output_file = open(output_file_name, "w")
-
-input_stats_file_name = sys.argv[4]
-#input_stats_file_name = "stats.txt"
 input_stats_file = open(input_stats_file_name, 'r')
-
-output_stats_file_name = sys.argv[5]
-#output_stats_file_name = "stats.binned.txt"
 output_stats_file = open(output_stats_file_name, 'w')
 
 #------------------------------------------------------------------------#
