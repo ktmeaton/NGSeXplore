@@ -3,12 +3,15 @@
 ## @package NGSXtrimmerge
 #  Documentation for module NGSXtrimmerge
 #
-#  More details.
+#  Automated leeHom trimming and merging.
 
 """
-NGSXtrimmerge:  Generate makefile NGSXtrimmerge.mk for automated quality control filtering.
+NGSXtrimmerge:  Generate makefile NGSXtrimmerge.mk for automated leeHom trimming and merging.
 Author:         Katherine Eaton     ktmeaton [at sign here] gmail.com
 Date Created:   2016-0218
+Date Edited:	2016-0302 - 	Uploaded to github
+				Change input to gzipped fastq
+Notes:		Requires sample directories to begin with Sample_*
 """
 
 import os                                                                       # OS directory and file navigation
@@ -21,7 +24,7 @@ from TextColor import TextColor                                                 
 #                             Argument Parsing                                  #
 #-------------------------------------------------------------------------------#
 
-parser = argparse.ArgumentParser(description='Generate makefile NGSXtrimmerge.mk for automated quality control filtering.')
+parser = argparse.ArgumentParser(description='Generate makefile NGSXtrimmerge.mk for automated leeHom trimming and merging.')
 mandatoryArgs = parser.add_argument_group('Mandatory')
 
 mandatoryArgs.add_argument('-d', '--dir',
@@ -106,7 +109,7 @@ for ind_sample_dir in samples_list:
 
         # Get forward read fastq path
         # I am choosing to only update targets for Read 1 (for paired-end data)
-        if os.path.isfile(file_path) and file_path.endswith('R1_001.fastq'):
+        if os.path.isfile(file_path) and file_path.endswith('R1_001.fastq.gz'):
             fastq_1_file_path = file_path
             print (TextColor.RED + fastq_1_file_path)
             leeHom_prefix = file.split('_')[0] + '.leeHom'
@@ -118,7 +121,7 @@ for ind_sample_dir in samples_list:
             clean_target_list.append(output_dir_leeHom)
 
         # Get reverse read fastq path
-        elif os.path.isfile(file_path) and file_path.endswith('R2_001.fastq'):
+        elif os.path.isfile(file_path) and file_path.endswith('R2_001.fastq.gz'):
             fastq_2_file_path = file_path
             print (TextColor.RED + fastq_2_file_path)
 
