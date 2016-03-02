@@ -9,9 +9,12 @@
 NGSXclassify:  Generate makefile NGSXclassify.mk for automated BLASTN and LCA binning.
 Author:         Katherine Eaton     ktmeaton [at sign here] gmail.com
 Date Created:   2016-0218
-Date Edited:	2016-0302, enabled user to specify krona directories
+Date Edited:	2016-0302 - Enabled user to specify krona directories, 		
+			    Rewrote the taxid2name command to allow for the new usage parameters.
 Notes:		Requires input directory to end in *_qualtrim.
 		Requires input files to end in *.qualtrim.fastq
+		Requires classified krona file to end in *.krona.classified
+		Requires stats file to end in *.stats.txt
 """
 
 import os                                                                       # OS directory and file navigation
@@ -37,7 +40,6 @@ mandatoryArgs.add_argument('-o', '--output_dir',
                     dest='output_directory',
                     help='Output directory.',
                     required=True)
-
 
 # Number of CPU threads
 mandatoryArgs.add_argument('-t', '--threads',
@@ -87,22 +89,23 @@ OS_SEP = "/"
 CWD = os.getcwd()
 
 # Script path
-script_path = os.path.realpath(__file__)
-split_path = script_path.split(OS_SEP)
-NGSX_root_list = split_path[:len(split_path)-3]
-NGSX_root_path = ""
+script_path = os.path.realpath(__file__)					# Retrieve the path of the NGSXclassify.py file
+split_path = script_path.split(OS_SEP)						# Split by operating system delimieter
+NGSX_root_list = split_path[:len(split_path)-3]					# Jump up 2 levels to root directory
+NGSX_root_path = ""								# Create the string of the NGSX root path
 for directory in NGSX_root_list:
     NGSX_root_path += OS_SEP + directory
 
 
 samples_dir = args.samples_directory                                            # Directory of sample directories
 output_dir = args.output_directory                                              # Directory for output files
-num_threads = args.num_threads
-max_num_hits = args.max_num_hits
-KRONABIN = args.krona_bin_dir
-NAMES = args.NCBI_names_path
-PYTHON27 = python27_path
+num_threads = args.num_threads							# Number of threads to use with blastn
+max_num_hits = args.max_num_hits						# Maximum number of alignments to return
+KRONABIN = args.krona_bin_dir							# Path to the Krona binary directory
+NAMES = args.NCBI_names_path							# Path to the NCBI names file
+PYTHON27 = python27_path							# Path to the python2.7 executable
 TAXID2NAME = NGSX_root_path + OS_SEP + "src" + OS_SEP + "pipeline" + OS_SEP + "taxid2name.py"
+										# Path to the taxid2name script
 
 # Safety Dir
 safety_dir = output_dir + OS_SEP + 'safety'
@@ -110,7 +113,7 @@ if not os.path.exists(safety_dir):
     os.makedirs(safety_dir)
 
 
-makefile = open('NGSXclassify.mk', 'w')                                         #Create the makefile
+makefile = open('NGSXclassify.mk', 'w')                                         # Create the makefile
 all_target_list = []                                                            # list of targets for makefile
 clean_target_list = []                                                          # This module needs a separate for cleaning targets
 samples_list = []                                                               # List of individual sample directories
@@ -259,10 +262,10 @@ for qualtrim_ind_sample_dir in os.listdir(samples_dir):
             makefile.write('\t' +
                             '@' + PYTHON27 + ' ' + TAXID2NAME + ' ' +
                             '-n ' + NAMES + ' ' +
-                            '-k' + classify_target + ' ' +
-		            '-o' + translate_target + ' ' +
-                            '-i' + stats + ' ' +
-                            '-b' + stats_binned +
+                            '-k ' + classify_target + ' ' +
+		            '-o ' + translate_target + ' ' +
+                            '-i ' + stats + ' ' +
+                            '-b ' + stats_binned +
                             '\n')
                             
 	    makefile.write('\t' +
