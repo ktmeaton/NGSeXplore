@@ -1,7 +1,15 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+## @package NGSXqualtrim
+#  Documentation for module NGSXqualtrim
+#
+#  More details.
+
 """
-NGSXqualtrim:  Generate makefile NGSXremovedup.mk for automated quality and length filtering.
+NGSXqualtrim:  Generate makefile NGSXqualtrim.mk for automated quality and length filtering.
 Author:         Katherine Eaton     ktmeaton [at sign here] gmail.com
 Date Created:   2016-0218
+Date Edited:	2016-0302 - 	Uploaded to Github, Allow for absolute paths
 """
 
 import os                                                                       # OS directory and file navigation
@@ -112,7 +120,7 @@ else:
     raise ValueError("User-specified read type was not 'pe' or 'se'.")	
 
 
-makefile = open('NGSXqualtrim.mk', 'w')                                        #Create the makefile
+makefile = open('NGSXqualtrim.mk', 'w')                                         # Create the makefile
 all_target_list = []                                                            # list of targets for makefile
 clean_target_list = []                                                          # This module needs a separate for cleaning targets
 samples_list = []                                                               # List of individual sample directories
@@ -122,7 +130,9 @@ samples_list = []                                                               
 #-------------------------------------------------------------------------------#
 #                                  Processing                                   #
 #-------------------------------------------------------------------------------#
-print(TextColor.GREEN + 'Beginning Module: NGSXqualtrim\n')                       # Processing Begins
+print(TextColor.GREEN + 'Beginning Module: NGSXqualtrim\n'+ TextColor.RESET )   # Processing Begins
+
+print(TextColor.RESET + "Using QualitryControl Binary: " + QUALTRIM + '\n' + TextColor.RESET)    
 
 # Write the mandatory beginning of the makefile
 makefile.write('SHELL := /bin/bash' + '\n\n')
@@ -145,29 +155,35 @@ print(TextColor.BLUE + 'Creating commands to run quality and length filtering on
 #                       Quality and Length Trimming                             #
 #-------------------------------------------------------------------------------#
 # Search for the merged output fastq files from leeHom
-for removedup_ind_sample_dir in os.listdir(samples_dir):
-    removedup_ind_sample_path = samples_dir + OS_SEP + removedup_ind_sample_dir
-    for removedup_file in os.listdir(removedup_ind_sample_path):
-        if removedup_file.endswith(input_suffix):
-            removedup_file_path = removedup_ind_sample_path + OS_SEP + removedup_file
-            print (TextColor.RED + removedup_file_path)
+for ind_sample_dir in os.listdir(samples_dir):
+    ind_sample_path = samples_dir + OS_SEP + ind_sample_dir
+    for file in os.listdir(ind_sample_path):
+        if file.endswith(input_suffix):
+            file_path = ind_sample_path + OS_SEP + file
+            print (TextColor.RED + file_path)
 
             # Make directories for individual sample output
-            output_dir_qual = output_dir + OS_SEP + removedup_file.split('.')[0] + "_qualtrim"
+            output_dir_qual = output_dir + OS_SEP + file.split('.')[0] + "_qualtrim"
             if not os.path.exists(output_dir_qual):
                 os.makedirs(output_dir_qual)
                 clean_target_list.append(output_dir_qual)
 
             # Make qualtrim target
-            qualtrim_target = (output_dir_qual + OS_SEP +
-                                removedup_file.replace('.fastq','.qualtrim.fastq'))
-            all_target_list.append(qualtrim_target)
+            qualtrim_fastq1_target = (output_dir_qual + OS_SEP +
+                                file.replace('.fastq','.qualtrim.fastq'))
+            all_target_list.append(qualtrim_fastq1_target)
 
             #Stats file for percent unique
             stats_file = qualtrim_target.replace('.fastq','.stats')
 
             # Write qualtrim targets
-            makefile.write(qualtrim_target + ': ' + removedup_file_path + '\n')
+            makefile.write(qualtrim_target + ': ' + file_path + '\n')
+            
+            if input_suffix.endswith('.gz'):
+            	# Write the gunzip echo statement for shell output
+            	makefile.write('\t' + "@echo -e '\e[31m" +
+                    'Gunzipping file: ' + removedup_file.split('.')[0] +
+                    '\e[0m' + "'" + '\n')
 
             # Write the echo qualtrim statement for shell output
             makefile.write('\t' + "@echo -e '\e[31m" +
