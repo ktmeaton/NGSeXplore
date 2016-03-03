@@ -28,17 +28,17 @@ int main(int argc, char* argv[])
 {
 	//---------------------------Help Variables---------------------------------//
 	std::string usage = std::string("NGSX Quality Control Module. Filters by quality threshold, removes reads with N's and short reads. \n") +
-									"Usage:\n" +
-										"\t" +
-										std::string(argv[0]) +
-										" [--phred] [-q] [-p] [-l] [input fastq file] [output fastq file] [stats file]\n\n" +
-									"Options:\n" +
-										"\t" +
-										"[--phred BASE]\t\t= 33 or 64\n" +
-										"\t" +
-										"[-q INT]\t\t= Minimum quality threshold\n" +
-										"\t[-p FLOAT (0-1)]\t= Percentage of read that must meet minimum quality threshold (DEFAULT: 0.5)\n" +
-										"\t[-l INT]\t\t= Minimum length to keep";
+						"Usage:\n" +
+						"\t" +
+						std::string(argv[0]) +
+						" [--phred] [-q] [-p] [-l] [input fastq file] [output fastq file] [stats file]\n\n" +
+						"Options:\n" +
+						"\t" +
+						"[--phred BASE]\t\t= 33 or 64\n" +
+						"\t" +
+						"[-q INT]\t\t= Minimum quality threshold\n" +
+						"\t[-p FLOAT (0-1)]\t= Percentage of read that must meet minimum quality threshold (DEFAULT: 0.5)\n" +
+						"\t[-l INT]\t\t= Minimum length to keep";
 
 	//-----------------------------Help Message---------------------------------//
 	if ((argc == 1) ||
@@ -76,14 +76,16 @@ int main(int argc, char* argv[])
 	std::string str_min_len;
 	
 	
-	for(int i=1; i<(argc-1); i++)
+	for(int i=1; i<(argc-3); i++) // Look through all command-line arguments except last 3
 	{ 
 	    parameter = argv[i];
 	    
-	    if(parameter == "--phred") str_phred = argv[i+1];
-	    else if(parameter == "-q") str_min_qual = argv[i+1];
-	    else if(parameter == "-p") str_prop_thresh = argv[i+1];
-	    else if(parameter == "-l") str_min_len = argv[i+1];
+	    if(parameter == "--phred") {str_phred = argv[i+1]; continue}
+	    else if(parameter == "-q") {str_min_qual = argv[i+1]; continue}
+	    else if(parameter == "-p") {str_prop_thresh = argv[i+1]; continue}
+	    else if(parameter == "-l") {str_min_len = argv[i+1]; continue}
+	    else std::cerr<<"Unknown argument "<< argv[i] <<" exiting"<< std::endl;
+	    return 1;	
 	}
 
 	//----------------------------Variables: CONSTANT---------------------------//
