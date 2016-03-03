@@ -57,19 +57,19 @@ int main(int argc, char* argv[])
 
 	//----------------------------Variables: FILE-------------------------------//
 	std::string fastq_1_file_name;
-	fastq_1_file_name = argv[5];							// Argument 5: Name of the input fastq 1 file
+	fastq_1_file_name = argv[9];							// Argument 9: Name of the input fastq 1 file
 
 	std::string fastq_2_file_name;
-	fastq_2_file_name = argv[6];							// Argument 6: Name of the input fastq 2 file
+	fastq_2_file_name = argv[10];							// Argument 10: Name of the input fastq 2 file
 
 	std::string filter_fastq_1_file_name;
-	filter_fastq_1_file_name = argv[7];						// Argument 7: Name of the output unique fastq 1 file
+	filter_fastq_1_file_name = argv[11];						// Argument 11: Name of the output unique fastq 1 file
 
 	std::string filter_fastq_2_file_name;
-	filter_fastq_2_file_name = argv[8];						// Argument 8: Name of the output unique fastq 2 file
+	filter_fastq_2_file_name = argv[12];						// Argument 12: Name of the output unique fastq 2 file
 
 	std::string stats_file_name;
-	stats_file_name = argv[9];							// Argument 9: Name of the stats file
+	stats_file_name = argv[13];							// Argument 13: Name of the stats file
 
 
 	std::ifstream fastq_1_file;							// Creates an input file stream for the input fastq 1 file
@@ -93,7 +93,6 @@ int main(int argc, char* argv[])
 	for(int i=1; i<(argc-5); i++) // Look through all command-line arguments except last 5
 	{ 
 	    parameter = argv[i];
-	    std::cout << parameter << std::endl;
 	    
 	    if(parameter == "--phred") 
 	    {
