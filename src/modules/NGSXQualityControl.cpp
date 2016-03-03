@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 					"[--phred BASE]\t\t= 33 or 64\n" +
 					"\t" +
 					"[-q INT]\t\t= Minimum quality threshold\n" +
-					"\t[-p FLOAT (0-1)]\t= Percentage of read that must meet minimum quality threshold (DEFAULT: 0.5)\n" +
+					"\t[-p FLOAT (0-1)]\t= Percentage of read that must meet minimum quality threshold\n" +
 					"\t[-l INT]\t\t= Minimum length to keep";
 
 	//-----------------------------Help Message----------------------------//
