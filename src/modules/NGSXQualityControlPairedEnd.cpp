@@ -93,11 +93,32 @@ int main(int argc, char* argv[])
 	for(int i=1; i<(argc-5); i++) // Look through all command-line arguments except last 5
 	{ 
 	    parameter = argv[i];
+	    std::cout << parameter << std::endl;
 	    
-	    if(parameter == "--phred") {str_phred = argv[i+1]; i++; continue;}
-	    else if(parameter == "-q") {str_min_qual = argv[i+1]; i++; continue;}
-	    else if(parameter == "-p") {str_prop_thresh = argv[i+1]; i++; continue;}
-	    else if(parameter == "-l") {str_min_len = argv[i+1]; i++; continue;}
+	    if(parameter == "--phred") 
+	    {
+	    	str_phred = argv[i+1]; 
+	    	i++; 
+	    	continue;
+	    }
+	    else if(parameter == "-q") 
+	    {
+	    	str_min_qual = argv[i+1]; 
+	    	i++; 
+	    	continue;
+	    }
+	    else if(parameter == "-p") 
+	    {
+	    	str_prop_thresh = argv[i+1]; 
+	    	i++; 
+	    	continue;
+	    }
+	    else if(parameter == "-l") 
+	    {
+	    	str_min_len = argv[i+1]; 
+	    	i++; 
+	    	continue;
+	    }
 	    else std::cerr<<"ERROR: Unknown argument "<< argv[i] <<" exiting"<< std::endl;
 	    return 1;	
 	}
