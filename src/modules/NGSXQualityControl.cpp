@@ -54,20 +54,20 @@ int main(int argc, char* argv[])
 
 	//----------------------------Variables: FILE-------------------------------//
 	std::string fastq_file_name;
-	fastq_file_name = argv[5];													// Argument 5: Name of the input fastq file
+	fastq_file_name = argv[5];							// Argument 5: Name of the input fastq file
 
 
 	std::string filter_fastq_file_name;
-	filter_fastq_file_name = argv[6];										// Argument 6: Name of the output unique fastq file
+	filter_fastq_file_name = argv[6];						// Argument 6: Name of the output unique fastq file
 
 	std::string stats_file_name;
-	stats_file_name = argv[7];													// Argument 8: Name of the stats file
+	stats_file_name = argv[7];							// Argument 8: Name of the stats file
 
-	std::ifstream fastq_file;														// Creates an input file stream for the input fastq file
-	std::ifstream fastq_file_copy;											// Copy for counting the number of lines
+	std::ifstream fastq_file;							// Creates an input file stream for the input fastq file
+	std::ifstream fastq_file_copy;							// Copy for counting the number of lines
 
-	std::ofstream filter_fastq_file;										// Creates an output file stream for the filtered output fastq file
-	std::ofstream stats_file;													  // Creates an output file stream for the stats file
+	std::ofstream filter_fastq_file;						// Creates an output file stream for the filtered output fastq file
+	std::ofstream stats_file;							// Creates an output file stream for the stats file
 	
 	std::string parameter;
 	std::string str_phred;
@@ -80,9 +80,9 @@ int main(int argc, char* argv[])
 	}
 
 	//----------------------------Variables: CONSTANT---------------------------//
-	std::istringstream ss_phred(argv[i+1]);
+	std::istringstream ss_phred(str_phred);
   	int i_phred;
-  	if (!(ss_phred >> i_phred)) std::cerr << "Invalid phred base. " << argv[i+1] << std::endl;
+  	if (!(ss_phred >> i_phred)) std::cerr << "Invalid phred base. " << str_phred << std::endl;
 	const int PHRED_BASE = i_phred;	
 	
   	std::istringstream ss_min_qual(argv[2]);
