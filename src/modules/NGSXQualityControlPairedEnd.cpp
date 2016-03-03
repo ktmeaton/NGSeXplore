@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
 	
 	
 	//---------------------Variables: ARGUMENT PARSING---------------------------//
-	for(int i=1; i<(argc-5); i++) // Look through all command-line arguments except last 3
+	for(int i=1; i<(argc-5); i++) // Look through all command-line arguments except last 5
 	{ 
 	    parameter = argv[i];
 	    
@@ -213,14 +213,9 @@ int main(int argc, char* argv[])
 	// Count the number of sequences in the input file (using the copy)
 	std::cout << "Initializing files and counting the number of sequences (This may take a while)." << std::endl;
 	total_num_lines = std::count(std::istreambuf_iterator<char>(fastq_1_file_copy), std::istreambuf_iterator<char>(), '\n') + 1;
-	total_num_records = total_num_lines / 4;																// 4 lines for each sequence record
-	fastq_progress_log.initLog(total_num_records);								  				// Initialize the progres log with the total number of records
+	total_num_records = total_num_lines / 4;					// 4 lines for each sequence record
+	fastq_progress_log.initLog(total_num_records);					// Initialize the progres log with the total number of records
 	std::cout << "Input fastq file contains " << total_num_records << " sequences." << std::endl;
-
-
-
-
-
 
 
 	//-------------------------Find Unique Sequences----------------------------//
@@ -235,16 +230,16 @@ int main(int argc, char* argv[])
 		temp_id_2 = current_line_2;                                             // First line is the unique sequence ID read 2
 
 		// Read in sequence nucleotides
-		std::getline(fastq_1_file, temp_seq_1);						                      // Second line is the sequence bases
-		std::getline(fastq_2_file, temp_seq_2);						                      // Second line is the sequence bases
+		std::getline(fastq_1_file, temp_seq_1);					// Second line is the sequence bases
+		std::getline(fastq_2_file, temp_seq_2);					// Second line is the sequence bases
 
 		// Skip Third line "+"
 		std::getline(fastq_1_file, current_line_1);
 		std::getline(fastq_2_file, current_line_2);
 
 		// Read in sequence qualities
-		std::getline(fastq_1_file, temp_qual_1);						                    // Fourth line is the sequence quality, read 1, RECORD FINISHED
-		std::getline(fastq_2_file, temp_qual_2);						                    // Fourth line is the sequence quality, read 2, RECORD FINISHED
+		std::getline(fastq_1_file, temp_qual_1);				// Fourth line is the sequence quality, read 1, RECORD FINISHED
+		std::getline(fastq_2_file, temp_qual_2);				// Fourth line is the sequence quality, read 2, RECORD FINISHED
 
 		read_length_1 = temp_seq_1.length();
 		read_length_2 = temp_seq_2.length();
@@ -256,7 +251,7 @@ int main(int argc, char* argv[])
 		// Check read length
 		// This should intuitively be read_length > MIN_LENGTH  - 1
 		// But c++ on linux thinks the sequence is 1 longer than the actual character count
-		// Something to investigate in the future (byte storage for std::string
+		// Something to investigate in the future (byte storage for std::string)
 		if(read_length_1 > (MIN_LENGTH))
 		{
 			// Analyze read 1 base qualities
@@ -285,32 +280,31 @@ int main(int argc, char* argv[])
 
 		// Check quality conditions
 		if(!found_N
-			&& (bases_above_threshold_1 > (read_length_1 * PROP_THRESHOLD))
-				&& (bases_above_threshold_2 > (read_length_2 * PROP_THRESHOLD))
-			)
-			{ reject_read = false;}
+		    && (bases_above_threshold_1 > (read_length_1 * PROP_THRESHOLD))
+       		    && (bases_above_threshold_2 > (read_length_2 * PROP_THRESHOLD)))
+		    { reject_read = false;}
 
 		// Write to output filtered files if the read passes quality control
 		if (reject_read == false)
 		{
-	  	// Write ID
-      filter_fastq_1_file << temp_id_1 << std::endl;
-			filter_fastq_2_file << temp_id_2 << std::endl;
+	  	    // Write ID
+		    filter_fastq_1_file << temp_id_1 << std::endl;
+		    filter_fastq_2_file << temp_id_2 << std::endl;
 
-			// Write sequence
-			filter_fastq_1_file << temp_seq_1 << std::endl;
-			filter_fastq_2_file << temp_seq_2 << std::endl;
+		    // Write sequence
+	            filter_fastq_1_file << temp_seq_1 << std::endl;
+		    filter_fastq_2_file << temp_seq_2 << std::endl;
 
-			// Write "+"
-	    filter_fastq_1_file << "+" << std::endl;
-	    filter_fastq_2_file << "+" << std::endl;
+	      	    // Write "+"
+	    	    filter_fastq_1_file << "+" << std::endl;
+	    	    filter_fastq_2_file << "+" << std::endl;
 
-			// Write quality
-      filter_fastq_1_file << temp_qual_1 << std::endl;
-			filter_fastq_2_file << temp_qual_1 << std::endl;
+		    // Write quality
+          	    filter_fastq_1_file << temp_qual_1 << std::endl;
+		    filter_fastq_2_file << temp_qual_1 << std::endl;
 
-			// Completed writing 1 filtered sequence record
-			final_num_seq++;
+		    // Completed writing 1 filtered sequence record
+		    final_num_seq++;
 		}
 
 		// Completed reading 1 sequence record
@@ -322,11 +316,8 @@ int main(int argc, char* argv[])
 	stats_file << "Total_Sequences\tSequences_Passing_Filter\tPercent_Passing_Filter" << std::endl;
 	stats_file << total_num_records << "\t" << final_num_seq << "\t" << std::setprecision(4) << percent_filtered << std::endl;
 	stats_file << argv[0] << " " << argv[1] << " " << argv[2] << " " << argv[3] << " " << argv[4] << " " << argv[5] << " " << argv[6] << " " << argv[7] << " " << argv[8] << " " << std::endl;
-
-
 	std::cout << "Out of: " << total_num_records << " sequences, NGSXQualityControlPairedEnd removed: " << total_num_records - final_num_seq << "." << std::endl;
 	std::cout << "Percent Filtered Sequences: " << std::setprecision(4) << final_num_seq / (float)total_num_records * 100 << "%" << std::endl;
-
 	std::cout << "\nOutput quality control statistics were written to: " << stats_file_name << "\n" << std::endl;
 
 	std::cout << Palette.GREEN << "Completed the NGSX Quality Control Paired End Module.\n" <<  Palette.RESET << std::endl;
