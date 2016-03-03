@@ -70,7 +70,6 @@ int main(int argc, char* argv[])
 	std::ofstream stats_file;													  // Creates an output file stream for the stats file
 	
 	std::string parameter;
-	std::string str_phred;
 	
 	for(int i=1; i<(argc-1); i++)
 	{ 
@@ -80,7 +79,7 @@ int main(int argc, char* argv[])
 	    {
 	        std::istringstream ss_phred(argv[i+1]);
   		int i_phred;
-  		if (!(ss_phred >> i_phred))  std::cerr << "Invalid phred base. " << str_phred << '\n';
+  		if (!(ss_phred >> i_phred))  std::cerr << "Invalid phred base. " << argv[i+1] << '\n';
 		const int PHRED_BASE = i_phred;						
 	    }
 	}
