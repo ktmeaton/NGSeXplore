@@ -26,21 +26,21 @@
 //---------------------------------Main---------------------------------------//
 int main(int argc, char* argv[])
 {
-	//---------------------------Help Variables---------------------------------//
+	//---------------------------Help Variables---------------------------//
 	std::string usage = std::string("NGSX Quality Control Module. Filters by quality threshold, removes reads with N's and short reads. \n") +
-						"Usage:\n" +
-						"\t" +
-						std::string(argv[0]) +
-						" [--phred] [-q] [-p] [-l] [input fastq file] [output fastq file] [stats file]\n\n" +
-						"Options:\n" +
-						"\t" +
-						"[--phred BASE]\t\t= 33 or 64\n" +
-						"\t" +
-						"[-q INT]\t\t= Minimum quality threshold\n" +
-						"\t[-p FLOAT (0-1)]\t= Percentage of read that must meet minimum quality threshold (DEFAULT: 0.5)\n" +
-						"\t[-l INT]\t\t= Minimum length to keep";
+					"Usage:\n" +
+					"\t" +
+					std::string(argv[0]) +
+					" [--phred] [-q] [-p] [-l] [input fastq file] [output fastq file] [stats file]\n\n" +
+					"Options:\n" +
+					"\t" +
+					"[--phred BASE]\t\t= 33 or 64\n" +
+					"\t" +
+					"[-q INT]\t\t= Minimum quality threshold\n" +
+					"\t[-p FLOAT (0-1)]\t= Percentage of read that must meet minimum quality threshold (DEFAULT: 0.5)\n" +
+					"\t[-l INT]\t\t= Minimum length to keep";
 
-	//-----------------------------Help Message---------------------------------//
+	//-----------------------------Help Message----------------------------//
 	if ((argc == 1) ||
 		(argc == 2 && std::string(argv[1]) == "-h") ||
 		(argc == 2 && std::string(argv[1]) == "-help") ||
@@ -55,8 +55,7 @@ int main(int argc, char* argv[])
 	//----------------------------Variables: FILE-------------------------------//
 	std::string fastq_file_name;
 	fastq_file_name = argv[5];							// Argument 5: Name of the input fastq file
-
-
+	
 	std::string filter_fastq_file_name;
 	filter_fastq_file_name = argv[6];						// Argument 6: Name of the output unique fastq file
 
@@ -69,13 +68,14 @@ int main(int argc, char* argv[])
 	std::ofstream filter_fastq_file;						// Creates an output file stream for the filtered output fastq file
 	std::ofstream stats_file;							// Creates an output file stream for the stats file
 	
-	std::string parameter;
-	std::string str_phred;
-	std::string str_min_qual;
-	std::string str_prop_thresh;
-	std::string str_min_len;
+	std::string parameter;								// String to store current command-line argument
+	std::string str_phred;								// Temp string to store input phred base
+	std::string str_min_qual;							// Temp string to store input minimum quality
+	std::string str_prop_thresh;							// Temp string to store input proportion threshold
+	std::string str_min_len;							// Temp string to store input minimum length
 	
 	
+	//---------------------Variables: ARGUMENT PARSING---------------------------//
 	for(int i=1; i<(argc-3); i++) // Look through all command-line arguments except last 3
 	{ 
 	    parameter = argv[i];
@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
 	    return 1;	
 	}
 
-	//----------------------------Variables: CONSTANT---------------------------//
+	//----------------------------Variables: CONSTANT----------------------------//
 	
 	// Phred Base
 	std::istringstream ss_phred(str_phred);
@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
   	std::istringstream ss_prop_thresh(str_prop_thresh);
   	float f_prop_thresh;
   	if (!(ss_prop_thresh >> f_prop_thresh))  std::cerr << "Invalid proportion threshold " << str_prop_thresh << '\n';
-	const float PROP_THRESHOLD = f_prop_thresh;				// Proportion of reads that must meet minimum quality threshold
+	const float PROP_THRESHOLD = f_prop_thresh;					// Proportion of reads that must meet minimum quality threshold
 
 	// Minimum Length
   	std::istringstream ss_min_len(str_min_len);
@@ -114,34 +114,35 @@ int main(int argc, char* argv[])
   	if (!(ss_min_len >> i_min_len))  std::cerr << "Invalid minimum length. " << str_min_len << '\n';
   	const int MIN_LENGTH = i_min_len;
 
-	//---------------------------Variables: STAT--------------------------------//
-	int total_num_lines;																// Number of lines in the copy fastq file
-	int total_num_records;															// Number of sequences in the copy fastq file
-	int final_num_seq;																	// Number of sequences in filtered fastq file
-	float percent_filtered;															// Percent of sequences filtered
+	//--------------------------------Variables: STAT-----------------------------//
+	int total_num_lines;								// Number of lines in the copy fastq file
+	int total_num_records;								// Number of sequences in the copy fastq file
+	int final_num_seq;								// Number of sequences in filtered fastq file
+	float percent_filtered;								// Percent of sequences filtered
 
 	//-----------------------Variables: PROCESSSING-----------------------------//
-	std::string current_line;														// String to hold the line read in from the fastq file
+	std::string current_line;							// String to hold the line read in from the fastq file
 
-	TextColor::TextColor Palette;												// TextColor object for coloring text output
-	ProgressLog::ProgressLog fastq_progress_log;				// ProgressLog object to store file processing progress.
+	TextColor::TextColor Palette;							// TextColor object for coloring text output
+	ProgressLog::ProgressLog fastq_progress_log;					// ProgressLog object to store file processing progress.
+	
 	std::string temp_id;
 	std::string temp_seq;
 	std::string temp_qual;
 
 
 	int read_length;
-	int bases_above_threshold;													// Number of bases in current read that are above quality threshold
-	int base_quality;																		// Quality of the current base
-	bool found_N = false;						   									// boolean to indicate whether an N was found.
+	int bases_above_threshold;							// Number of bases in current read that are above quality threshold
+	int base_quality;								// Quality of the current base
+	bool found_N = false;						   		// boolean to indicate whether an N was found.
 	bool reject_read = true;
 
 
-	//----------------------------------Open Files---------------------------------------//
-	fastq_file.open(fastq_file_name.c_str());													// Open input file (open requires parameter to be a const char*)
-	fastq_file_copy.open(fastq_file_name.c_str());										// Open copy input file (open requires parameter to be a const char*)
-	filter_fastq_file.open(filter_fastq_file_name.c_str());						// Open output file(open requires parameter to be a const char*)
-	stats_file.open(stats_file_name.c_str());													// Open stats file(open requires parameter to be a const char*)
+	//----------------------------------Open Files--------------------------------//
+	fastq_file.open(fastq_file_name.c_str());					// Open input file (open requires parameter to be a const char*)
+	fastq_file_copy.open(fastq_file_name.c_str());					// Open copy input file 
+	filter_fastq_file.open(filter_fastq_file_name.c_str());				// Open output file
+	stats_file.open(stats_file_name.c_str());					// Open stats file
 
 	// Check if files can be opened properly
 	if (fastq_file.fail())
@@ -166,25 +167,20 @@ int main(int argc, char* argv[])
 	// Count the number of sequences in the input file (using the copy)
 	std::cout << "Initializing files and counting the number of sequences (This may take a while)." << std::endl;
 	total_num_lines = std::count(std::istreambuf_iterator<char>(fastq_file_copy), std::istreambuf_iterator<char>(), '\n') + 1;
-	total_num_records = total_num_lines / 4;												// 4 lines for each sequence record
-	fastq_progress_log.initLog(total_num_records);								  // Initialize the progres log with the total number of records
+	total_num_records = total_num_lines / 4;					// 4 lines for each sequence record
+	fastq_progress_log.initLog(total_num_records);					// Initialize the progres log with the total number of records
 	std::cout << "Input fastq file contains " << total_num_records << " sequences." << std::endl;
 
 
-
-
-
-
-
-	//-------------------------Find Unique Sequences----------------------------//
+	//----------------------------Filter Base Quality----------------------------//
 
 	while (std::getline(fastq_file, current_line))
 	{
 		// Read in sequence entry
-		temp_id = current_line;                                                     // First line is the unique sequence ID
-		std::getline(fastq_file, temp_seq);						                        // Second line is the sequence bases
-		std::getline(fastq_file, current_line);						                    // Read in Third Line, "+", skip
-		std::getline(fastq_file, temp_qual);						                      // Fourth line is the sequence quality, RECORD FINISHED
+		temp_id = current_line;                                              	// First line is the unique sequence ID
+		std::getline(fastq_file, temp_seq);					// Second line is the sequence bases
+		std::getline(fastq_file, current_line);					// Read in Third Line, "+", skip
+		std::getline(fastq_file, temp_qual);					// Fourth line is the sequence quality, RECORD FINISHED
 
 		read_length = temp_seq.length();
 
@@ -195,7 +191,7 @@ int main(int argc, char* argv[])
 		// Check read length
 		// This should intuitively be read_length > MIN_LENGTH  - 1
 		// But c++ on linux thinks the sequence is 1 longer than the actual character count
-		// Something to investigate in the future (byte storage for std::string
+		// Something to investigate in the future (byte storage for std::string)
 		if(read_length > (MIN_LENGTH))
 		{
 			for(int i = 0; i < read_length; i++)
@@ -218,34 +214,34 @@ int main(int argc, char* argv[])
 				reject_read = false;
 			}
 		}
+		
+		//----------------------------Write to Output-------------------------//	
 
-		// Decide which output file to write read to
+		// Write to filtered output file
 		if (reject_read == false)
 		{
-	  	// Write to filtered output file
-      filter_fastq_file << temp_id << std::endl;
-      filter_fastq_file << temp_seq << std::endl;
-      filter_fastq_file << "+" << std::endl;
-      filter_fastq_file << temp_qual << std::endl;
+      		    filter_fastq_file << temp_id << std::endl;
+      		    filter_fastq_file << temp_seq << std::endl;
+      	 	    filter_fastq_file << "+" << std::endl;
+      		    filter_fastq_file << temp_qual << std::endl;
 
-			// Completed writing 1 filtered sequence record
-			final_num_seq++;
+		    // Completed writing 1 filtered sequence record
+		    final_num_seq++;
 		}
 
 		// Completed reading 1 sequence record
 		fastq_progress_log.incrementLog(1);
+		
 	} // end while loop
 
+	//-------------------------Calculating Statistics--------------------------------//
 	percent_filtered = final_num_seq / (float)total_num_records * 100;
 
 	stats_file << "Total_Sequences\tSequences_Passing_Filter\tPercent_Passing_Filter" << std::endl;
 	stats_file << total_num_records << "\t" << final_num_seq << "\t" << std::setprecision(4) << percent_filtered << std::endl;
 	stats_file << argv[0] << " " << argv[1] << " " << argv[2] << " " << argv[3] << " " << argv[4] << " " << argv[5] << " " << argv[6] << " " << argv[7] << " " << argv[8] << " " << std::endl;
-
-
 	std::cout << "Out of: " << total_num_records << " sequences, NGSXQualityControl removed: " << total_num_records - final_num_seq << "." << std::endl;
 	std::cout << "Percent Filtered Sequences: " << std::setprecision(4) << final_num_seq / (float)total_num_records * 100 << "%" << std::endl;
-
 	std::cout << "\nOutput quality control statistics were written to: " << stats_file_name << "\n" << std::endl;
 
 	std::cout << Palette.GREEN << "Completed the NGSX Quality Control Module.\n" <<  Palette.RESET << std::endl;
