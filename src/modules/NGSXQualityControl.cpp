@@ -83,9 +83,9 @@ int main(int argc, char* argv[])
 	}
 
 	//----------------------------Variables: CONSTANT---------------------------//
-	std::istringstream ss_phred(argv[1]);
+	std::istringstream ss_phred(str_phred);
   	int i_phred;
-  	if (!(ss_phred >> i_phred))  std::cerr << "Invalid phred base. " << argv[1] << '\n';
+  	if (!(ss_phred >> i_phred))  std::cerr << "Invalid phred base. " << str_phred << '\n';
 	const int PHRED_BASE = i_phred;						// Phred base quality
 
   	std::istringstream ss_min_qual(argv[2]);
