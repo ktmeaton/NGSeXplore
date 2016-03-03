@@ -70,13 +70,15 @@ int main(int argc, char* argv[])
 	std::ofstream stats_file;													  // Creates an output file stream for the stats file
 	
 	std::string parameter;
+	std::string str_phred;
 	
 	for(int i=1; i<(argc-1); i++)
 	{ 
 	    parameter = argv[i];
-	    if(argv[i] == "--phred")
+	    
+	    if(parameter == "--phred")
 	    {
-	        std::cout << argv[i] << std::endl;
+	        str_phred = argv[i+1];
 	    }
 	}
 
