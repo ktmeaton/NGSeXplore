@@ -71,33 +71,45 @@ int main(int argc, char* argv[])
 	
 	std::string parameter;
 	std::string str_phred;
+	std::string str_min_qual;
+	std::string str_prop_thresh;
+	std::string str_min_len;
+	
 	
 	for(int i=1; i<(argc-1); i++)
 	{ 
 	    parameter = argv[i];
 	    
 	    if(parameter == "--phred") str_phred = argv[i+1];
+	    else if(parameter == "-q") str_min_qual = argv[i+1];
+	    else if(parameter == "-p") str_prop_thresh = argv[i+1];
+	    else if(parameter == "-l") str_min_len = argv[i+1];
 	}
 
 	//----------------------------Variables: CONSTANT---------------------------//
+	
+	// Phred Base
 	std::istringstream ss_phred(str_phred);
   	int i_phred;
   	if (!(ss_phred >> i_phred)) std::cerr << "Invalid phred base. " << str_phred << std::endl;
 	const int PHRED_BASE = i_phred;	
 	
-  	std::istringstream ss_min_qual(argv[2]);
+	// Minimum Quality
+  	std::istringstream ss_min_qual(str_min_qual);
   	int i_min_qual;
-  	if (!(ss_min_qual >> i_min_qual))  std::cerr << "Invalid minimum quality " << argv[2] << '\n';
+  	if (!(ss_min_qual >> i_min_qual))  std::cerr << "Invalid minimum quality " << str_min_qual << '\n';
   	const int MIN_QUAL = i_min_qual;
 
-  	std::istringstream ss_prop_thresh(argv[3]);
+        // Proportion Threshold
+  	std::istringstream ss_prop_thresh(str_prop_thresh);
   	float f_prop_thresh;
-  	if (!(ss_prop_thresh >> f_prop_thresh))  std::cerr << "Invalid proportion threshold " << argv[3] << '\n';
+  	if (!(ss_prop_thresh >> f_prop_thresh))  std::cerr << "Invalid proportion threshold " << str_prop_thresh << '\n';
 	const float PROP_THRESHOLD = f_prop_thresh;				// Proportion of reads that must meet minimum quality threshold
 
-  	std::istringstream ss_min_len(argv[4]);
+	// Minimum Length
+  	std::istringstream ss_min_len(str_min_len);
   	int i_min_len;
-  	if (!(ss_min_len >> i_min_len))  std::cerr << "Invalid minimum length. " << argv[4] << '\n';
+  	if (!(ss_min_len >> i_min_len))  std::cerr << "Invalid minimum length. " << str_min_len << '\n';
   	const int MIN_LENGTH = i_min_len;
 
 	//---------------------------Variables: STAT--------------------------------//
