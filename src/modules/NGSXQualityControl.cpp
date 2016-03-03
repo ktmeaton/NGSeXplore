@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
 	}
 
 	//----------------------------Variables: CONSTANT---------------------------//
-	// std::istringstream ss_phred(argv[1]);
+	std::istringstream ss_phred(argv[1]);
   	int i_phred;
   	if (!(ss_phred >> i_phred))  std::cerr << "Invalid phred base. " << argv[1] << '\n';
 	const int PHRED_BASE = i_phred;						// Phred base quality
@@ -143,7 +143,7 @@ int main(int argc, char* argv[])
 	}
 
 	//----------------------------Begin Processing------------------------------//
-  std::cout << Palette.GREEN << "\nBeginning the NGSX Quality Control Module.\n" <<  Palette.RESET << std::endl;
+        std::cout << Palette.GREEN << "\nBeginning the NGSX Quality Control Module.\n" <<  Palette.RESET << std::endl;
 
 	// Count the number of sequences in the input file (using the copy)
 	std::cout << "Initializing files and counting the number of sequences (This may take a while)." << std::endl;
