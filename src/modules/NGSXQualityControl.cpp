@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
 		(argc == 2 && std::string(argv[1]) == "-h") ||
 		(argc == 2 && std::string(argv[1]) == "-help") ||
 		(argc == 2 && std::string(argv[1]) == "--help") ||
-		(argc < 8))
+		(argc < 12))
 	{
 		std::cerr << usage << std::endl;
 		return 1;
@@ -55,13 +55,13 @@ int main(int argc, char* argv[])
 
 	//----------------------------Variables: FILE-------------------------------//
 	std::string fastq_file_name;
-	fastq_file_name = argv[5];							// Argument 5: Name of the input fastq file
+	fastq_file_name = argv[9];							// Argument 5: Name of the input fastq file
 	
 	std::string filter_fastq_file_name;
-	filter_fastq_file_name = argv[6];						// Argument 6: Name of the output unique fastq file
+	filter_fastq_file_name = argv[10];						// Argument 6: Name of the output unique fastq file
 
 	std::string stats_file_name;
-	stats_file_name = argv[7];							// Argument 8: Name of the stats file
+	stats_file_name = argv[11];							// Argument 8: Name of the stats file
 
 	std::ifstream fastq_file;							// Creates an input file stream for the input fastq file
 	std::ifstream fastq_file_copy;							// Copy for counting the number of lines
@@ -76,16 +76,38 @@ int main(int argc, char* argv[])
 	std::string str_min_len;							// Temp string to store input minimum length
 	
 	
+	
+	
 	//---------------------Variables: ARGUMENT PARSING---------------------------//
-	for(int i=1; i<(argc-3); i++) // Look through all command-line arguments except last 3
+	for(int i=1; i<(argc-5); i++) // Look through all command-line arguments except last 5
 	{ 
 	    parameter = argv[i];
 	    
-	    if(parameter == "--phred") {str_phred = argv[i+1]; i++; continue;}
-	    else if(parameter == "-q") {str_min_qual = argv[i+1]; i++; continue;}
-	    else if(parameter == "-p") {str_prop_thresh = argv[i+1]; i++; continue;}
-	    else if(parameter == "-l") {str_min_len = argv[i+1]; i++; continue;}
-	    else std::cerr<<"Unknown argument "<< argv[i] <<" exiting"<< std::endl;
+	    if(parameter == "--phred") 
+	    {
+	    	str_phred = argv[i+1]; 
+	    	i++; 
+	    	continue;
+	    }
+	    else if(parameter == "-q") 
+	    {
+	    	str_min_qual = argv[i+1]; 
+	    	i++; 
+	    	continue;
+	    }
+	    else if(parameter == "-p") 
+	    {
+	    	str_prop_thresh = argv[i+1]; 
+	    	i++; 
+	    	continue;
+	    }
+	    else if(parameter == "-l") 
+	    {
+	    	str_min_len = argv[i+1]; 
+	    	i++; 
+	    	continue;
+	    }
+	    else std::cerr<<"ERROR: Unknown argument "<< argv[i] <<" exiting"<< std::endl;
 	    return 1;	
 	}
 
