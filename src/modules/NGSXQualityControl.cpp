@@ -70,25 +70,21 @@ int main(int argc, char* argv[])
 	std::ofstream stats_file;													  // Creates an output file stream for the stats file
 	
 	std::string parameter;
+	std::string str_phred;
 	
 	for(int i=1; i<(argc-1); i++)
 	{ 
 	    parameter = argv[i];
 	    
-	    if(parameter == "--phred")
-	    {
-	        std::istringstream ss_phred(argv[i+1]);
-  		int i_phred;
-  		if (!(ss_phred >> i_phred)) 
-  		{
-  		    std::cerr << "Invalid phred base. " << argv[i+1] << std::endl;
-  		}
-		const int PHRED_BASE = i_phred;						
-	    }
+	    if(parameter == "--phred") str_phred = argv[i+1];
 	}
 
 	//----------------------------Variables: CONSTANT---------------------------//
-
+	std::istringstream ss_phred(argv[i+1]);
+  	int i_phred;
+  	if (!(ss_phred >> i_phred)) std::cerr << "Invalid phred base. " << argv[i+1] << std::endl;
+	const int PHRED_BASE = i_phred;	
+	
   	std::istringstream ss_min_qual(argv[2]);
   	int i_min_qual;
   	if (!(ss_min_qual >> i_min_qual))  std::cerr << "Invalid minimum quality " << argv[2] << '\n';
