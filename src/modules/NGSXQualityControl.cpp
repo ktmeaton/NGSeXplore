@@ -4,7 +4,8 @@
  * NGSXQualityControl: Implementation
  *\date $Date: 2016-0222
  *
- *Dated Edited: 2016-0302 - Added proper command-line argument parsing
+ *Dated Edited: 2016-0302 - 	Added proper command-line argument parsing,
+ 				Improved comments and brace placement.
  *
  *\author Author : Katherine Eaton ktmeaton [at sign here ] gmail.com
  *
