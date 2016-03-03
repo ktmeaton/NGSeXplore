@@ -75,6 +75,7 @@ int main(int argc, char* argv[])
 	std::istringstream ss_prop_thresh;
 	std::istringstream ss_min_len;
 	
+	/*
 	for(int i=1; i<(argc-1); i++)
 	{ 
 	    if(std::strcmp(argv[i],"--phred"))
@@ -84,6 +85,7 @@ int main(int argc, char* argv[])
 	        continue;
 	    }
 	}
+	*/
 
 	//----------------------------Variables: CONSTANT---------------------------//
 	ss_phred(argv[1]);
