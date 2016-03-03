@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
 	
 	for(int i=1; i<(argc-1); i++)
 	{ 
-	    std::cout << argc[i] << std::endl;
+	    std::cout << argv[i] << std::endl;
 	}
 
 	//----------------------------Variables: CONSTANT---------------------------//
