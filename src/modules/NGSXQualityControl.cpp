@@ -79,7 +79,10 @@ int main(int argc, char* argv[])
 	    {
 	        std::istringstream ss_phred(argv[i+1]);
   		int i_phred;
-  		if (!(ss_phred >> i_phred))  std::cerr << "Invalid phred base. " << argv[i+1] << '\n';
+  		if (!(ss_phred >> i_phred)) 
+  		{
+  		    std::cerr << "Invalid phred base. " << argv[i+1] << std::endl;
+  		}
 		const int PHRED_BASE = i_phred;						
 	    }
 	}
