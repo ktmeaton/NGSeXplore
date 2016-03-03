@@ -69,11 +69,11 @@ int main(int argc, char* argv[])
 	std::ofstream filter_fastq_file;										// Creates an output file stream for the filtered output fastq file
 	std::ofstream stats_file;													  // Creates an output file stream for the stats file
 	
-	std::istringstream parameter;
+	std::string parameter;
 	
 	for(int i=1; i<(argc-1); i++)
 	{ 
-	    parameter(argv[i]);
+	    parameter = argv[i];
 	    std::cout << argv[i] << std::endl;
 	}
 
