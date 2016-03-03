@@ -93,7 +93,6 @@ int main(int argc, char* argv[])
 	for(int i=1; i<(argc-5); i++) // Look through all command-line arguments except last 5
 	{ 
 	    parameter = argv[i];
-	    std::cout << "Parameter: " << parameter << std::endl;
 	    
 	    if(parameter == "--phred") {str_phred = argv[i+1]; i++; continue;}
 	    else if(parameter == "-q") {str_min_qual = argv[i+1]; i++; continue;}
