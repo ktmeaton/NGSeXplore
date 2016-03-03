@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
 	
 	for(int i=1; i<(argc-1); i++)
 	{ 
-	    if(argv[i] == "--phred")
+	    if(argv[i].compare("--phred") == 0)
 	    {
 	        std::istringstream ss_phred(argv[i+1]);
 	        i++;
