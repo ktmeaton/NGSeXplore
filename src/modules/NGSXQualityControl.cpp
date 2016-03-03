@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 	for(int i=1; i<(argc-1); i++)
 	{ 
 	    parameter = argv[i];
-	    if(parameter == "--phred")
+	    if(argv[i] == "--phred")
 	    {
 	        std::cout << argv[i] << std::endl;
 	    }
