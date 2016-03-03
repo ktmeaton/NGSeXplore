@@ -81,10 +81,10 @@ int main(int argc, char* argv[])
 	{ 
 	    parameter = argv[i];
 	    
-	    if(parameter == "--phred") {str_phred = argv[i+1]; continue;}
-	    else if(parameter == "-q") {str_min_qual = argv[i+1]; continue;}
-	    else if(parameter == "-p") {str_prop_thresh = argv[i+1]; continue;}
-	    else if(parameter == "-l") {str_min_len = argv[i+1]; continue;}
+	    if(parameter == "--phred") {str_phred = argv[i+1]; i++; continue;}
+	    else if(parameter == "-q") {str_min_qual = argv[i+1]; i++; continue;}
+	    else if(parameter == "-p") {str_prop_thresh = argv[i+1]; i++; continue;}
+	    else if(parameter == "-l") {str_min_len = argv[i+1]; i++; continue;}
 	    else std::cerr<<"Unknown argument "<< argv[i] <<" exiting"<< std::endl;
 	    return 1;	
 	}
