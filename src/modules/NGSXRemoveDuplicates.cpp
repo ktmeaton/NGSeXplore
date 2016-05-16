@@ -14,6 +14,7 @@
 //----------------------------System Include----------------------------------//
 #include <iostream>										// Input and output to screen
 #include <string>										// String
+#include <cstring>										// For strcmp
 #include <map>											// Maps
 #include <iomanip>										// Set Precision
 #include <fstream>										// File input and output
