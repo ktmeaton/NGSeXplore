@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 									"Usage:\n" +
 									"\t" +
 									std::string(argv[0]) +
-									"[input fastq file] [output fastq file] [stats file]\n\n" +
+									"--fasta [input fastq file] --fastq [input fastq file] --output [output deduplicated sequence file] --stats [stats file]\n\n" +
 									"This program removes exact sequence duplicates.\n\n" +
 									"\tYou must provide as input a fasta or fastq file:\n" +
 									"\t\t--fastq\t\tInput fastq file.\n" +
