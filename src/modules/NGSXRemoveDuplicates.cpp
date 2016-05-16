@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 	std::string stats_file_name;								// Name of the stats file
 
 	std::ifstream fastq_file;								// Creates an input file stream for the input fastq file
-	std::ifstream fastq_file;								// Creates an input file stream for the input fasta file	
+	std::ifstream fasta_file;								// Creates an input file stream for the input fasta file	
 	std::ifstream file_copy;								// Copy for counting the number of lines
 
 	std::ofstream output_file;								// Creates an output file stream for the unique output fastq file
@@ -96,7 +96,7 @@ int main(int argc, char* argv[])
 	//---------------------------------Argument Parsing-----------------------------------//
 	for(int i=1;i<(argc);i++)								// Iterate through each argument (ignore first)
 	{
-		if(strcmp(argv[i],"--fastq") == 0 )						
+		if(std::strcmp(argv[i],"--fastq") == 0 )						
 		{
 	    		fastq_file_name = std::string(argv[i+1]);				// Store the fastq file name
 			fastqFormat=true;
@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
 			continue;
 		}
 		
-		if(strcmp(argv[i],"--fasta") == 0 )					
+		if(std::strcmp(argv[i],"--fasta") == 0 )					
 		{
 	    		fasta_file_name = std::string(argv[i+1]);				// Store the fasta file name
 			fastaFormat=true;
@@ -112,14 +112,14 @@ int main(int argc, char* argv[])
 			continue;
 		}
 		
-		if(strcmp(argv[i],"--output") == 0 )
+		if(std::strcmp(argv[i],"--output") == 0 )
 		{
 	    		output_file_name = std::string(argv[i+1]);				// Store the output file name
 	    		i++;
 			continue;
 		}	
 		
-		if(strcmp(argv[i],"--stats") == 0 )
+		if(std::strcmp(argv[i],"--stats") == 0 )
 		{
 	    		stats_file_name = std::string(argv[i+1]);				// Store the stats file name
 	    		i++;
