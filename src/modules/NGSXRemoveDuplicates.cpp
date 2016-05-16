@@ -133,7 +133,7 @@ int main(int argc, char* argv[])
 	
 	//------------------------------------Input Check------------------------------------//
 	
-	if (fastqFormat == true && fastaFormat == true)
+	if (fastqFormat && fastaFormat)
 	{
 		std::cerr<< "Cannot specify both an input fasta and fastq file." << std::endl;
 		std::cerr<< "User specified both fastq file " << fastq_file_name << " and fasta file " << fasta_file_name << std::endl;
