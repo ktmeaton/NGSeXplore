@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
 	//---------------------------------Argument Parsing-----------------------------------//
 	for(int i=1;i<(argc);i++)								// Iterate through each argument (ignore first)
 	{
-		if(string::strcmp(argv[i]), "--fastq")) == 0 )						
+		if(strcmp(std::string(argv[i])), "--fastq")) == 0 )						
 		{
 	    		fastq_file_name = std::string(argv[i+1]);				// Store the fastq file name
 			fastqFormat=true;
