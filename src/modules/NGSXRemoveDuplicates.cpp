@@ -11,17 +11,17 @@
  */
 
 //----------------------------System Include----------------------------------//
-#include <iostream>									// Input and output to screen
+#include <iostream>										// Input and output to screen
 #include <string>										// String
 #include <map>											// Maps
-#include <iomanip>									// Set Precision
-#include <fstream>									// File input and output
-#include <algorithm>								// To use the count function
+#include <iomanip>										// Set Precision
+#include <fstream>										// File input and output
+#include <algorithm>										// To use the count function
 
 //----------------------------Custom Include----------------------------------//
-#include "FastQ.h"									// FastQ object
-#include "TextColor.h"							// Unix shell colored output
-#include "ProgressLog.h"						// ProgressLog Class
+#include "FastQ.h"										// FastQ object
+#include "TextColor.h"										// Unix shell colored output
+#include "ProgressLog.h"									// ProgressLog Class
 
 //---------------------------------Main---------------------------------------//
 int main(int argc, char* argv[])
@@ -31,7 +31,10 @@ int main(int argc, char* argv[])
 									"Usage:\n" +
 									"\t" +
 									std::string(argv[0]) +
-									"[input fastq file] [output fastq file] [stats file]\n";
+									"[input fastq file] [output fastq file] [stats file]\n" +
+									"This program removes exact sequence duplicates.\n" +
+									"It takes as input either a fastq or fasta file.\n" +
+									"It outputs either a fastq or fasta file, and a stats text file with the number of sequences removed.";
 
 
 	//-----------------------------------Help Message-------------------------------------//
@@ -46,6 +49,12 @@ int main(int argc, char* argv[])
 	}
 
 	//----------------------------Implementation Variables--------------------------------//
+	
+	
+	for(int i=0;i<(argc-1);i++){ //all but the last arg
+		std::cout << argv[i] << std::endl;
+	}
+
 
 	std::string fastq_file_name;
 	fastq_file_name = argv[1];											// Argument 1: Name of the input fastq file
