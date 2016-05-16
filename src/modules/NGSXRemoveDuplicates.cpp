@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
 									std::string(argv[0]) +
 									" --fasta [input fastq file] --fastq [input fastq file] --output [output deduplicated sequence file] --stats [stats file]\n\n" +
 									"This program removes exact sequence duplicates.\n\n" +
-									"\tYou must provide as input a fasta or fastq file:\n" +
+									"\tYou must provide as input a fasta OR fastq file:\n" +
 									"\t\t--fastq\t\tInput fastq file.\n" +
 									"\t\t--fasta\t\tInput fasta file.\n\n" +
 									"\tThe output file will be the same format as the input:\n" +
