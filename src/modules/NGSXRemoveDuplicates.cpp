@@ -92,7 +92,9 @@ int main(int argc, char* argv[])
 	std::map<std::string, FastQ::FastQ>::iterator it;															// Map iterator
 	
 	bool fastqFormat;
+	fastqFormat = false;
 	bool fastaFormat;
+	fastaFormat = false;
 
 	//---------------------------------Argument Parsing-----------------------------------//
 	for(int i=1;i<(argc);i++)								// Iterate through each argument (ignore first)
