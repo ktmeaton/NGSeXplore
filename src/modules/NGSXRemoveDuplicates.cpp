@@ -248,7 +248,7 @@ int main(int argc, char* argv[])
 			temp_qual = "";									// Set quality to null for fasta
 
 			temp_fasta.setRecord(temp_id, temp_seq, temp_qual);
-			map_unique_fastq[temp_seq] = temp_fasta;					// Add or replace sequence and FastQ object in map
+			map_unique_fasta[temp_seq] = temp_fasta;					// Add or replace sequence and FastQ object in map
 
 			// Completed reading 1 sequence record
 			progress_log.incrementLog(1);
