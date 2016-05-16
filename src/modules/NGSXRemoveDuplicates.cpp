@@ -194,7 +194,7 @@ int main(int argc, char* argv[])
 			std::getline(fastq_file, temp_qual);						// Fourth line is the sequence quality
 
 			temp_fastq.setRecord(temp_id, temp_seq, temp_qual);
-			map_unique_fasta[temp_seq] = temp_fastq;					// Add or replace sequence and FastQ object in map
+			map_unique_fastq[temp_seq] = temp_fastq;					// Add or replace sequence and FastQ object in map
 
 			// Completed reading 1 sequence record
 			progress_log.incrementLog(1);
