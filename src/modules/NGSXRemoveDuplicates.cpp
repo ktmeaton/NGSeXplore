@@ -31,10 +31,15 @@ int main(int argc, char* argv[])
 									"Usage:\n" +
 									"\t" +
 									std::string(argv[0]) +
-									"[input fastq file] [output fastq file] [stats file]\n" +
-									"This program removes exact sequence duplicates.\n" +
-									"It takes as input either a fastq or fasta file.\n" +
-									"It outputs either a fastq or fasta file, and a stats text file with the number of sequences removed.";
+									"[input fastq file] [output fastq file] [stats file]\n\n" +
+									"This program removes exact sequence duplicates.\n\n" +
+									"\tYou must provide as input a fasta or fastq file:\n" +
+									"\t\t--fastq\t\tInput fastq file.\n" +
+									"\t\t--fasta\t\tInput fasta file.\n\n" +
+									"\tThe output file will be the same format as the input:\n" +
+									"\t\t--output\t\t Output fasta/fastq file.\n\n" +
+									"\tSummary statistics will be saved in a text file:\n" +
+									"\t\t--stats\t\t Output stats text file.\n";
 
 
 	//-----------------------------------Help Message-------------------------------------//
@@ -50,33 +55,24 @@ int main(int argc, char* argv[])
 
 	//----------------------------Implementation Variables--------------------------------//
 	
-	
-	for(int i=0;i<(argc-1);i++){ //all but the last arg
-		std::cout << argv[i] << std::endl;
-	}
+	std::string fastq_file_name;								// Name of the input fastq file
+	std::string fasta_file_name;								// Name of the input fasta file
+	std::string output_file_name;								// Name of the output unique sequence file
+	std::string stats_file_name;								// Name of the stats file
 
+	std::ifstream fastq_file;								// Creates an input file stream for the input fastq file
+	std::ifstream fastq_file;								// Creates an input file stream for the input fasta file	
+	std::ifstream file_copy;								// Copy for counting the number of lines
 
-	std::string fastq_file_name;
-	fastq_file_name = argv[1];											// Argument 1: Name of the input fastq file
+	std::ofstream output_file;								// Creates an output file stream for the unique output fastq file
+	std::ofstream stats_file;								// Creates an output file stream for the stats file
 
-	std::string unique_fastq_file_name;
-	unique_fastq_file_name = argv[2];								// Argument 2: Name of the output unique fastq file
-
-	std::string stats_file_name;										// Name of the stats file
-	stats_file_name = argv[3];											// Argument 3: Name of the output stats file
-
-	std::ifstream fastq_file;												// Creates an input file stream for the input fastq file
-	std::ifstream fastq_file_copy;									// Copy for counting the number of lines
-
-	std::ofstream unique_fastq_file;								// Creates an output file stream for the unique output fastq file
-	std::ofstream stats_file;												// Stats file
-
-	std::string current_line;													// String to hold the line read in from the fastq file
+	std::string current_line;								// String to hold the line read in from the fastq file
 	std::string temp_id;
 	std::string temp_seq;
 	std::string temp_qual;
 
-	std::map<std::string, FastQ::FastQ> map_unique_fastq;	// Map to hold unique sequences
+	std::map<std::string, FastQ::FastQ> map_unique_fastq;					// Map to hold unique sequences
 
 	// Colored text and progress log
 	FastQ::FastQ temp_fastq;
@@ -90,13 +86,65 @@ int main(int argc, char* argv[])
 	float percent_unique;																										// Percent of input sequences that are unique
 
 	std::map<std::string, FastQ::FastQ>::iterator it;															// Map iterator
+	
+	bool fastqFormat;
+	bool fastaFormat;
 
+	//---------------------------------Argument Parsing-----------------------------------//
+	for(int i=1;i<(argc);i++)								// Iterate through each argument (ignore first)
+	{
+		if(strcmp(argv[i],"--fastq") == 0 )
+		{
+	    		fastq_file_name = std::string(argv[i+1]);
+			fastqFormat=true;
+	    		i++;
+			continue;
+		}
+		
+		if(strcmp(argv[i],"--fasta") == 0 )
+		{
+	    		fasta_file_name = std::string(argv[i+1]);
+			fastaFormat=true;
+	    		i++;
+			continue;
+		}
+		
+		if(strcmp(argv[i],"--output") == 0 )
+		{
+	    		output_file_name = std::string(argv[i+1]);
+	    		i++;
+			continue;
+		}	
+		
+		if(strcmp(argv[i],"--stats") == 0 )
+		{
+	    		stats_file_name = std::string(argv[i+1]);
+	    		i++;
+			continue;
+		}	
+	
+		std::cerr<< "Unknown option " << argv[i] << " exiting." << std::endl;
+		return 1;		
+	}
+	
+	//------------------------------------Input Check------------------------------------//
+	
+	if (fastqFormat == true && fastaFormat == true)
+	{
+		std::cerr<< "Cannot specify both an input fasta and fastq file." << std::endl;
+		std::cerr<< "User specified both fastq file " << fastq_file_name << " and fasta file " << fasta_file_name << std::endl;
+		return 1;		
+	}
 
 	//----------------------------------Open Files---------------------------------------//
-	fastq_file.open(fastq_file_name.c_str());						// Open input file (open requires parameter to be a const char*)
-	fastq_file_copy.open(fastq_file_name.c_str());					// Open copy input file (open requires parameter to be a const char*)
-	unique_fastq_file.open(unique_fastq_file_name.c_str());			// Open output file(open requires parameter to be a const char*)
-	stats_file.open(stats_file_name.c_str());
+	stats_file.open(stats_file_name.c_str());						// Generic stats file regardless of fasta/fastq input
+	output_file.open(unique_fastq_file_name.c_str());					// Generic output file regardless of fasta/fastq input
+
+	if (fastqFormat)
+	{
+		fastq_file.open(fastq_file_name.c_str());						// Open input file (open requires parameter to be a const char*)
+		file_copy.open(fastq_file_name.c_str());						// Open copy input file (open requires parameter to be a const char*)
+	}
 
 	// Check if files can be opened properly
 	if (fastq_file.fail())
