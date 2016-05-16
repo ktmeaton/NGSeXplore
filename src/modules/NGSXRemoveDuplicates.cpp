@@ -253,6 +253,18 @@ int main(int argc, char* argv[])
 			// Completed reading 1 sequence record
 			progress_log.incrementLog(1);
 		}
+		
+		//---------------------------Write Unique Sequences-----------------------------------//
+		std::cout << "Writing unique sequences to file." << std::endl;
+		final_num_seq = 0;
+		for(it = map_unique_fasta.begin(); it != map_unique_fasta.end(); ++it)
+		{
+			output_file << it->second.getID() << std::endl;
+			output_file << it->second.getSeq() << std::endl;
+
+			// Completed writing 1 sequence record
+			final_num_seq++;
+		}
 
 	}
 
