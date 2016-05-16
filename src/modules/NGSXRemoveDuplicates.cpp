@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
 			continue;
 		}
 		
-		if(strcmp(argv[i],"--fasta")) == 0 )					
+		if(strcmp(argv[i], "--fasta") == 0 )					
 		{
 	    		fasta_file_name = std::string(argv[i+1]);				// Store the fasta file name
 			fastaFormat=true;
@@ -113,14 +113,14 @@ int main(int argc, char* argv[])
 			continue;
 		}
 		
-		if(strcmp(argv[i], "--output")) == 0 )
+		if(strcmp(argv[i], "--output") == 0 )
 		{
 	    		output_file_name = std::string(argv[i+1]);				// Store the output file name
 	    		i++;
 			continue;
 		}	
 		
-		if(strcmp(argv[i], "--stats")) == 0 )
+		if(strcmp(argv[i], "--stats") == 0 )
 		{
 	    		stats_file_name = std::string(argv[i+1]);				// Store the stats file name
 	    		i++;
