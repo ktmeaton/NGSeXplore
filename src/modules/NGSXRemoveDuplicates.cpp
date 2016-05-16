@@ -6,6 +6,7 @@
 /*
  * NGSXRemoveDuplicates: Implementation
  * Date: 2015-01-12
+ * Edited: 2016-05-16 - Added functionality for both fasta and fastq files.
  * Author : Katherine Eaton ktmeaton [at sign here ] gmail.com
  *
  */
@@ -141,7 +142,7 @@ int main(int argc, char* argv[])
 	//----------------------------------Open Files---------------------------------------//
 	
 	stats_file.open(stats_file_name.c_str());						// Generic stats file regardless of fasta/fastq input
-	output_file.open(unique_fastq_file_name.c_str());					// Generic output file regardless of fasta/fastq input
+	output_file.open(output_file_name.c_str());						// Generic output file regardless of fasta/fastq input
 
 	// Check if files can be opened properly
 	if (output_file.fail())
@@ -194,10 +195,24 @@ int main(int argc, char* argv[])
 			// Completed reading 1 sequence record
 			progress_log.incrementLog(1);
 		}
+		
+		//---------------------------Write Unique Sequences-----------------------------------//
+		std::cout << "Writing unique sequences to file." << std::endl;
+		final_num_seq = 0;
+		for(it = map_unique_fastq.begin(); it != map_unique_fastq.end(); ++it)
+		{
+			output_file << it->second.getID() << std::endl;
+			output_file << it->second.getSeq() << std::endl;
+			output_file << "+" << std::endl;
+			output_file << it->second.getQual() << std::endl;
+
+			// Completed writing 1 sequence record
+			final_num_seq++;
+		}
 
 	}
 	
-		//----------------------------------Fasta Format------------------------------------//
+	//----------------------------------Fasta Format------------------------------------//
 	if (fastaFormat)
 	{
 		fasta_file.open(fasta_file_name.c_str());						// Open input fast file (open requires parameter to be a const char*)
@@ -237,25 +252,7 @@ int main(int argc, char* argv[])
 
 	}
 
-
-
-
-
-	//---------------------------Write Unique Sequences-----------------------------------//
-	std::cout << "Writing unique sequences to file." << std::endl;
-	final_num_seq = 0;
-	for(it = map_unique_fastq.begin(); it != map_unique_fastq.end(); ++it)
-	{
-		unique_fastq_file << it->second.getID() << std::endl;
-		unique_fastq_file << it->second.getSeq() << std::endl;
-		unique_fastq_file << "+" << std::endl;
-		unique_fastq_file << it->second.getQual() << std::endl;
-
-		// Completed writing 1 sequence record
-		final_num_seq++;
-	}
-
-  percent_unique = final_num_seq / (float)total_num_records * 100;
+  	percent_unique = final_num_seq / (float)total_num_records * 100;
 
 	stats_file << "Total_Sequences\tUnique_Sequences\tPercent_Unique" << std::endl;
 	stats_file << total_num_records << "\t" << final_num_seq << "\t" << std::setprecision(4) << percent_unique << std::endl;
