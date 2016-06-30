@@ -11,6 +11,7 @@
  *
  * Contact: ktmeaton [at sign here ] gmail.com
  *
+ * Notes: Kat, fix the help string for this module.
  */
 
 //----------------------------System Include----------------------------------//
