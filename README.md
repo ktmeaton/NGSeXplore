@@ -1,4 +1,4 @@
 # NGSeXplore
 Exploratory Data Analysis of NGS Sequence Data
 
-Development - Version 1.3
+In Development - Version 1.3
