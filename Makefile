@@ -9,7 +9,7 @@ LIBDIR = ./lib
 BINDIR = ./bin
 
 # Compile and link C++ executables and libraries
-all: $(BINDIR)/NGSXFastQStats $(BINDIR)/NGSXQualityControl $(BINDIR)/NGSXQualityControlPairedEnd $(BINDIR)/NGSXRemoveDuplicates $(BINDIR)/NGSXfastqc $(BINDIR)/NGSXtrimmerge $(BINDIR)/NGSXremovedup $(BINDIR)/NGSXqualtrim $(BINDIR)/NGSXclassify $(BINDIR)/NGSXfastq2bam $(BINDIR)/NGSXtrimmergebam
+all: $(BINDIR)/NGSXFastQStats $(BINDIR)/NGSXQualityControl $(BINDIR)/NGSXQualityControlPairedEnd $(BINDIR)/NGSXRemoveDuplicates $(BINDIR)/NGSXRemoveDuplicatesPairedEnd $(BINDIR)/NGSXfastqc $(BINDIR)/NGSXtrimmerge $(BINDIR)/NGSXremovedup $(BINDIR)/NGSXqualtrim $(BINDIR)/NGSXclassify $(BINDIR)/NGSXfastq2bam $(BINDIR)/NGSXtrimmergebam
 
 #------------------------------------------------------------------------------#
 #																Executables														    		 #
@@ -31,6 +31,11 @@ $(BINDIR)/NGSXQualityControlPairedEnd: $(BUILDDIR)/NGSXQualityControlPairedEnd.o
 $(BINDIR)/NGSXRemoveDuplicates: $(BUILDDIR)/NGSXRemoveDuplicates.o $(BUILDDIR)/FastQ.o $(BUILDDIR)/ProgressLog.o $(BUILDDIR)/TextColor.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
+# NGSXRemoveDuplicates Executable
+$(BINDIR)/NGSXRemoveDuplicatesPairedEnd: $(BUILDDIR)/NGSXRemoveDuplicatesPairedEnd.o $(BUILDDIR)/FastQ.o $(BUILDDIR)/ProgressLog.o $(BUILDDIR)/TextColor.o
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+
 #------------------------------------------------------------------------------#
 #															Python Scripts											     				 #
 #------------------------------------------------------------------------------#
@@ -49,6 +54,11 @@ $(BINDIR)/NGSXtrimmergebam: $(PIPELINEDIR)/NGSXtrimmergebam.py
 $(BINDIR)/NGSXremovedup: $(PIPELINEDIR)/NGSXremovedup.py
 	@chmod +x $<
 	@ln -s ../$< $@
+
+$(BINDIR)/NGSXremoveduppairedend: $(PIPELINEDIR)/NGSXremoveduppairedend.py
+	@chmod +x $<
+	@ln -s ../$< $@
+
 
 $(BINDIR)/NGSXqualtrim: $(PIPELINEDIR)/NGSXqualtrim.py
 	@chmod +x $<
@@ -81,8 +91,13 @@ $(BUILDDIR)/NGSXQualityControlPairedEnd.o: $(MODULEDIR)/NGSXQualityControlPaired
 	$(CXX) $(CXXFLAGS) -I $(INCLUDEDIR) -c $<
 	@mv *.o $@
 
-# NGSXQualityControl Object Code
+# NGSXRemoveDuplicates Object Code
 $(BUILDDIR)/NGSXRemoveDuplicates.o: $(MODULEDIR)/NGSXRemoveDuplicates.cpp
+	$(CXX) $(CXXFLAGS) -I $(INCLUDEDIR) -c $<
+	@mv *.o $@
+
+# NGSXRemoveDuplicatesPairedEnd Object Code
+$(BUILDDIR)/NGSXRemoveDuplicatesPairedEnd.o: $(MODULEDIR)/NGSXRemoveDuplicatesPairedEnd.cpp
 	$(CXX) $(CXXFLAGS) -I $(INCLUDEDIR) -c $<
 	@mv *.o $@
 
@@ -115,11 +130,13 @@ clean:
 	@rm -fv $(BINDIR)/NGSXQualityControl
 	@rm -fv $(BINDIR)/NGSXQualityControlPairedEnd
 	@rm -fv $(BINDIR)/NGSXRemoveDuplicates
+	@rm -fv $(BINDIR)/NGSXRemoveDuplicatesPairedEnd
 	@echo "\033[91mRemoving symbolic links to executable scripts. \033[0m"
 	@rm -fv $(BINDIR)/NGSXfastqc
 	@rm -fv $(BINDIR)/NGSXtrimmerge
 	@rm -fv $(BINDIR)/NGSXtrimmergebam
 	@rm -fv $(BINDIR)/NGSXremovedup
+	@rm -fv $(BINDIR)/NGSXremovedupairedend
 	@rm -fv $(BINDIR)/NGSXqualtrim
 	@rm -fv $(BINDIR)/NGSXclassify
 	@rm -fv $(BINDIR)/NGSXfastq2bam
@@ -128,6 +145,7 @@ clean:
 	@rm -fv -fv $(BUILDDIR)/NGSXQualityControl.o
 	@rm -fv $(BUILDDIR)/NGSXQualityControlPairedEnd.o
 	@rm -fv $(BUILDDIR)/NGSXRemoveDuplicates.o
+	@rm -fv $(BUILDDIR)/NGSXRemoveDuplicatesPairedEnd.o
 	@echo "\033[91mRemoving library object code. \033[0m"
 	@rm -fv $(BUILDDIR)/ProgressLog.o
 	@rm -fv $(BUILDDIR)/FastQ.o
