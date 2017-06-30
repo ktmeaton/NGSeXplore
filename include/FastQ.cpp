@@ -16,6 +16,7 @@ namespace FastQ
   {
     _id = "";
     _sequence = "";
+    _line3 = "";
     _quality = "";
     _length = 0;
     _GC = 0;
@@ -29,10 +30,11 @@ namespace FastQ
   }
 
   //-------------------------Set and Delete Record---------------------------//
-  void FastQ::setRecord(std::string id, std::string sequence, std::string quality)
+  void FastQ::setRecord(std::string id, std::string sequence, std::string line3, std::string quality)
   {
     _id = id;
     _sequence = sequence;
+    _line3 = line3;
     _quality = quality;
     FastQ::setLength();
     FastQ::setGC();
@@ -43,6 +45,7 @@ namespace FastQ
   {
     _id = "";
     _sequence = "";
+    _line3 = "";
     _quality = "";
   }
 
@@ -80,6 +83,11 @@ namespace FastQ
     return _sequence;
   }
 
+  std::string FastQ::getLine3()
+  {
+    return _line3;
+  }
+
   std::string FastQ::getQual()
   {
     return _quality;
@@ -99,4 +107,102 @@ namespace FastQ
   {
     return _av_qual;
   }
+
+
+
+  //------------------------------Constructor---------------------------------//
+  FastQPaired::FastQPaired()
+  {
+    _id_first = "";
+    _sequence_first = "";
+    _line3_first = "";
+    _quality_first = "";
+
+    _id_second = "";
+    _sequence_second = "";
+    _line3_second = "";
+    _quality_second = "";
+
+  }
+
+  //------------------------------Destructor---------------------------------//
+  FastQPaired::~FastQPaired()
+  {
+
+  }
+
+  //-------------------------Set and Delete Record---------------------------//
+  void FastQPaired::setRecord(std::string id_first, std::string id_second,
+              std::string sequence_first, std::string sequence_second,
+              std::string line3_first, std::string line3_second,
+              std::string quality_first, std::string quality_second)
+  {
+    _id_first = id_first;
+    _sequence_first = sequence_first;
+    _line3_first = line3_first;
+    _quality_first = quality_first;
+
+    _id_second = id_second;
+    _sequence_second = sequence_second;
+    _line3_second = line3_second;
+    _quality_second = quality_second;
+
+  }
+
+  void FastQPaired::delRecord()
+  {
+    _id_first = "";
+    _sequence_first = "";
+    _line3_first = "";
+    _quality_first = "";
+
+    _id_second = "";
+    _sequence_second = "";
+    _line3_second = "";
+    _quality_second = "";
+  }
+
+
+  //-----------------------------Get Attributes-------------------------------//
+  std::string FastQPaired::getIDFirst()
+  {
+    return _id_first;
+  }
+
+  std::string FastQPaired::getIDSecond()
+  {
+    return _id_second;
+  }
+
+  std::string FastQPaired::getSeqFirst()
+  {
+    return _sequence_first;
+  }
+
+  std::string FastQPaired::getSeqSecond()
+  {
+    return _sequence_second;
+  }
+
+  std::string FastQPaired::getLine3First()
+  {
+    return _line3_first;
+  }
+
+  std::string FastQPaired::getLine3Second()
+  {
+    return _line3_second;
+  }
+
+  std::string FastQPaired::getQualFirst()
+  {
+    return _quality_first;
+  }
+
+  std::string FastQPaired::getQualSecond()
+  {
+    return _quality_second;
+  }
+
+
 } // namespace FastQ
