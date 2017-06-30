@@ -70,6 +70,7 @@ int main(int argc, char* argv[])
   FastQ::FastQ temp_fastq;								                                      // Temporary FastQ object to hold fastq information
   std::string temp_id;
   std::string temp_seq;
+	std::string temp_line3;
   std::string temp_qual;
 
 
@@ -130,10 +131,10 @@ int main(int argc, char* argv[])
   {
     temp_id = current_line;                                                     // First line is the unique sequence ID
     std::getline(input_fastq_file, temp_seq);						                        // Second line is the sequence bases
-    std::getline(input_fastq_file, current_line);						                    // Read in Third Line, "+", skip
+    std::getline(input_fastq_file, temp_line3);						                    // Read in Third Line, "+", skip
     std::getline(input_fastq_file, temp_qual);						                      // Fourth line is the sequence quality, RECORD FINISHED
 
-    temp_fastq.setRecord(temp_id, temp_seq, temp_qual);                         // Store record in the temp fastq object
+    temp_fastq.setRecord(temp_id, temp_seq, temp_line3, temp_qual);                         // Store record in the temp fastq object
 
     output_stats_file << temp_fastq.getID() << '\t' << temp_fastq.getLength() << '\t' << temp_fastq.getGC() << '\t' << temp_fastq.getAvQual() << std::endl;
 		fastq_progress_log.incrementLog(1);																					// Increment progress log by 1 fastq record

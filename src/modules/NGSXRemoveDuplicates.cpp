@@ -65,6 +65,7 @@ int main(int argc, char* argv[])
 	std::string current_line;													// String to hold the line read in from the fastq file
 	std::string temp_id;
 	std::string temp_seq;
+	std::string temp_line3;
 	std::string temp_qual;
 
 	std::map<std::string, FastQ::FastQ> map_unique_fastq;	// Map to hold unique sequences
@@ -123,10 +124,10 @@ int main(int argc, char* argv[])
 	{
 		temp_id = current_line;																										// First line is the unique sequence ID
 		std::getline(fastq_file, temp_seq);																			// Second line is the sequence bases
-		std::getline(fastq_file, current_line);																		// Third line is the "+"
+		std::getline(fastq_file, temp_line3);																		// Third line is the "+"
 		std::getline(fastq_file, temp_qual);																		// Fourth line is the sequence quality
 
-		temp_fastq.setRecord(temp_id, temp_seq, temp_qual);
+		temp_fastq.setRecord(temp_id, temp_seq, temp_line3, temp_qual);
 		map_unique_fastq[temp_seq] = temp_fastq;	// Add or replace sequence and FastQ object in map
 
 		// Completed reading 1 sequence record
@@ -141,7 +142,7 @@ int main(int argc, char* argv[])
 	{
 		unique_fastq_file << it->second.getID() << std::endl;
 		unique_fastq_file << it->second.getSeq() << std::endl;
-		unique_fastq_file << "+" << std::endl;
+		unique_fastq_file << it->second.getLine3() << std::endl;
 		unique_fastq_file << it->second.getQual() << std::endl;
 
 		// Completed writing 1 sequence record
