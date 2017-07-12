@@ -132,20 +132,17 @@ namespace FastQ
   }
 
   //-------------------------Set and Delete Record---------------------------//
-  void FastQPaired::setRecord(std::string id_first, std::string id_second,
-              std::string sequence_first, std::string sequence_second,
-              std::string line3_first, std::string line3_second,
-              std::string quality_first, std::string quality_second)
+  void FastQPaired::setRecord(FastQ::FastQ fastq_first, FastQ::FastQ fastq_second)
   {
-    _id_first = id_first;
-    _sequence_first = sequence_first;
-    _line3_first = line3_first;
-    _quality_first = quality_first;
+    _id_first = fastq_first.getID();
+    _sequence_first = fastq_first.getSeq();
+    _line3_first = fastq_first.getLine3();
+    _quality_first = fastq_first.getQual();
 
-    _id_second = id_second;
-    _sequence_second = sequence_second;
-    _line3_second = line3_second;
-    _quality_second = quality_second;
+    _id_second = fastq_second.getID();
+    _sequence_second = fastq_second.getSeq();
+    _line3_second = fastq_second.getLine3();
+    _quality_second = fastq_second.getQual();
 
   }
 

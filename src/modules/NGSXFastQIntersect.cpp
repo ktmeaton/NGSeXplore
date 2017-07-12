@@ -1,11 +1,11 @@
-/*! \file NGSXRemoveDuplicatesPairedEnd.cpp
- *  NGSXRemoveDuplicatesPairedEnd Module: Remove exact sequence duplicates.
- *  \verbinclude NGSXRemoveDuplicatesPairedEnd.cpp
+/*! \file NGSXFastQReconcile.cpp
+ *  NGSXFastQReconcile Module: Reconcile reads in paired fastq files
+ *  \verbinclude NGSXFastQReconcile.cpp
  */
 
 /*
- * NGSXRemoveDuplicatesPairedEnd: Implementation
- * Date: 2017-0630
+ * NGSXFastQReconcile: Implementation
+ * Date: 2017-0712
  * Author : Katherine Eaton ktmeaton [at sign here ] gmail.com
  *
  */
@@ -22,6 +22,7 @@
 #include "FastQ.h"									// FastQ object
 #include "TextColor.h"							// Unix shell colored output
 #include "ProgressLog.h"						// ProgressLog Class
+#include "Utilities.cpp"						// Requires UPAC function
 
 //---------------------------------Main---------------------------------------//
 int main(int argc, char* argv[])
@@ -30,7 +31,7 @@ int main(int argc, char* argv[])
 	const std::string usage=std::string(argv[0])+
 
 			      " [options] "+"\n"+
-			      "\nThis program takes a forward and reverse fastq file and removes exact sequence duplicates\n"+
+			      "\nThis program takes a forward and reverse fastq file and only keeps paired reads \n"+
 
 			      "\n\tYou must specify two fastq files :\n"+
 			      "\t\t"+"--fq1-in" +"\t\t"+"First fastq"+"\n"+
@@ -75,27 +76,21 @@ int main(int argc, char* argv[])
 
 		// Fastq lines
 		std::string current_line;																										// String to hold the line read in from the first fastq file
-		std::string temp_id_first;
-		std::string temp_seq_first;
-		std::string temp_line3_first;
-		std::string temp_qual_first;
-
-		std::string temp_id_second;
-		std::string temp_seq_second;
-		std::string temp_line3_second;
-		std::string temp_qual_second;
-
-		std::string temp_seq_paired;
+		std::string temp_id;
+		std::string temp_seq;
+		std::string temp_line3;
+		std::string temp_qual;
 
 
+    FastQ::FastQ temp_fastq;
+    FastQ::FastQPaired temp_fastq_paired;
 
 		// Associative arrays
-		std::map<std::string, FastQ::FastQPaired> map_unique_paired;											// Map to hold unique paired sequences
+		std::map<std::string, FastQ::FastQ> map_reads_forward;							  // Map to hold paired sequences
+		std::map<std::string, FastQ::FastQ> map_reads_reverse;							  // Map to hold paired sequences
+		std::map<std::string, FastQ::FastQPaired> map_properly_paired;							// Map to hold paired sequences
 
 		// Colored text and progress log
-		FastQ::FastQ temp_fastq_first;
-		FastQ::FastQ temp_fastq_second;
-		FastQ::FastQPaired temp_fastq_paired;
 		TextColor::TextColor Palette;																								// TextColor object for coloring text output
 		ProgressLog::ProgressLog fastq_progress_log;																// ProgressLog object to store file processing progress.
 
@@ -103,7 +98,7 @@ int main(int argc, char* argv[])
 		int total_num_lines;																												// Number of lines in the copy fastq file
 		int total_num_records;																											// Number of sequences in the copy fastq file
 		int final_num_seq;																													// Number of unique sequences in the final fastq file
-		float percent_unique;																												// Percent of input sequences that are unique
+		float percent_paired;																												// Percent of input sequences that are unique
 
 		std::map<std::string, FastQ::FastQPaired>::iterator it;															// Map iterator
 
@@ -195,75 +190,74 @@ int main(int argc, char* argv[])
 		}
 
 		//----------------------------Begin Processing----------------------------//
-		std::cout << Palette.GREEN << "\nBeginning the NGSX RemoveDuplicatesPairedEnd Module.\n" <<  Palette.RESET << std::endl;
+		std::cout << Palette.GREEN << "\nBeginning the NGSX NGSXFastQReconcile Module.\n" <<  Palette.RESET << std::endl;
 
 		// Count the number of sequences in the input file (using the copy)
 		std::cout << "Initializing files and counting the number of sequences (This may take a while)." << std::endl;
 		total_num_lines = std::count(std::istreambuf_iterator<char>(fastq_file_copy), std::istreambuf_iterator<char>(), '\n') + 1;
 		total_num_records = total_num_lines / 4;																// 4 lines for each sequence record
-		fastq_progress_log.initLog(total_num_records);								  				// Initialize the progres log with the total number of records
 		std::cout << "Input fastq file contains " << total_num_records << " sequences." << std::endl;
 
 
-		//---------------------------Find Unique Sequences-----------------------------------//
+		//---------------------------Stores Sequences in Map-----------------------------------//
+    std::cout << "Analyzing forward reads." << std::endl;
+		fastq_progress_log.initLog(total_num_records);								  				// Initialize the progres log with the total number of records
 
+		// First fastq
 		while (std::getline(input_first_fastq_file, current_line))
 		{
-			// First fastq
-			temp_id_first = current_line;																							// First line is the unique sequence ID
-			std::getline(input_first_fastq_file, temp_seq_first);											// Second line is the sequence bases
-			std::getline(input_first_fastq_file, temp_line3_first);												// Third line is the "+"
-			std::getline(input_first_fastq_file, temp_qual_first);										// Fourth line is the sequence quality
-			
-			temp_fastq_first.setRecord(temp_id_first,temp_seq_first, temp_line3_first, temp_qual_first);
-		
-			// Second fastq
-			std::getline(input_second_fastq_file, temp_id_second);										// First line is the unique sequence ID
-			std::getline(input_second_fastq_file, temp_seq_second);										// Second line is the sequence bases
-			std::getline(input_second_fastq_file, temp_line3_second);											// Third line is the "+"
-			std::getline(input_second_fastq_file, temp_qual_second);									// Fourth line is the sequence quality
+			temp_id = current_line;
+			std::cout << temp_id.substr(0, temp_id.find(".")) << std::endl;																							// First line is the unique sequence ID
+			std::getline(input_first_fastq_file, temp_seq);											// Second line is the sequence bases
+			std::getline(input_first_fastq_file, temp_line3);										// Third line is the "+"
+			std::getline(input_first_fastq_file, temp_qual);										// Fourth line is the sequence quality
 
-			temp_fastq_second.setRecord(temp_id_second, temp_seq_second, temp_line3_second, temp_qual_second);
+		temp_fastq.setRecord(temp_id,
+                            temp_seq,
+                            temp_line3,
+                            temp_qual);
 
-			temp_seq_paired = temp_seq_first + "}{" + temp_seq_second;
 
-			temp_fastq_paired.setRecord(temp_fastq_first, temp_fastq_second);
-			
-			map_unique_paired[temp_seq_paired] = temp_fastq_paired;										// Add or replace sequence and FastQ object in map
+			map_reads_forward[temp_id] = temp_fastq;										// Add or replace sequence and FastQ object in map
+      // Completed reading 1 sequence record
+      fastq_progress_log.incrementLog(1);
+    }
+    std::cout << "Forward read analysis complete." << std::endl;
 
-			// Completed reading 1 sequence record
-			fastq_progress_log.incrementLog(1);
-		}
+    // Second fastq
+    std::cout << "Analyzing reverse reads." << std::endl;
+		fastq_progress_log.initLog(total_num_records);								  				// Initialize the progres log with the total number of records
+    while (std::getline(input_second_fastq_file, current_line))
+		{
+			temp_id = current_line;																							// First line is the unique sequence ID
+			std::getline(input_second_fastq_file, temp_seq);											// Second line is the sequence bases
+			std::getline(input_second_fastq_file, temp_line3);										// Third line is the "+"
+			std::getline(input_second_fastq_file, temp_qual);										// Fourth line is the sequence quality
+
+      temp_fastq.setRecord(temp_id,
+                            temp_seq,
+                            temp_line3,
+                            temp_qual);
+
+
+			map_reads_reverse[temp_id] = temp_fastq;										// Add or replace sequence and FastQ object in map
+      // Completed reading 1 sequence record
+      fastq_progress_log.incrementLog(1);
+    }
+    std::cout << "Reverse read analysis complete." << std::endl;
 
 		//---------------------------Write Unique Sequences-----------------------//
-		std::cout << "Writing unique sequences to file." << std::endl;
+		std::cout << "Writing paired sequences to file." << std::endl;
 		final_num_seq = 0;
-		final_num_seq = 0;
-		for(it = map_unique_paired.begin(); it != map_unique_paired.end(); ++it)
-		{
-			// First output file
-			output_first_fastq_file << it->second.getIDFirst() << std::endl;
-			output_first_fastq_file << it->second.getSeqFirst() << std::endl;
-			output_first_fastq_file << it->second.getLine3First() << std::endl;
-			output_first_fastq_file << it->second.getQualFirst() << std::endl;
-
-			output_second_fastq_file << it->second.getIDSecond() << std::endl;
-			output_second_fastq_file << it->second.getSeqSecond() << std::endl;
-			output_second_fastq_file << it->second.getLine3Second() << std::endl;
-			output_second_fastq_file << it->second.getQualSecond() << std::endl;
 
 
-			// Completed writing 1 sequence record
-			final_num_seq++;
-		}
+	  percent_paired = final_num_seq / (float)total_num_records * 100;
 
-	  percent_unique = final_num_seq / (float)total_num_records * 100;
+		stats_file << "Total_Sequences\tPaired_Sequences\tPercent_Paired" << std::endl;
+		stats_file << total_num_records << "\t" << final_num_seq << "\t" << std::setprecision(4) << percent_paired << std::endl;
 
-		stats_file << "Total_Sequences\tUnique_Sequences\tPercent_Unique" << std::endl;
-		stats_file << total_num_records << "\t" << final_num_seq << "\t" << std::setprecision(4) << percent_unique << std::endl;
-
-		std::cout << "Out of: " << total_num_records << " sequences, NGSXRemoveDuplicates removed: " << total_num_records - final_num_seq << "." << std::endl;
-		std::cout << "Percent Unique Sequences: " << percent_unique << "%" << std::endl;
+		std::cout << "Out of: " << total_num_records << " sequences, NGSXFastQReconcile removed: " << total_num_records - final_num_seq << "." << std::endl;
+		std::cout << "Percent Paired Sequences: " << percent_paired << "%" << std::endl;
 		return 0;
 
 }

@@ -150,14 +150,10 @@ class FastQPaired
      * \brief Stores FastQPaired record information.
      *
      *Reads the fastq record and stores ID, sequence, and quality.
-     * @param id sequence identifier
-     * @param sequence nucleotide sequence
-     * @param quality nucleotide qualities
+     * @param fastq_first FastQ object of first record
+     * @param fastq_second FastQ object of second record
      */
-    void setRecord(std::string id_first, std::string id_second,
-                std::string sequence_first, std::string sequence_second,
-                std::string line3_first, std::string line3_second,
-                std::string quality_first, std::string quality_second);
+    void setRecord(FastQ::FastQ fastq_first, FastQ::FastQ fastq_second);
 
     /**
      * \fn delRecord
