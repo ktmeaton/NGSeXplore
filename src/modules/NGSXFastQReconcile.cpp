@@ -209,13 +209,13 @@ int main(int argc, char* argv[])
 			std::getline(input_first_fastq_file, temp_line3);										// Third line is the "+"
 			std::getline(input_first_fastq_file, temp_qual);										// Fourth line is the sequence quality
 
-      temp_fastq.setRecord{temp_id,
+      temp_fastq.setRecord(temp_id,
                             temp_seq,
                             temp_line3,
-                            temp_qual};
+                            temp_qual);
 
 
-			map_reads_forward[temp_id] = temp_fastq;										// Add or replace sequence and FastQ object in map
+			// map_reads_forward[temp_id] = temp_fastq;										// Add or replace sequence and FastQ object in map
       // Completed reading 1 sequence record
       fastq_progress_log.incrementLog(1);
     }
@@ -231,13 +231,13 @@ int main(int argc, char* argv[])
 			std::getline(input_second_fastq_file, temp_line3);										// Third line is the "+"
 			std::getline(input_second_fastq_file, temp_qual);										// Fourth line is the sequence quality
 
-      temp_fastq.setRecord{temp_id,
+      temp_fastq.setRecord(temp_id,
                             temp_seq,
                             temp_line3,
-                            temp_qual};
+                            temp_qual);
 
 
-			map_reads_reverse[temp_id] = temp_fastq;										// Add or replace sequence and FastQ object in map
+			// map_reads_reverse[temp_id] = temp_fastq;										// Add or replace sequence and FastQ object in map
       // Completed reading 1 sequence record
       fastq_progress_log.incrementLog(1);
     }
