@@ -33,9 +33,9 @@ int main(int argc, char* argv[])
 			      "\nThis program takes a single fastq file and removes exact sequence duplicates\n"+
 
 			      "\n\tYou must specify one input fastq file :\n"+
-			      "\t\t"+"--fq-in" +"\t\t"+"First fastq"+"\n"+
+			      "\t\t"+"--fq-in" +"\t\t"+"Input fastq"+"\n"+
 			      "\n\tYou must specify one ouput fastq file :\n"+
-			      "\t\t"+"--fq-out" +"\t\t"+"Output first fastq file "+"\n"+
+			      "\t\t"+"--fq-out" +"\t\t"+"Output fastq file "+"\n"+
 			      "\n\tYou must specify one text file for stats output:\n"+
 			      "\t\t"+"--stats" +"\t\t"+"Output stats file "+"\n\n";
 
@@ -91,14 +91,14 @@ int main(int argc, char* argv[])
 
 		if(std::string(argv[i]) == "--fq-in")
 		{
-			input_file_name_first_fastq = std::string(argv[i+1]);
+			fastq_file_name = std::string(argv[i+1]);
 			i++;
 			continue;
 		}
 
 		else if(std::string(argv[i]) == "--fq-out")
 		{
-			output_file_name_first_fastq = std::string(argv[i+1]);
+			unique_fastq_file_name = std::string(argv[i+1]);
 			i++;
 			continue;
 		}
