@@ -7,7 +7,13 @@ In Development - Version 0.1.0
 
 ## Installation
 
+Release:  
 git clone https://github.com/ktmeaton/NGSeXplore.git  
+cd NGSeXplore  
+make
+
+Development:  
+git clone -b 0.1.1 https://github.com/ktmeaton/NGSeXplore.git 
 cd NGSeXplore  
 make
 
