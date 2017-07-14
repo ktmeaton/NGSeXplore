@@ -3,15 +3,17 @@ Exploratory Data Analysis of NGS Sequence Data
 
 ## Version
 
-In Development - Version 1.0.5
+In Development - Version 0.1.0
 
 ## Installation
 
-TODO: Describe the installation process
+git clone https://github.com/ktmeaton/NGSeXplore.git
+cd NGSeXplore
+make
 
 ## Usage
 
-TODO: Write usage instructions
+Binaries in "bin/" are directly executable from anywhere.
 
 ## Contributing
 
@@ -23,11 +25,11 @@ TODO: Write usage instructions
 
 ## History
 
-TODO: Write history
+See CHANGELOG.md.
 
 ## Credits
 
-TODO: Write credits
+author: Katherine Eaton (ktmeaton@gmail.com)
 
 ## License
 
