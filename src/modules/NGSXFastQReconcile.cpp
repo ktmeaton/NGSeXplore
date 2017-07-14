@@ -84,8 +84,8 @@ int main(int argc, char* argv[])
     FastQ::FastQ temp_fastq;
 
 		// Associative arrays
-		std::map<std::string, FastQ::FastQPaired> map_reads_forward;							  // Map to hold paired sequences
-		std::map<std::string, FastQ::FastQPaired> map_reads_reverse;							  // Map to hold paired sequences
+		std::map<std::string, FastQ::FastQ> map_reads_forward;							  // Map to hold paired sequences
+		std::map<std::string, FastQ::FastQ> map_reads_reverse;							  // Map to hold paired sequences
 		std::map<std::string, FastQ::FastQPaired> map_properly_paired;							// Map to hold paired sequences
 
 		// Colored text and progress log
@@ -215,8 +215,9 @@ int main(int argc, char* argv[])
                             temp_qual);
 
 
-			// map_reads_forward[temp_id] = temp_fastq;										// Add or replace sequence and FastQ object in map
-      // Completed reading 1 sequence record
+			map_reads_forward[temp_id] = temp_fastq;										// Add or replace sequence and FastQ object in map
+
+			// Completed reading 1 sequence record
       fastq_progress_log.incrementLog(1);
     }
     std::cout << "Forward read analysis complete." << std::endl;
