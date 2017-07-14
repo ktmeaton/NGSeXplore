@@ -13,9 +13,9 @@ cd NGSeXplore
 make
 
 Development:  
-git clone -b v0.1.1 https://github.com/ktmeaton/NGSeXplore.git 
-cd NGSeXplore  
-make
+git clone -b v0.1.1 https://github.com/ktmeaton/NGSeXplore.git  
+cd NGSeXplore    
+make  
 
 ## Usage
 
