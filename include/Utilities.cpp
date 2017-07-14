@@ -25,8 +25,7 @@ namespace Utilities
     }
 
     template < typename KeyType, typename ValueType>
-    map<KeyType, ValueType>
-    IntersectMaps(const map<KeyType, ValueType>& m1,
+    map<KeyType, ValueType> IntersectMaps(const map<KeyType, ValueType>& m1,
                   const map<KeyType, ValueType>& m2)
     {
       // Do something
