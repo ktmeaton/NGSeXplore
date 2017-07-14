@@ -27,4 +27,4 @@ and this project "attemptes" to adhere to [Semantic Versioning](http://semver.or
 https://github.com/ktmeaton/NGSeXplore.git
 
 [Unreleased]: https://github.com/ktmeaton/NGSeXplore/compare/master...HEAD
-[0.1.0]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.0...v1.0.3
+[0.1.0]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.0...1.0.3
