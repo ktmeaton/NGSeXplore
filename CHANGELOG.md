@@ -20,9 +20,10 @@ and this project "attemptes" to adhere to [Semantic Versioning](http://semver.or
 ### Removed
 - STATIC-LIB.mk: now depracated. Now implemented in Makefile as shared libraries.
 
-## [1.0.5] - 2017-06-14
+## [1.0.3] - 2017-06-14
 ### Added
-- The last arbitrary versioning before switching to Semantic Versioning
+- The last official branch using arbitrary versioning before switching to Semantic Versioning
+- Unofficially went up to 1.0.5
 - Current src files in modules and pipelines for (TBD!)
 
 
@@ -30,3 +31,4 @@ https://github.com/ktmeaton/NGSeXplore.git
 
 [Unreleased]: https://github.com/ktmeaton/NGSeXplore/compare/master...HEAD
 [0.1.0]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.0...1.0.3
+[1.0.3]: https://github.com/ktmeaton/NGSeXplore/compare/1.0.3...1.0.2
