@@ -238,7 +238,7 @@ int main(int argc, char* argv[])
                             temp_qual);
 
 
-			// map_reads_reverse[temp_id] = temp_fastq;										// Add or replace sequence and FastQ object in map
+			map_reads_reverse[temp_id] = temp_fastq;										// Add or replace sequence and FastQ object in map
       // Completed reading 1 sequence record
       fastq_progress_log.incrementLog(1);
     }
@@ -247,8 +247,10 @@ int main(int argc, char* argv[])
 		//---------------------------Write Unique Sequences-----------------------//
 		std::cout << "Writing paired sequences to file." << std::endl;
 		final_num_seq = 0;
-		final_num_seq = 0;
 
+		// Implementation HERE
+
+		// Implementation Ends
 
 	  percent_paired = final_num_seq / (float)total_num_records * 100;
 
