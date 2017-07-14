@@ -26,23 +26,30 @@
 //---------------------------------Main---------------------------------------//
 int main(int argc, char* argv[])
 {
-	//---------------------------Help Variables---------------------------------//
-	std::string usage = std::string("NGSXRemoveDuplicates.\n") +
-									"Usage:\n" +
-									"\t" +
-									std::string(argv[0]) +
-									"[input fastq file] [output fastq file] [stats file]\n";
+	//-------------------------------Usage--------------------------------------//
+	const std::string usage = std::string(argv[0])+
 
+			      " [options] "+"\n"+
+			      "\nThis program takes a single fastq file and removes exact sequence duplicates\n"+
+
+			      "\n\tYou must specify one input fastq file :\n"+
+			      "\t\t"+"--fq-in" +"\t\t"+"First fastq"+"\n"+
+			      "\n\tYou must specify one ouput fastq file :\n"+
+			      "\t\t"+"--fq-out" +"\t\t"+"Output first fastq file "+"\n"+
+			      "\n\tYou must specify one text file for stats output:\n"+
+			      "\t\t"+"--stats" +"\t\t"+"Output stats file "+"\n\n";
 
 	//-----------------------------------Help Message-------------------------------------//
 	if ((argc == 1) ||
 		(argc == 2 && std::string(argv[1]) == "-h") ||
 		(argc == 2 && std::string(argv[1]) == "-help") ||
 		(argc == 2 && std::string(argv[1]) == "--help") ||
-		(argc < 4))
+		(argc < 7) ||
+		(argc > 7 ))
 	{
-		std::cerr << usage << std::endl;
-		return 1;
+		std::cout<< "Usage:" << std::endl;
+		std::cout<< "" << std::endl;
+		std::cout<< usage << std::endl;
 	}
 
 	//----------------------------Implementation Variables--------------------------------//
