@@ -18,7 +18,6 @@
 //----------------------------Custom Include----------------------------------//
 #include "TextColor.h"							// Unix shell colored output
 #include "ProgressLog.h"						// ProgressLog Class
-#include "Patch.cpp"                // Patch to fix the int to string compiler issue
 
 //---------------------------------Main---------------------------------------//
 int main(int argc, char* argv[])

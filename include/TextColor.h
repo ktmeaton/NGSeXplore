@@ -2,8 +2,8 @@
  *  TextColor Class Declaration
  *  \verbinclude TextColor.h
  */
-#ifndef TEXTCOLOR_H
-#define TEXTCOLOR_H
+
+#pragma once
 
 #include <string>
 
@@ -27,4 +27,3 @@ namespace TextColor
   }; // class TextColor
 } // namespace TextColor
 
-#endif // TEXTCOLOR_H

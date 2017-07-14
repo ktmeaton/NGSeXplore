@@ -3,9 +3,7 @@
  *  \verbinclude FastQ.h
  */
 
-
-#ifndef FASTQ_H
-#define FASTQ_H
+#pragma once
 
 #include <string>
 
@@ -223,4 +221,3 @@ class FastQPaired
 };
 } // namespace FastQ
 
-#endif // FASTQ_H

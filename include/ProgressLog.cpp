@@ -6,8 +6,9 @@
 #include <iostream>
 #include <map>                                        // Associative array
 #include "ProgressLog.h"                              // Declaration File
-#include "Patch.cpp"                                  // Compiler patch to convert int to string
 #include "TextColor.h"                                // Unix shell colored output
+#include "Utilities.h"                                // to_string compiler fix
+
 namespace ProgressLog
 {
   //------------------------------Constructor---------------------------------//
@@ -67,7 +68,7 @@ namespace ProgressLog
       if(!_percent_bool_map[i] && (_percent_processed > i || _percent_processed == i))
       {
         _percent_bool_map[i] = true;
-        std::cout << _palette.RED << "[" << Patch::to_string(i) << "% Completed]" << _palette.RESET << std::endl;
+        std::cout << _palette.RED << "[" << Utilities::to_string(i) << "% Completed]" << _palette.RESET << std::endl;
       }
     }
   }

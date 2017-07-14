@@ -8,9 +8,20 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include "Utilities.h"
 
 namespace Utilities
 {
 
+/*
+ *  * Patch for std::to_string
+ *     */
+    template < typename T > std::string to_string( const T& n )
+    {
+        std::ostringstream stm ;
+        stm << n ;
+        return stm.str() ;
+    }
 
+    template std::string to_string<int>(const int&);
 }

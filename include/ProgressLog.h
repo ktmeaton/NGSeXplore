@@ -4,8 +4,7 @@
  */
 
 
-#ifndef PROGRESSLOG_H
-#define PROGRESSLOG_H
+#pragma once
 
 #include <string>
 #include <map>                                        // Associative array
@@ -52,4 +51,3 @@ namespace ProgressLog
 
 } // namespace ProgressLog
 
-#endif // PROGRESSLOG_H
