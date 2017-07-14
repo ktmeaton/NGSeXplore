@@ -1,11 +1,12 @@
 #pragma once
 
 #include <string>
+#include <map>
 
 namespace Utilities
 {
 
 	template <typename T> std::string to_string( const T& n);
 
-	template < typename KeyType, typename ValueType> map<KeyType, ValueType> IntersectMaps(const map<KeyType, ValueType>& m1, const map<KeyType, ValueType>& m2);
+	template < typename KeyType, typename ValueType> std::map<KeyType, ValueType> IntersectMaps(const std::map<KeyType, ValueType>& m1, const std::map<KeyType, ValueType>& m2);
 }
