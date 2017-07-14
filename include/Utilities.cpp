@@ -24,11 +24,11 @@ namespace Utilities
         return stm.str() ;
     }
 
-    template < typename KeyType, typename ValueType> map<KeyType, ValueType> IntersectMaps(const map<KeyType, ValueType>& m1, const map<KeyType, ValueType>& m2)
+    template < typename KeyType, typename ValueType> std::map<KeyType, ValueType> IntersectMaps(const std::map<KeyType, ValueType>& m1, const std::map<KeyType, ValueType>& m2)
     {
       // Do something
     }
     // explicit instantiation
     template std::string to_string<int>(const int&);
-    template map<std::string, FastQ::FastQPaired> IntersectMaps(const map<std::string, FastQ::FastQ>&, map<std::string, FastQ::FastQ>&);
+    template std::map<std::string, FastQ::FastQPaired> IntersectMaps(const std::map<std::string, FastQ::FastQ>&, std::map<std::string, FastQ::FastQ>&);
 }
