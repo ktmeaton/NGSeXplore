@@ -11,6 +11,10 @@ git clone https://github.com/ktmeaton/NGSeXplore.git
 cd NGSeXplore
 make
 
+git clone https://github.com/ktmeaton/NGSeXplore.git
+cd NGSeXplore
+make
+
 ## Usage
 
 Binaries in "bin/" are directly executable from anywhere.
