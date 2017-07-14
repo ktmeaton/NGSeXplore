@@ -24,6 +24,7 @@ and this project "attemptes" to adhere to [Semantic Versioning](http://semver.or
 - Current src files in modules and pipelines for (TBD!)
 
 
+https://github.com/ktmeaton/NGSeXplore.git
 
-[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.3.0...v1.0.0
+[Unreleased]: https://github.com/ktmeaton/NGSeXplore/compare/master...HEAD
+[0.1.0]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.0...v1.0.3
