@@ -8,10 +8,12 @@ and this project "attemptes" to adhere to [Semantic Versioning](http://semver.or
 
 ## [0.1.0] - 2017-07-14
 ### Added
-- Utilies shared library (libUtilities.so/ lUtilities)
+- Utilities shared library (libUtilities.so/ lUtilities)
+- "res/" directory for resources (ex.images)
+- resource file "NGSeXplore.png"
 
 ### Changed
-- Start versioning according to Semantic Versioning specifications (1.0.5 -> 0.1.0)
+- Started versioning according to Semantic Versioning specifications (1.0.5 -> 0.1.0)
 - Accessory code in "include/" is now implemented as shared libraries.
 - Makefile now includes improved automation with pattern rules and implicit rules.
 
