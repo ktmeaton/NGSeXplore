@@ -43,7 +43,7 @@ namespace Utilities
                 ++im2;
             else
             {
-                map_intersect[im1->first] = std::make_pair(im1->second, im2->second);
+                // Insert intersection
                 ++im1;
                 ++im2;
             }

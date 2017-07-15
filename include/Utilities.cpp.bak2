@@ -29,9 +29,9 @@ namespace Utilities
      *  * Intersection of two maps
      *  BF modesl a binary function 
     */
-    template<typename KeyType, typename ValueType> std::map<KeyType, std::pair<ValueType, ValueType> > IntersectMaps(const std::map<KeyType, ValueType>& m1, const std::map<KeyType, ValueType>& m2)
+    template<typename KeyType, typename ValueType, typename ReturnValueType> std::map<KeyType, ReturnValueType> IntersectMaps(const std::map<KeyType, ValueType>& m1, const std::map<KeyType, ValueType>& m2)
     {
-        std::map<KeyType, std::pair<ValueType, ValueType> > map_intersect;
+        std::map<KeyType, ReturnValueType> map_intersect;
         typename std::map<KeyType, ValueType>::const_iterator im1 = m1.begin();
         typename std::map<KeyType, ValueType>::const_iterator im2 = m2.begin();
 
@@ -43,7 +43,7 @@ namespace Utilities
                 ++im2;
             else
             {
-                map_intersect[im1->first] = std::make_pair(im1->second, im2->second);
+                // Insert intersection
                 ++im1;
                 ++im2;
             }
@@ -53,5 +53,5 @@ namespace Utilities
     }
 
     template std::string to_string<int>(const int&);
-    template std::map<std::string, std::pair<FastQ::FastQ, FastQ::FastQ> > IntersectMaps<std::string, FastQ::FastQ>(const std::map<std::string,FastQ::FastQ>&, const std::map<std::string,FastQ::FastQ>&);
+    template std::map<std::string,FastQ::FastQPaired> IntersectMaps<std::string, FastQ::FastQ>(const std::map<std::string,FastQ::FastQ>&, const std::map<std::string,FastQ::FastQ>&);
 }

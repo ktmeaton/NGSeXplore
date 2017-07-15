@@ -241,6 +241,7 @@ int main(int argc, char* argv[])
 
 
 			map_reads_reverse[temp_id] = temp_fastq;										// Add or replace sequence and FastQ object in map
+
       // Completed reading 1 sequence record
       fastq_progress_log.incrementLog(1);
     }
@@ -250,8 +251,10 @@ int main(int argc, char* argv[])
 		std::cout << "Writing paired sequences to file." << std::endl;
 		final_num_seq = 0;
 
-
-	  percent_paired = final_num_seq / (float)total_num_records * 100;
+                // Use custom map intersection function to find
+                // properly paired reads
+                map_properly_paired = Utilities::IntersectMaps(map_forward_reads, map_reverse_reads);           
+	        percent_paired = final_num_seq / (float)total_num_records * 100;
 
 		stats_file << "Total_Sequences\tPaired_Sequences\tPercent_Paired" << std::endl;
 		stats_file << total_num_records << "\t" << final_num_seq << "\t" << std::setprecision(4) << percent_paired << std::endl;
