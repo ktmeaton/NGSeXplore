@@ -28,8 +28,9 @@ namespace Utilities
      *  * Intersection of two maps
      *  BF modesl a binary function 
     */
-    template<typename KeyType, typename ValueType> std::map<KeyType, std::pair<ValueType, ValueType> > IntersectMaps(const std::map<KeyType, ValueType>& m1, const std::map<KeyType, ValueType>& m2)
+    template<typename KeyType, typename ValueType, typename BF> std::map<KeyType, ValueType> IntersectMaps(const std::map<KeyType, ValueType>& m1, const std::map<KeyType, ValueType>& m2, BF bf)
     {
+<<<<<<< HEAD
         std::map<KeyType, std::pair<ValueType, ValueType> > map_result;
         typename std::map<KeyType, ValueType>::const_iterator im1 = m1.begin();
         typename std::map<KeyType, ValueType>::const_iterator im2 = m2.begin();
@@ -48,6 +49,12 @@ namespace Utilities
             }
         }
         return map_result;
+=======
+        std::map<KeyType, ValueType> mr;
+        std::cout << "Entering IntersectMaps" << std::endl;
+        std::cout << "Exiting IntersectMaps" << std::endl;
+        return mr;
+>>>>>>> 65f2833463a68eec6ace181f266c1bc22ae88c5d
     }
 
 

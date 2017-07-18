@@ -88,7 +88,11 @@ int main(int argc, char* argv[])
 		// Associative arrays
 		std::map<std::string, FastQ::FastQ> map_reads_forward;							  // Map to hold paired sequences
 		std::map<std::string, FastQ::FastQ> map_reads_reverse;							  // Map to hold paired sequences
+<<<<<<< HEAD
 		std::map<std::string, std::pair<FastQ::FastQ, FastQ::FastQ> > map_properly_paired;							// Map to hold paired sequences
+=======
+		std::map<std::string, FastQ::FastQ> map_properly_paired;							// Map to hold paired sequences
+>>>>>>> 65f2833463a68eec6ace181f266c1bc22ae88c5d
 
 		// Colored text and progress log
 		TextColor::TextColor Palette;			 							// TextColor object for coloring text output
@@ -101,7 +105,11 @@ int main(int argc, char* argv[])
 		int total_num_records;											// Number of sequences in the copy fastq file
 		int final_num_seq;											// Number of unique sequences in the final fastq file
 		float percent_paired;											// Percent of input sequences that are unique
+<<<<<<< HEAD
 		std::map<std::string, std::pair<FastQ::FastQ, FastQ::FastQ> >::iterator it;							// Map iterator
+=======
+		std::map<std::string, FastQ::FastQPaired>::iterator it;							// Map iterator
+>>>>>>> 65f2833463a68eec6ace181f266c1bc22ae88c5d
 
 		//------------------------------Arg Parsing------------------------------//
 
@@ -199,12 +207,21 @@ int main(int argc, char* argv[])
 		total_num_lines = std::count(std::istreambuf_iterator<char>(fastq_file_copy_first), std::istreambuf_iterator<char>(), '\n') + 1;
 		total_num_records_first = total_num_lines / 4;																// 4 lines for each sequence record
 		std::cout << "First input fastq file contains " << total_num_records_first << " sequences." << std::endl;
+<<<<<<< HEAD
 
                 std::cout << "Initializing second fastq file and counting the number of sequences (This may take a while)." << std::endl;
                 total_num_lines = std::count(std::istreambuf_iterator<char>(fastq_file_copy_second), std::istreambuf_iterator<char>(), '\n') + 1;
                 total_num_records_second = total_num_lines / 4;                                                                                                                          // 4 lines for each sequence record
                 std::cout << "Second input fastq file contains " << total_num_records_second << " sequences." << std::endl;
 
+=======
+
+                std::cout << "Initializing second fastq file and counting the number of sequences (This may take a while)." << std::endl;
+                total_num_lines = std::count(std::istreambuf_iterator<char>(fastq_file_copy_second), std::istreambuf_iterator<char>(), '\n') + 1;
+                total_num_records_second = total_num_lines / 4;                                                                                                                          // 4 lines for each sequence record
+                std::cout << "Second input fastq file contains " << total_num_records_second << " sequences." << std::endl;
+
+>>>>>>> 65f2833463a68eec6ace181f266c1bc22ae88c5d
                 total_num_records = total_num_records_first + total_num_records_second;
 
 		//---------------------------Stores Sequences in Map-----------------------------------//
@@ -260,6 +277,7 @@ int main(int argc, char* argv[])
 
                 // Use custom map intersection function to find
                 // properly paired reads
+<<<<<<< HEAD
                 map_properly_paired = Utilities::IntersectMaps(map_reads_forward,map_reads_reverse);
                 for (it = map_properly_paired.begin(); it != map_properly_paired.end(); it++)
                 {
@@ -278,6 +296,9 @@ int main(int argc, char* argv[])
                     final_num_seq++;
                 }
 
+=======
+                map_properly_paired = Utilities::IntersectMaps(map_reads_forward,map_reads_reverse,static_cast<int const&(*)(int const&, int const&)>(std::max));
+>>>>>>> 65f2833463a68eec6ace181f266c1bc22ae88c5d
 	        percent_paired = final_num_seq / (float)total_num_records * 100;
 
 		stats_file << "Total_Sequences\tPaired_Sequences\tPercent_Paired" << std::endl;
