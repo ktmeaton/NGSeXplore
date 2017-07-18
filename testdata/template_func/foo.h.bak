@@ -1,0 +1,10 @@
+// File "foo.h"
+
+namespace Foo
+{
+    template<typename T> extern void bar();
+
+}
+
+#include "foo.cpp"
+

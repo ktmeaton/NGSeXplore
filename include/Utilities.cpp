@@ -8,7 +8,6 @@
 #include <string>
 #include <sstream>
 #include <map>
-#include "Utilities.h"
 #include "FastQ.h"
 
 namespace Utilities
@@ -31,7 +30,7 @@ namespace Utilities
     */
     template<typename KeyType, typename ValueType> std::map<KeyType, std::pair<ValueType, ValueType> > IntersectMaps(const std::map<KeyType, ValueType>& m1, const std::map<KeyType, ValueType>& m2)
     {
-        std::map<KeyType, std::pair<ValueType, ValueType> > map_intersect;
+        std::map<KeyType, std::pair<ValueType, ValueType> > map_result;
         typename std::map<KeyType, ValueType>::const_iterator im1 = m1.begin();
         typename std::map<KeyType, ValueType>::const_iterator im2 = m2.begin();
 
@@ -43,15 +42,14 @@ namespace Utilities
                 ++im2;
             else
             {
-                map_intersect[im1->first] = std::make_pair(im1->second, im2->second);
+                map_result.insert(std::make_pair(im1->first, std::make_pair(im1->second, im2->second)));
                 ++im1;
                 ++im2;
             }
         }
-
-        return map_intersect;
+        return map_result;
     }
 
+
     template std::string to_string<int>(const int&);
-    template std::map<std::string, std::pair<FastQ::FastQ, FastQ::FastQ> > IntersectMaps<std::string, FastQ::FastQ>(const std::map<std::string,FastQ::FastQ>&, const std::map<std::string,FastQ::FastQ>&);
 }

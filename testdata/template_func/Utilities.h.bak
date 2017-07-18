@@ -1,0 +1,11 @@
+// File "foo.h"
+#pragma once
+
+namespace Utilities
+{
+    template<typename T> extern void IntersectMaps(const T& t);
+
+}
+
+#include "Utilities.cpp"
+

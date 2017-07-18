@@ -1,0 +1,7 @@
+// File "foo.cpp"
+#include "foo.h"
+
+int main()
+{
+    Foo::bar<int>();
+}
