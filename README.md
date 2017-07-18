@@ -43,3 +43,29 @@ author: Katherine Eaton (ktmeaton@gmail.com)
 
 TODO: Write license
 
+## Formatting
+
+Code should be formatted with AStyle according to the following options:
+
+--suffix=none 
+--recursive 
+--style=allman 
+--indent=spaces=4 
+--convert-tabs  
+--remove-comment-prefix  
+--max-code-length=80 
+--break-after-logical 
+--indent-classes 
+--indent-switches 
+--indent-modifiers 
+--indent-namespaces 
+--indent-after-parens 
+--indent-continuation=4 
+--break-blocks 
+--pad-oper 
+--pad-comma 
+--pad-paren-in 
+--pad-header 
+--mode=c 
+--lineend=linux
+*.cpp *.h
