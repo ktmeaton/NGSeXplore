@@ -41,5 +41,5 @@ https://github.com/ktmeaton/NGSeXplore.git
 
 [Unreleased]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.2...HEAD
 [0.1.0]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.0...1.0.3
-[0.1.1]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.1...1.0.0
+[0.1.1]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.1...0.1.0
 [1.0.3]: https://github.com/ktmeaton/NGSeXplore/compare/1.0.3...1.0.2
