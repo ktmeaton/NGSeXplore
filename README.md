@@ -3,7 +3,7 @@ Exploratory Data Analysis of NGS Sequence Data
 
 ## Version
 
-In Development - Version 0.1.1
+Last Stable Release - Version 0.1.1 (master)
 
 ## Installation
 
