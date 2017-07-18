@@ -60,6 +60,8 @@ cleaner: clean
 libclean:
 	@$(RM) -rf $(LIBDIR)
 
+cleanest: cleaner libclean
+
 
 #Pull in dependency info for *existing* .o files
 -include $(OBJECTS:.$(OBJEXT)=.$(DEPEXT))
@@ -89,5 +91,5 @@ $(BUILDDIR)/lib%.$(OBJEXT): $(INCDIR)/%.$(SRCEXT)
 	$(CXX) -fPIC -c $< -o $@
 
 #Non-File Targets
-.PHONY: all remake clean cleaner resources libclean
+.PHONY: all remake clean cleaner cleanest resources libclean
 .SECONDARY: $(LIBS)

@@ -3,13 +3,19 @@ Exploratory Data Analysis of NGS Sequence Data
 
 ## Version
 
-In Development - Version 0.1.0
+In Development - Version 0.1.1
 
 ## Installation
 
-git clone https://github.com/ktmeaton/NGSeXplore.git
-cd NGSeXplore
+Release:  
+git clone https://github.com/ktmeaton/NGSeXplore.git  
+cd NGSeXplore  
 make
+
+Development:  
+git clone -b v0.1.1 https://github.com/ktmeaton/NGSeXplore.git  
+cd NGSeXplore    
+make  
 
 ## Usage
 

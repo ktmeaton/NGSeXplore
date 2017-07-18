@@ -26,49 +26,51 @@
 //---------------------------------Main---------------------------------------//
 int main(int argc, char* argv[])
 {
-	//---------------------------Help Variables---------------------------------//
-	std::string usage = std::string("NGSXRemoveDuplicates.\n") +
-									"Usage:\n" +
-									"\t" +
-									std::string(argv[0]) +
-									"[input fastq file] [output fastq file] [stats file]\n";
+  //-------------------------------Usage--------------------------------------//
+  const std::string usage = std::string(argv[0])+
 
+			      " [options] "+"\n"+
+			      "\nThis program takes a single fastq file and removes exact sequence duplicates\n"+
 
-	//-----------------------------------Help Message-------------------------------------//
-	if ((argc == 1) ||
+			      "\n\tYou must specify one input fastq file :\n"+
+			      "\t\t"+"--fq-in" +"\t\t"+"Input fastq"+"\n"+
+			      "\n\tYou must specify one ouput fastq file :\n"+
+			      "\t\t"+"--fq-out" +"\t\t"+"Output fastq file "+"\n"+
+			      "\n\tYou must specify one text file for stats output:\n"+
+			      "\t\t"+"--stats" +"\t\t"+"Output stats file "+"\n\n";
+
+  //-----------------------------------Help Message-------------------------------------//
+  if ((argc == 1) ||
 		(argc == 2 && std::string(argv[1]) == "-h") ||
 		(argc == 2 && std::string(argv[1]) == "-help") ||
 		(argc == 2 && std::string(argv[1]) == "--help") ||
-		(argc < 4))
+		(argc < 7) ||
+		(argc > 7 ))
 	{
-		std::cerr << usage << std::endl;
-		return 1;
+		std::cout<< "Usage:" << std::endl;
+		std::cout<< "" << std::endl;
+		std::cout<< usage << std::endl;
 	}
 
 	//----------------------------Implementation Variables--------------------------------//
 
-	std::string fastq_file_name;
-	fastq_file_name = argv[1];											// Argument 1: Name of the input fastq file
+  std::string fastq_file_name;                                                  // Filename for input fastq
+  std::string unique_fastq_file_name;                                           //Filename for output fastq
+	std::string stats_file_name;										                              // Name of the stats file
 
-	std::string unique_fastq_file_name;
-	unique_fastq_file_name = argv[2];								// Argument 2: Name of the output unique fastq file
+	std::ifstream fastq_file;												                              // Creates an input file stream for the input fastq file
+	std::ifstream fastq_file_copy;									                              // Copy for counting the number of lines
 
-	std::string stats_file_name;										// Name of the stats file
-	stats_file_name = argv[3];											// Argument 3: Name of the output stats file
+	std::ofstream unique_fastq_file;								                              // Creates an output file stream for the unique output fastq file
+	std::ofstream stats_file;												                              // Stats file
 
-	std::ifstream fastq_file;												// Creates an input file stream for the input fastq file
-	std::ifstream fastq_file_copy;									// Copy for counting the number of lines
-
-	std::ofstream unique_fastq_file;								// Creates an output file stream for the unique output fastq file
-	std::ofstream stats_file;												// Stats file
-
-	std::string current_line;													// String to hold the line read in from the fastq file
+	std::string current_line;													                            // String to hold the line read in from the fastq file
 	std::string temp_id;
 	std::string temp_seq;
 	std::string temp_line3;
 	std::string temp_qual;
 
-	std::map<std::string, FastQ::FastQ> map_unique_fastq;	// Map to hold unique sequences
+	std::map<std::string, FastQ::FastQ> map_unique_fastq;	                        // Map to hold unique sequences
 
 	// Colored text and progress log
 	FastQ::FastQ temp_fastq;
@@ -82,6 +84,39 @@ int main(int argc, char* argv[])
 	float percent_unique;																										// Percent of input sequences that are unique
 
 	std::map<std::string, FastQ::FastQ>::iterator it;															// Map iterator
+
+	//------------------------------Arg Parsing------------------------------//
+
+	for(int i = 1;i < (argc - 1); i++){//all but last argument
+
+		if(std::string(argv[i]) == "--fq-in")
+		{
+			fastq_file_name = std::string(argv[i+1]);
+			i++;
+			continue;
+		}
+
+		else if(std::string(argv[i]) == "--fq-out")
+		{
+			unique_fastq_file_name = std::string(argv[i+1]);
+			i++;
+			continue;
+		}
+
+		else if(std::string(argv[i]) == "--stats")
+		{
+				stats_file_name = std::string(argv[i+1]);
+				i++;
+				continue;
+		}
+
+		else
+		{
+			std::cerr << "Unknown option " << argv[i] << " exiting" << std::endl;
+			return 1;
+		}
+
+	}
 
 
 	//----------------------------------Open Files---------------------------------------//
