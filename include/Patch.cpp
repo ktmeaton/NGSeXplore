@@ -1,8 +1,8 @@
 /*
- * Patch for std::to_string
- * Date: 2016-0215
- * Author: Katherine Eaton ktmeaton [at sign here] gmail.com
- */
+    Patch for std::to_string
+    Date: 2016-0215
+    Author: Katherine Eaton ktmeaton [at sign here] gmail.com
+*/
 
 #include <iostream>
 #include <string>
