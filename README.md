@@ -1,5 +1,6 @@
 # NGSeXplore
 Exploratory Data Analysis of NGS Sequence Data
+https://ktmeaton.github.io/NGSeXplore
 
 ## Version
 
