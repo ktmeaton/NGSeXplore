@@ -74,7 +74,7 @@ int main( int argc, char* argv[] )
     // Output file streams
     std::ofstream output_first_fastq_file;         // Output file streams
     std::ofstream output_second_fastq_file;
-    std::ofstream output_stats_file;
+    std::ofstream stats_file;
 
     // Fastq lines
     std::string current_line;                      // Strings for FastQ
