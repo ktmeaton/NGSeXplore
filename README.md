@@ -4,7 +4,8 @@ https://ktmeaton.github.io/NGSeXplore
 
 ## Version
 
-Last Stable Release - Version 0.1.1 (master)
+Last Stable Release - Version 0.1.1 (master)  
+Development - Version 0.1.2
 
 ## Installation
 
@@ -14,7 +15,7 @@ cd NGSeXplore
 make
 
 Development:  
-git clone -b v0.1.1 https://github.com/ktmeaton/NGSeXplore.git  
+git clone -b v0.1.2 https://github.com/ktmeaton/NGSeXplore.git  
 cd NGSeXplore    
 make  
 
@@ -42,3 +43,36 @@ author: Katherine Eaton (ktmeaton@gmail.com)
 
 TODO: Write license
 
+## Formatting
+
+Code should be formatted with AStyle according to the following options:
+
+--suffix=none   
+--recursive   
+--style=allman   
+--indent=spaces=4   
+--convert-tabs    
+--remove-comment-prefix    
+--max-code-length=80   
+--break-after-logical   
+--indent-classes   
+--indent-switches   
+--indent-modifiers   
+--indent-namespaces   
+--indent-after-parens   
+--indent-continuation=4   
+--break-blocks   
+--pad-oper   
+--pad-comma   
+--pad-paren-in   
+--pad-header   
+--mode=c   
+--lineend=linux  
+*.cpp *.h  
+
+## Helpful commands  
+Merging a development branch into master:  
+    (on branch development)$ git merge master  
+    (resolve any merge conflicts if there are any)  
+    git checkout master  
+    git merge --no-ff development (there won't be any conflicts now)  
