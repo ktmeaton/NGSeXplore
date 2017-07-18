@@ -4,7 +4,7 @@ https://ktmeaton.github.io/NGSeXplore
 
 ## Version
 
-Last Stable Release - Version 0.1.1 (master)
+Last Stable Release - Version 0.1.1 (master)  
 Development - Version 0.1.2
 
 ## Installation
@@ -69,3 +69,10 @@ Code should be formatted with AStyle according to the following options:
 --mode=c   
 --lineend=linux  
 *.cpp *.h  
+
+## Helpful commands  
+Merging a development branch into master:  
+    (on branch development)$ git merge master  
+    (resolve any merge conflicts if there are any)  
+    git checkout master  
+    git merge --no-ff development (there won't be any conflicts now)  
