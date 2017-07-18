@@ -27,9 +27,9 @@ namespace Utilities
     /*
      *  * Intersection of two maps
     */
-    template<typename KeyType, typename ValueType, typename BF>
-    std::map<KeyType, ValueType> IntersectMaps( const std::map<KeyType, ValueType>&
-                    m1, const std::map<KeyType, ValueType>& m2, BF bf )
+    template<typename KeyType, typename ValueType>
+    std::map<KeyType, std::pair < ValueType, ValueType > > IntersectMaps( const std::map<KeyType, ValueType>&
+                    m1, const std::map<KeyType, ValueType>& m2)
     {
         std::map<KeyType, std::pair<ValueType, ValueType> > map_result;
         typename std::map<KeyType, ValueType>::const_iterator im1 = m1.begin();

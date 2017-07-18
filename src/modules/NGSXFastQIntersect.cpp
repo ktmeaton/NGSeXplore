@@ -283,8 +283,7 @@ int main( int argc, char* argv[] )
 
     // Use custom map intersection function to find
     // properly paired reads
-    map_properly_paired = Utilities::IntersectMaps( map_reads_forward,
-                                    map_reads_reverse );
+    map_properly_paired = Utilities::IntersectMaps( map_reads_forward, map_reads_reverse );
 
     for ( it = map_properly_paired.begin(); it != map_properly_paired.end(); it++ )
     {
