@@ -2,9 +2,17 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project "attemptes" to adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+and this project "attempts" to adhere to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.1.1] - 2017-07-18
+### Added
+- New Makefile target "cleanest" to remove all binaries, object code, and shared libraries
+- Completed implementation of MapIntersect template function in include/Utilities*
+
+### Changed
+- Implementaiton of MapIntersect to use a std::pair container rather than FastQ::FastQPaired
 
 ## [0.1.0] - 2017-07-14
 ### Added
@@ -29,6 +37,7 @@ and this project "attemptes" to adhere to [Semantic Versioning](http://semver.or
 
 https://github.com/ktmeaton/NGSeXplore.git
 
-[Unreleased]: https://github.com/ktmeaton/NGSeXplore/compare/master...HEAD
+[Unreleased]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.2...HEAD
 [0.1.0]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.0...1.0.3
+[0.1.1]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.1...1.0.0
 [1.0.3]: https://github.com/ktmeaton/NGSeXplore/compare/1.0.3...1.0.2
