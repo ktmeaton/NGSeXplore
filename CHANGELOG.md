@@ -6,7 +6,11 @@ and this project "attempts" to adhere to [Semantic Versioning](http://semver.org
 
 ## [Unreleased]
 ### Changed
-- Pretty-ifying space separators
+- Beautify remaining modules
+
+## [0.1.2] - 2017-07-18
+### Changed
+- Beautification of libraries, RemoveDuplicates modules and Intersect modules with Artistic Style
 
 ## [0.1.1] - 2017-07-18
 ### Added
@@ -39,7 +43,9 @@ and this project "attempts" to adhere to [Semantic Versioning](http://semver.org
 
 https://github.com/ktmeaton/NGSeXplore.git
 
-[Unreleased]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.2...HEAD
-[0.1.0]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.0...1.0.3
+[Unreleased]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.3...HEAD
+[0.1.2]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.2...v0.1.1
 [0.1.1]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.1...v0.1.0
+[0.1.0]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.0...1.0.3
+
 [1.0.3]: https://github.com/ktmeaton/NGSeXplore/compare/1.0.3...1.0.2
