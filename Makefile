@@ -16,6 +16,9 @@ DEPEXT      := d
 OBJEXT      := o
 LIBEXT      := so
 
+MKPTH       := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+LIBPATH	    := $(MKPTH)/$(LIBDIR)
+
 #Flags, Libraries and Includes
 CXXFLAGS    := -Wall -g
 INC         := -I$(INCDIR) -I/usr/local/include
@@ -28,7 +31,7 @@ SOURCES     := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS     := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
 TARGETS     := $(patsubst $(SRCDIR)/%,$(TARGETDIR)/%,$(SOURCES:.$(SRCEXT)=))
 LIBSOURCES  := $(shell find $(INCDIR) -type f -name *.$(SRCEXT))
-LIBS        := $(patsubst $(INCDIR)/%,$(LIBDIR)/lib%,$(LIBSOURCES:.$(SRCEXT)=.$(LIBEXT)))
+LIBS        := $(patsubst $(INCDIR)/%,$(LIBPATH)/lib%,$(LIBSOURCES:.$(SRCEXT)=.$(LIBEXT)))
 LLIBS       := $(patsubst $(INCDIR)/%,-l%,$(LIBSOURCES:.$(SRCEXT)=))
 
 #TARGET      := $(patsubst $(SRCDIR)/%,$(TARGETDIR)/%,$(SOURCES:.$(SRCEXT)=))
@@ -68,7 +71,7 @@ cleanest: cleaner libclean
 
 #Link
 $(TARGETDIR)/$(TARGETPREFIX)%: $(BUILDDIR)/$(TARGETPREFIX)%.$(OBJEXT) $(LIBS)
-	$(CXX) -o $@ $< -L$(LIBDIR) $(LIBS)
+	$(CXX) -o $@ $< -L$(LIBPATH) $(LIBS)
 
 
 #Compile
