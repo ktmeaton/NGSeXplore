@@ -74,6 +74,9 @@ cleanest: cleaner libclean
 $(TARGETDIR)/$(TARGETPREFIX)%: $(BUILDDIR)/$(TARGETPREFIX)%.$(OBJEXT) $(LIBS)
 	$(CXX) -o $@ $< $(LIBS)
 
+#/home/keaton/myapps/NGSeXplore//lib/libUtilities.so /home/keaton/myapps/NGSeXplore//lib/libProgressLog.so /home/keaton/myapps/NGSeXplore//lib/libFastQ.so /home/keaton/myapps/NGSeXplore//lib/libPatch.so /home/keaton/myapps/NGSeXplore//lib/libTextColor.so:
+#	echo Test
+
 
 #Compile
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT) 
