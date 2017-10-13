@@ -17,12 +17,13 @@ OBJEXT      := o
 LIBEXT      := so
 
 MKPTH       := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-LIBPATH	    := $(MKPTH)/$(LIBDIR)
+LIBPATH	    := $(MKPTH)$(LIBDIR)
 
 #Flags, Libraries and Includes
 CXXFLAGS    := -Wall -g
 INC         := -I$(INCDIR) -I/usr/local/include
 INCDEP      := -I$(INCDIR)
+RUNTIME     := -Wl,-R$(MKPTH)$(LIBDIR)
 
 #---------------------------------------------------------------------------------
 #DO NOT EDIT BELOW THIS LINE
@@ -44,7 +45,7 @@ remake: cleaner all
 
 #Copy Resources from Resources Directory to Target Directory
 resources: directories
-	@cp $(RESDIR)/* $(TARGETDIR)/
+	@#@cp $(RESDIR)/* $(TARGETDIR)/
 
 #Make the Directories
 directories:
@@ -71,7 +72,7 @@ cleanest: cleaner libclean
 
 #Link
 $(TARGETDIR)/$(TARGETPREFIX)%: $(BUILDDIR)/$(TARGETPREFIX)%.$(OBJEXT) $(LIBS)
-	$(CXX) -o $@ $< -L$(LIBPATH) $(LIBS)
+	$(CXX) -o $@ $< $(LIBS)
 
 
 #Compile
@@ -86,12 +87,14 @@ $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
 
 
 # Create shared libraries
-$(LIBDIR)/%.$(LIBEXT) : $(BUILDDIR)/%.$(OBJEXT)
+$(LIBPATH)/%.$(LIBEXT) : $(BUILDDIR)/%.$(OBJEXT)
 	$(CXX) -shared -o $@ $<
 
 
 $(BUILDDIR)/lib%.$(OBJEXT): $(INCDIR)/%.$(SRCEXT)
 	$(CXX) -fPIC -c $< -o $@
+
+
 
 #Non-File Targets
 .PHONY: all remake clean cleaner cleanest resources libclean

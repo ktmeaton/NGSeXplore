@@ -39,7 +39,8 @@ int main( int argc, char* argv[] )
                     "\n\tYou must specify two fastq files :\n" +
                     "\t\t" + "--fq1-out" + "\t\t" + "Output first fastq file " + "\n" +
                     "\t\t" + "--fq2-out" + "\t\t" + "Output second fastq file " + "\n" +
-                    "\t\t" + "--stats" + "\t\t" + "Output stats file " + "\n\n";
+		    "\n\tYou must specify one text file for stats output:\n" +
+                    "\t\t" + "--stats" + "\t\t\t" + "Output stats file " + "\n\n";
 
     //-------------------------------Help Parsing-------------------------------//
 
