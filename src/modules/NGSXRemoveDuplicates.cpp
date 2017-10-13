@@ -34,11 +34,11 @@ int main( int argc, char* argv[] )
                     +
 
                     "\n\tYou must specify one input fastq file :\n" +
-                    "\t\t" + "--fq-in" + "\t\t" + "Input fastq" + "\n" +
+                    "\t\t" + "--fq-in" + "\t\t\t" + "Input fastq" + "\n" +
                     "\n\tYou must specify one ouput fastq file :\n" +
                     "\t\t" + "--fq-out" + "\t\t" + "Output fastq file " + "\n" +
                     "\n\tYou must specify one text file for stats output:\n" +
-                    "\t\t" + "--stats" + "\t\t" + "Output stats file " + "\n\n";
+                    "\t\t" + "--stats" + "\t\t\t" + "Output stats file " + "\n\n";
 
     //---------------------------Help Message---------------------------------//
     if ( ( argc == 1 ) ||

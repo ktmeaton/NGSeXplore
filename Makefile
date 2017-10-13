@@ -17,7 +17,7 @@ OBJEXT      := o
 LIBEXT      := so
 
 MKPTH       := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-LIBPATH	    := $(MKPTH)/$(LIBDIR)
+LIBPATH	    := $(MKPTH/)$(LIBDIR)
 
 #Flags, Libraries and Includes
 CXXFLAGS    := -Wall -g
@@ -44,7 +44,7 @@ remake: cleaner all
 
 #Copy Resources from Resources Directory to Target Directory
 resources: directories
-	@cp $(RESDIR)/* $(TARGETDIR)/
+	@#@cp $(RESDIR)/* $(TARGETDIR)/
 
 #Make the Directories
 directories:
@@ -73,6 +73,9 @@ cleanest: cleaner libclean
 $(TARGETDIR)/$(TARGETPREFIX)%: $(BUILDDIR)/$(TARGETPREFIX)%.$(OBJEXT) $(LIBS)
 	$(CXX) -o $@ $< -L$(LIBPATH) $(LIBS)
 
+#/home/keaton/myapps/NGSeXplore//lib/libUtilities.so /home/keaton/myapps/NGSeXplore//lib/libProgressLog.so /home/keaton/myapps/NGSeXplore//lib/libFastQ.so /home/keaton/myapps/NGSeXplore//lib/libPatch.so /home/keaton/myapps/NGSeXplore//lib/libTextColor.so:
+#	echo Test
+
 
 #Compile
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT) 
@@ -92,6 +95,8 @@ $(LIBDIR)/%.$(LIBEXT) : $(BUILDDIR)/%.$(OBJEXT)
 
 $(BUILDDIR)/lib%.$(OBJEXT): $(INCDIR)/%.$(SRCEXT)
 	$(CXX) -fPIC -c $< -o $@
+
+
 
 #Non-File Targets
 .PHONY: all remake clean cleaner cleanest resources libclean
