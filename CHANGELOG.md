@@ -8,13 +8,21 @@ and this project "attempts" to adhere to [Semantic Versioning](http://semver.org
 ### Changed
 - Pretty-ifying space separators
 
+## [0.1.3] - 2017-07-19
+### Major Fix
+- Fixed local path errors of shared libraries, now implemented with absolute paths
+
+## [0.1.2] - 2017-07-18
+### Changed
+- Beautification of formatting RemoveDuplicates, Intersect, using Artistic Style
+
 ## [0.1.1] - 2017-07-18
 ### Added
 - New Makefile target "cleanest" to remove all binaries, object code, and shared libraries
 - Completed implementation of MapIntersect template function in include/Utilities*
 
 ### Changed
-- Implementaiton of MapIntersect to use a std::pair container rather than FastQ::FastQPaired
+- Implementation of MapIntersect to use a std::pair container rather than FastQ::FastQPaired
 
 ## [0.1.0] - 2017-07-14
 ### Added
@@ -39,7 +47,9 @@ and this project "attempts" to adhere to [Semantic Versioning](http://semver.org
 
 https://github.com/ktmeaton/NGSeXplore.git
 
-[Unreleased]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.2...HEAD
-[0.1.0]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.0...1.0.3
+[Unreleased]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.3...v0.1.2
+[0.1.2]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.2...v0.1.1
 [0.1.1]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.1...v0.1.0
+[0.1.0]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.0...1.0.3
 [1.0.3]: https://github.com/ktmeaton/NGSeXplore/compare/1.0.3...1.0.2
