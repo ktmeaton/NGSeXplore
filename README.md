@@ -4,8 +4,8 @@ https://ktmeaton.github.io/NGSeXplore
 
 ## Version
 
-Last Stable Release - Version 0.1.2 (master)  
-Development - Version 0.1.3
+Last Stable Release - Version 0.1.4 (master)  
+Development - Version 0.1.5 (v0.1.5)
 
 ## Installation
 
