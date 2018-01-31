@@ -8,6 +8,14 @@ and this project "attempts" to adhere to [Semantic Versioning](http://semver.org
 ### Changed
 - Pretty-ifying space separators
 
+## [0.1.5] - 2018-01-31
+### Changed
+- Editing QualityControl
+
+## [0.1.4] - 2018-01-31
+### Changed
+- Unknown
+
 ## [0.1.3] - 2017-07-19
 ### Major Fix
 - Fixed local path errors of shared libraries, now implemented with absolute paths
@@ -47,7 +55,9 @@ and this project "attempts" to adhere to [Semantic Versioning](http://semver.org
 
 https://github.com/ktmeaton/NGSeXplore.git
 
-[Unreleased]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.3...HEAD
+[Unreleased]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.5...HEAD
+[0.1.5]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.5...v0.1.4
+[0.1.4]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.4...v0.1.3
 [0.1.3]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.3...v0.1.2
 [0.1.2]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.2...v0.1.1
 [0.1.1]: https://github.com/ktmeaton/NGSeXplore/compare/v0.1.1...v0.1.0
