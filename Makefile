@@ -43,7 +43,6 @@ all: resources $(TARGETS)
 #Remake
 remake: cleaner all
 
-#Copy Resources from Resources Directory to Target Directory
 resources: directories
 	@#@cp $(RESDIR)/* $(TARGETDIR)/
 
@@ -72,10 +71,7 @@ cleanest: cleaner libclean
 
 #Link
 $(TARGETDIR)/$(TARGETPREFIX)%: $(BUILDDIR)/$(TARGETPREFIX)%.$(OBJEXT) $(LIBS)
-	$(CXX) -o $@ $< $(LIBS)
-
-#/home/keaton/myapps/NGSeXplore//lib/libUtilities.so /home/keaton/myapps/NGSeXplore//lib/libProgressLog.so /home/keaton/myapps/NGSeXplore//lib/libFastQ.so /home/keaton/myapps/NGSeXplore//lib/libPatch.so /home/keaton/myapps/NGSeXplore//lib/libTextColor.so:
-#	echo Test
+	$(CXX) -o $@ $< -L$(LIBPATH) $(LIBS)
 
 
 #Compile
