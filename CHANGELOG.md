@@ -7,6 +7,7 @@ and this project "attempts" to adhere to [Semantic Versioning](http://semver.org
 ## [Unreleased]
 ### Changed
 - Pretty-ifying space separators
+- Reinstate FastA functionality for RemoveDuplicates
 
 ## [0.1.5] - 2018-01-31
 ### Changed
