@@ -138,8 +138,8 @@ namespace FastQ
     }
 
     //-------------------------Set and Delete Record---------------------------//
-    void FastQPaired::setRecord( FastQ::FastQ fastq_first,
-                    FastQ::FastQ fastq_second )
+    void FastQPaired::setRecord( FastQ fastq_first,
+                    FastQ fastq_second )
     {
         _id_first = fastq_first.getID();
         _sequence_first = fastq_first.getSeq();
