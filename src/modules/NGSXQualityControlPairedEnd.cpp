@@ -18,6 +18,7 @@
 #include <algorithm>								// Count funtion
 
 //----------------------------Custom Include----------------------------------//
+#include "FastQ.h"                     // FastQ object
 #include "TextColor.h"							// Unix shell colored output
 #include "ProgressLog.h"						// ProgressLog Class
 
@@ -164,15 +165,6 @@ int main(int argc, char* argv[])
 			else if ( std::string( argv[i] ) == "--stats" )
 			{
 					stats_file_name = std::string( argv[i + 1] );
-					i++;
-					continue;
-			}
-
-			else if ( std::string( argv[i] ) == "--phred" )
-			{
-					ss_phred = std::string( argv[i + 1] );
-					if (!(ss_phred >> i_phred))  std::cerr << "Invalid phred base. " << ss_phred << '\n';
-					const int PHRED_BASE = i_phred;						// Phred base quality
 					i++;
 					continue;
 			}
