@@ -171,7 +171,7 @@ int main(int argc, char* argv[])
 
 			else if ( std::string( argv[i] ) == "--phred" )
 			{
-					ss_phred = std::string( argv[i + 1] );
+					ss_phred << std::string( argv[i + 1] );
 					if (!(ss_phred >> i_phred))  std::cerr << "Invalid phred base. " << ss_phred << '\n';
 					const int PHRED_BASE = i_phred;						// Phred base quality
 					i++;
@@ -180,7 +180,7 @@ int main(int argc, char* argv[])
 
 			else if ( std::string( argv[i] ) == "-q" )
 			{
-					ss_min_qual = std::string( argv[i + 1] );
+					ss_min_qual << std::string( argv[i + 1] );
 					if (!(ss_min_qual >> i_min_qual))  std::cerr << "Invalid minimum quality. " << ss_min_qual << '\n';
 					const int MIN_QUAL = i_min_qual;						// Phred base quality
 					i++;
@@ -189,7 +189,7 @@ int main(int argc, char* argv[])
 
 			else if ( std::string( argv[i] ) == "-p" )
 			{
-					ss_prop_thresh = std::string( argv[i + 1] );
+					ss_prop_thresh << std::string( argv[i + 1] );
 					if (!(ss_prop_thresh >> i_prop_thresh))  std::cerr << "Invalid quality proportion threshold. " << ss_prop_thresh << '\n';
 					const int PROP_THRESHOLD = i_prop_thresh;						// Phred base quality
 					i++;
@@ -198,7 +198,7 @@ int main(int argc, char* argv[])
 
 			else if ( std::string( argv[i] ) == "-l" )
 			{
-					ss_min_len = std::string( argv[i + 1] );
+					ss_min_len << std::string( argv[i + 1] );
 					if (!(ss_min_len >> i_min_len))  std::cerr << "Invalid minimum length. " << ss_min_len << '\n';
 					const int PROP_THRESHOLD = i_prop_thresh;						// Phred base quality
 					i++;

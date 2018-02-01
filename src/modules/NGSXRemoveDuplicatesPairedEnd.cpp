@@ -252,7 +252,7 @@ int main( int argc, char* argv[] )
     std::cout << "Writing unique sequences to file." << std::endl;
     final_num_seq = 0;
 
-    for ( it = map_filtered_paired.begin(); it != map_filtered_paired.end(); ++it )
+    for ( it = map_unique_paired.begin(); it != map_unique_paired.end(); ++it )
     {
         // First output file
         output_first_fastq_file << it->second.getIDFirst() << std::endl;
