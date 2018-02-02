@@ -114,20 +114,20 @@ int main(int argc, char* argv[])
   // Integer command-line arguments arguments
   std::istringstream ss_phred;
   int i_phred;
-	const int PHRED_BASE;
+	int PHRED_BASE;
 
 	std::istringstream ss_min_qual;
   int i_min_qual;
-  const int MIN_QUAL;
+  int MIN_QUAL;
 
   std::istringstream ss_prop_thresh;
   float f_prop_thresh;
-	const float PROP_THRESHOLD;
+	float PROP_THRESHOLD;
 
 
   std::istringstream ss_min_len;
   int i_min_len;
-  const int MIN_LENGTH;
+  int MIN_LENGTH;
 
 	//------------------------------Arg Parsing------------------------------//
 
