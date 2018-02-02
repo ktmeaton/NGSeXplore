@@ -235,8 +235,9 @@ int main(int argc, char* argv[])
 		std::getline( input_fastq_file, temp_qual);    // Quality
 
 		// Store fastq record as FastQ Object
-		temp_fastq.setRecord( temp_id, temp_seq, temp_line3,
-										temp_qual);
+		temp_fastq.setRecord( temp_id, temp_seq, temp_line3, temp_qual);
+		temp_fastq.setAvQual(PHRED_BASE);
+		std::cout << temp_fastq.getAvQual() << std::endl;
 
 
 		// Check if read is long enough to pass minimum length filter

@@ -39,7 +39,6 @@ namespace FastQ
         _quality = quality;
         FastQ::setLength();
         FastQ::setGC();
-        FastQ::setAvQual();
     }
 
     void FastQ::delRecord()
@@ -64,14 +63,14 @@ namespace FastQ
                                         double( _length ) * 100 );
     }
     // Average Quality
-    void FastQ::setAvQual()
+    void FastQ::setAvQual(int phred_encode)
     {
         int total_quality = 0;
 
         // Iterate through sequence, adding up quality score of each nucleotide.
         for ( int i = 0; i < _length; i++ )
         {
-            total_quality += int( _sequence[i] ) - 33;
+            total_quality += int( _sequence[i] ) - phred_encode;
         }
 
         _av_qual = total_quality / double( _length );

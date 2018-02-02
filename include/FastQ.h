@@ -28,7 +28,6 @@ namespace FastQ
 
             void setLength();                        /**<Calcualate and set length. */
             void setGC();                            /**<Calcualate and set GC content. */
-            void setAvQual();                        /**<Calcualate and set average quality. */
 
 
 
@@ -105,6 +104,13 @@ namespace FastQ
                 @return GC Content
             */
             float getGC();
+
+            /***
+ 		\fn setAvQual
+		\brief Calculates average quality of read with user-specified PHRED encoding.
+		@return None
+            */
+	    void setAvQual(int phred_encode);
 
             /**
                 \fn getAvQual
