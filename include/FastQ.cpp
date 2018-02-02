@@ -73,13 +73,13 @@ namespace FastQ
         // Iterate through sequence, adding up quality probability of each nucleotide.
         for ( int i = 0; i < _length; i++ )
         {
-            char_phred_qual = int(_sequence[i]) - phred_encode
-            char_phred_prob = float(10^(-char_phred_qual / 10))
-            total_probability += char_phred_prob
+            char_phred_qual = int(_sequence[i]) - phred_encode;
+            char_phred_prob = float(10^(-char_phred_qual / 10));
+            total_probability += char_phred_prob;
         }
 
         average_probability = total_probability / double(_length);
-        _av_qual = -10*(log10(average_probability))
+        _av_qual = -10*(log10(average_probability));
 
     }
 
