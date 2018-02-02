@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
 		(argc == 2 && std::string(argv[1]) == "-h") ||
 		(argc == 2 && std::string(argv[1]) == "-help") ||
 		(argc == 2 && std::string(argv[1]) == "--help") ||
-		(argc !=14)
+		(argc !=14))
 	{
 		std::cerr << usage << std::endl;
 		return 1;
