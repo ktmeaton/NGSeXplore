@@ -84,6 +84,8 @@ int main(int argc, char* argv[])
 	std::string temp_line3_second;
 	std::string temp_qual_second;
 
+	std::string temp_id_paired;
+
   // Number of bases in current read that are above quality threshold
 	int bases_above_threshold_first;
 	int bases_above_threshold_second;
@@ -112,22 +114,18 @@ int main(int argc, char* argv[])
 	float percent_filtered;                           // Percent of input
 
   // Integer command-line arguments arguments
-  std::istringstream ss_phred;
-  int i_phred;
+	int i_phred;
 	int PHRED_BASE;
 
-	std::istringstream ss_min_qual;
-  int i_min_qual;
-  int MIN_QUAL;
+	int i_min_qual;
+	int MIN_QUAL;
 
-  std::istringstream ss_prop_thresh;
-  float f_prop_thresh;
+	float f_prop_thresh;
 	float PROP_THRESHOLD;
 
 
-  std::istringstream ss_min_len;
-  int i_min_len;
-  int MIN_LENGTH;
+	int i_min_len;
+	int MIN_LENGTH;
 
 	//------------------------------Arg Parsing------------------------------//
 
@@ -171,36 +169,36 @@ int main(int argc, char* argv[])
 
 			else if ( std::string( argv[i] ) == "--phred" )
 			{
-					ss_phred << std::string( argv[i + 1] );
+					std::istringstream ss_phred(argv[i + 1]);
 					if (!(ss_phred >> i_phred))  std::cerr << "Invalid phred base. " << ss_phred << '\n';
-					const int PHRED_BASE = i_phred;						// Phred base quality
+					PHRED_BASE = i_phred;						// Phred base quality
 					i++;
 					continue;
 			}
 
 			else if ( std::string( argv[i] ) == "-q" )
 			{
-					ss_min_qual << std::string( argv[i + 1] );
+					std::istringstream ss_min_qual(argv[i + 1]);
 					if (!(ss_min_qual >> i_min_qual))  std::cerr << "Invalid minimum quality. " << ss_min_qual << '\n';
-					const int MIN_QUAL = i_min_qual;						// Phred base quality
+					MIN_QUAL = i_min_qual;						// Phred base quality
 					i++;
 					continue;
 			}
 
 			else if ( std::string( argv[i] ) == "-p" )
 			{
-					ss_prop_thresh << std::string( argv[i + 1] );
-					if (!(ss_prop_thresh >> i_prop_thresh))  std::cerr << "Invalid quality proportion threshold. " << ss_prop_thresh << '\n';
-					const int PROP_THRESHOLD = i_prop_thresh;						// Phred base quality
+					std::istringstream ss_prop_thresh(argv[i + 1]);
+					if (!(ss_prop_thresh >> f_prop_thresh))  std::cerr << "Invalid quality proportion threshold. " << ss_prop_thresh << '\n';
+					PROP_THRESHOLD = f_prop_thresh;						// Phred base quality
 					i++;
 					continue;
 			}
 
 			else if ( std::string( argv[i] ) == "-l" )
 			{
-					ss_min_len << std::string( argv[i + 1] );
+					std::istringstream ss_min_len(argv[i + 1]);
 					if (!(ss_min_len >> i_min_len))  std::cerr << "Invalid minimum length. " << ss_min_len << '\n';
-					const int PROP_THRESHOLD = i_prop_thresh;						// Phred base quality
+					MIN_LENGTH = i_min_len;						// Phred base quality
 					i++;
 					continue;
 			}
