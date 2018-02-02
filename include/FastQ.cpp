@@ -9,6 +9,7 @@
 #include <algorithm>                                 // Counting char occurences
 #include "FastQ.h"
 #include <math.h>     /* log10 */
+#include <cmath>      /* power exponents */
 
 namespace FastQ
 {
@@ -77,7 +78,7 @@ namespace FastQ
         {
             char_phred_qual = int(_sequence[i]) - phred_encode;
 	    std::cout << char_phred_qual << std::endl;
-            char_phred_prob = float(10^(-char_phred_qual / 10));
+            char_phred_prob = std::pow(10,(-1 * char_phred_qual / 10));
 	    std::cout << char_phred_prob << std::endl;
             total_probability += char_phred_prob;
 	    std::cout << total_probability << std::endl;
