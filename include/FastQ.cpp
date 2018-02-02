@@ -68,7 +68,7 @@ namespace FastQ
     void FastQ::setAvQual(int phred_encode)
     {
 
-        int total_probability = 0;
+        double total_probability = 0;
         double average_probability;
 	int char_phred_qual;
 	double char_phred_prob;
