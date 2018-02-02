@@ -18,7 +18,7 @@
 #include <algorithm>								// Count funtion
 
 //----------------------------Custom Include----------------------------------//
-#include "FastQ.h"                     // FastQ object
+#include "FastQ.h"                  // FastQ object
 #include "TextColor.h"							// Unix shell colored output
 #include "ProgressLog.h"						// ProgressLog Class
 
@@ -261,15 +261,12 @@ int main(int argc, char* argv[])
   std::cout << Palette.GREEN << "\nBeginning the NGSXQualityControlPairedEnd Module.\n" <<  Palette.RESET << std::endl;
 
 	// Count the number of sequences in the input file (using the copy)
-	std::cout <<
-									"Initializing files and counting the number of sequences (This may take a while)."
-									<< std::endl;
+	std::cout << "Initializing files and counting the number of sequences (This may take a while)." << std::endl;
 	total_num_lines = std::count( std::istreambuf_iterator<char>( fastq_file_copy ),
 																	std::istreambuf_iterator<char>(), '\n' ) + 1;
 	total_num_records = total_num_lines /  4;           // 4 lines per record
 	fastq_progress_log.initLog(total_num_records );     // Init log
-	std::cout << "Input fastq file contains " << total_num_records << " sequences."
-									<< std::endl;
+	std::cout << "Input fastq file contains " << total_num_records << " sequences." << std::endl;
 
 
 	//-------------------------Filter By Quality----------------------------//
