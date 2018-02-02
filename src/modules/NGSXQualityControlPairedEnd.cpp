@@ -300,7 +300,7 @@ int main(int argc, char* argv[])
       temp_fastq_paired.setRecord( temp_fastq_first, temp_fastq_second );
 
       // Check if read is long enough to pass minimum length filter
-      if (temp_fastq_first.getLength() < MIN_LENGTH && temp_fastq_second.getLength() < MIN_LENGTH)
+      if (temp_fastq_first.getLength() >= MIN_LENGTH && temp_fastq_second.getLength() >= MIN_LENGTH)
 			{
 				// initalize count of high-quality bases to 0
 				bases_above_threshold_first = 0;
@@ -310,19 +310,19 @@ int main(int argc, char* argv[])
 				{
 					// Check base quality
 					base_quality_first = int(temp_fastq_first.getQual()[i]);
-					if((base_quality_first - PHRED_BASE) > MIN_QUAL - 1) {bases_above_threshold_first++;}
+					if((base_quality_first - PHRED_BASE) >= MIN_QUAL) {bases_above_threshold_first++;}
 				}
 				// Analyze read 2 base qualities
 				for(int i = 0; i < temp_fastq_second.getLength(); i++)
 				{
 					// Check base quality
 					base_quality_second = int(temp_fastq_second.getQual()[i]);
-					if((base_quality_second - PHRED_BASE) > MIN_QUAL - 1) {bases_above_threshold_second++;}
+					if((base_quality_second - PHRED_BASE) >= MIN_QUAL) {bases_above_threshold_second++;}
 				}
 
 				// Check quality conditions
-				if((bases_above_threshold_first > (temp_fastq_first.getLength() * PROP_THRESHOLD))
-						&& (bases_above_threshold_second > (temp_fastq_second.getLength() * PROP_THRESHOLD))
+				if((bases_above_threshold_first >= (temp_fastq_first.getLength() * PROP_THRESHOLD))
+						&& (bases_above_threshold_second >= (temp_fastq_second.getLength() * PROP_THRESHOLD))
 					)
 					{ keep_read = true;}
 			}
