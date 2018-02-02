@@ -77,11 +77,8 @@ namespace FastQ
         for ( int i = 0; i < _length; i++ )
         {
             char_phred_qual = int(_sequence[i]) - phred_encode;
-	    std::cout << char_phred_qual << std::endl;
             char_phred_prob = std::pow(10,(-1 * char_phred_qual / 10));
-	    std::cout << char_phred_prob << std::endl;
             total_probability += char_phred_prob;
-	    std::cout << total_probability << std::endl;
         }
 
         average_probability = total_probability / double(_length);
