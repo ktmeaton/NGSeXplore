@@ -8,6 +8,7 @@
 #include <string>
 #include <algorithm>                                 // Counting char occurences
 #include "FastQ.h"
+#include <math.h>     /* log10 */
 
 namespace FastQ
 {
@@ -65,15 +66,20 @@ namespace FastQ
     // Average Quality
     void FastQ::setAvQual(int phred_encode)
     {
-        int total_quality = 0;
 
-        // Iterate through sequence, adding up quality score of each nucleotide.
+        int total_probability = 0;
+        float average_probability;
+
+        // Iterate through sequence, adding up quality probability of each nucleotide.
         for ( int i = 0; i < _length; i++ )
         {
-            total_quality += int( _sequence[i] ) - phred_encode;
+            char_phred_qual = int(_sequence[i]) - phred_encode
+            char_phred_prob = float(10^(-char_phred_qual / 10))
+            total_probability += char_phred_prob
         }
 
-        _av_qual = total_quality / double( _length );
+        average_probability = total_probability / double(_length);
+        _av_qual = -10*(log10(average_probability))
 
     }
 
