@@ -6,12 +6,21 @@ https://ktmeaton.github.io/NGSeXplore
 
 Last Stable Release - master (v0.1.5)
 
+## Prerequisites
+make  
+g++
+
 ## Installation
 
 Release:  
 git clone https://github.com/ktmeaton/NGSeXplore.git  
 cd NGSeXplore  
-make
+
+### Compile single programs  
+make bin/NGSXRemoveDuplicates  
+make bin/NGSXFastQStats  
+### Compile all programs  
+make  
 
 ## Usage
 
