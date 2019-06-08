@@ -17,6 +17,7 @@ git clone https://github.com/ktmeaton/NGSeXplore.git
 cd NGSeXplore  
 
 ### Compile single programs  
+ex.  
 make bin/NGSXRemoveDuplicates  
 make bin/NGSXFastQStats  
 ### Compile all programs  
