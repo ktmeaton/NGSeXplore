@@ -28,7 +28,6 @@ namespace FastQ
 
             void setLength();                        /**<Calcualate and set length. */
             void setGC();                            /**<Calcualate and set GC content. */
-            void setAvQual();                        /**<Calcualate and set average quality. */
 
 
 
@@ -106,6 +105,13 @@ namespace FastQ
             */
             float getGC();
 
+            /***
+ 		\fn setAvQual
+		\brief Calculates average quality of read with user-specified PHRED encoding.
+		@return None
+            */
+	    void setAvQual(int phred_encode);
+
             /**
                 \fn getAvQual
                 \brief Returns the associated sequence record average quality.
@@ -153,7 +159,7 @@ namespace FastQ
                 @param fastq_first FastQ object of first record
                 @param fastq_second FastQ object of second record
             */
-            void setRecord( FastQ::FastQ fastq_first, FastQ::FastQ fastq_second );
+            void setRecord( FastQ fastq_first, FastQ fastq_second );
 
             /**
                 \fn delRecord

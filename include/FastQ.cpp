@@ -8,6 +8,8 @@
 #include <string>
 #include <algorithm>                                 // Counting char occurences
 #include "FastQ.h"
+#include <math.h>     /* log10 */
+#include <cmath>      /* power exponents */
 
 namespace FastQ
 {
@@ -39,7 +41,6 @@ namespace FastQ
         _quality = quality;
         FastQ::setLength();
         FastQ::setGC();
-        FastQ::setAvQual();
     }
 
     void FastQ::delRecord()
@@ -64,17 +65,24 @@ namespace FastQ
                                         double( _length ) * 100 );
     }
     // Average Quality
-    void FastQ::setAvQual()
+    void FastQ::setAvQual(int phred_encode)
     {
-        int total_quality = 0;
 
-        // Iterate through sequence, adding up quality score of each nucleotide.
+        double total_probability = 0;
+        double average_probability;
+	int char_phred_qual;
+	double char_phred_prob;
+
+        // Iterate through sequence, adding up quality probability of each nucleotide.
         for ( int i = 0; i < _length; i++ )
         {
-            total_quality += int( _sequence[i] ) - 33;
+            char_phred_qual = int(_sequence[i]) - phred_encode;
+            char_phred_prob = std::pow(10,(-1 * char_phred_qual / 10));
+            total_probability += char_phred_prob;
         }
 
-        _av_qual = total_quality / double( _length );
+        average_probability = total_probability / double(_length);
+        _av_qual = -10*(log10(average_probability));
 
     }
 
@@ -138,8 +146,8 @@ namespace FastQ
     }
 
     //-------------------------Set and Delete Record---------------------------//
-    void FastQPaired::setRecord( FastQ::FastQ fastq_first,
-                    FastQ::FastQ fastq_second )
+    void FastQPaired::setRecord( FastQ fastq_first,
+                    FastQ fastq_second )
     {
         _id_first = fastq_first.getID();
         _sequence_first = fastq_first.getSeq();

@@ -70,8 +70,7 @@ namespace ProgressLog
                                             _percent_processed == i ) )
             {
                 _percent_bool_map[i] = true;
-                std::cout << _palette.RED << "[" << Utilities::to_string(
-                                                i ) << "% Completed]" << _palette.RESET << std::endl;
+                std::cout << _palette.RED << "[" << Utilities::to_string(i) << "% Completed]" << _palette.RESET << std::endl;
             }
         }
     }

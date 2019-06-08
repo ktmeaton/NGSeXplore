@@ -12,6 +12,7 @@ and this project "attempts" to adhere to [Semantic Versioning](http://semver.org
 ## [0.1.5] - 2018-01-31
 ### Changed
 - Editing QualityControl
+- Namespace issue, FastQPaired had an extra namespace in setRecord function
 
 ## [0.1.4] - 2018-01-31
 ### Changed

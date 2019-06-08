@@ -61,23 +61,23 @@ int main( int argc, char* argv[] )
 
     // File Names
     std::string input_file_name_first_fastq;       // First input fastq
-    std::string input_file_name_second_fastq;      // Second input fastq         
-    std::string output_file_name_first_fastq;      // First output fastq                    
+    std::string input_file_name_second_fastq;      // Second input fastq
+    std::string output_file_name_first_fastq;      // First output fastq
     std::string output_file_name_second_fastq;     // Second output fastq
     std::string stats_file_name;                   // Stats file
 
     // Input file streams
-    std::ifstream input_first_fastq_file;          // Input first file stream   
+    std::ifstream input_first_fastq_file;          // Input first file stream
     std::ifstream input_second_fastq_file;         // Input second file stream
     std::ifstream fastq_file_copy;                 // Copy for counting lines
 
     // Output file streams
-    std::ofstream output_first_fastq_file;         // Output first file stream   
+    std::ofstream output_first_fastq_file;         // Output first file stream
     std::ofstream output_second_fastq_file;        // Output second file stream
     std::ofstream stats_file;                      // Stats file
 
     // Fastq lines
-    std::string current_line;                                                              
+    std::string current_line;
     std::string temp_id_first;
     std::string temp_seq_first;
     std::string temp_line3_first;
@@ -98,10 +98,9 @@ int main( int argc, char* argv[] )
     FastQ::FastQ temp_fastq_second;
     FastQ::FastQPaired temp_fastq_paired;
     TextColor::TextColor Palette;                   // Colored text output
-    ProgressLog::ProgressLog fastq_progress_log;    // Progress log 
+    ProgressLog::ProgressLog fastq_progress_log;    // Progress log
 
-
-    int total_num_lines;                            // Num lines in copy             
+    int total_num_lines;                            // Num lines in copy
     int total_num_records;                          // Num fastq records
     int final_num_seq;                              // Num unique
     float percent_unique;                           // Percent of input
@@ -158,9 +157,9 @@ int main( int argc, char* argv[] )
 
     //----------------------------------Open Files----------------------------//
 
-    input_first_fastq_file.open(input_file_name_first_fastq.c_str() );   
+    input_first_fastq_file.open(input_file_name_first_fastq.c_str() );
     input_second_fastq_file.open(input_file_name_second_fastq.c_str() );
-    fastq_file_copy.open(input_file_name_first_fastq.c_str() );         
+    fastq_file_copy.open(input_file_name_first_fastq.c_str() );
     output_first_fastq_file.open(output_file_name_first_fastq.c_str() );
     output_second_fastq_file.open(output_file_name_second_fastq.c_str() );
     stats_file.open( stats_file_name.c_str() );
@@ -222,16 +221,16 @@ int main( int argc, char* argv[] )
     while ( std::getline( input_first_fastq_file, current_line ) )
     {
         // First fastq
-        temp_id_first = current_line;                               // ID    
-        std::getline( input_first_fastq_file,temp_seq_first );      // Sequence   
-        std::getline( input_first_fastq_file,temp_line3_first );    // Ambiguous  
-        std::getline( input_first_fastq_file, temp_qual_first );    // Quality 
+        temp_id_first = current_line;                               // ID
+        std::getline( input_first_fastq_file,temp_seq_first );      // Sequence
+        std::getline( input_first_fastq_file,temp_line3_first );    // Ambiguous
+        std::getline( input_first_fastq_file, temp_qual_first );    // Quality
 
         temp_fastq_first.setRecord( temp_id_first, temp_seq_first, temp_line3_first,
                         temp_qual_first );
 
         // Second fastq
-        std::getline( input_second_fastq_file, temp_id_second );    // ID 
+        std::getline( input_second_fastq_file, temp_id_second );    // ID
         std::getline( input_second_fastq_file, temp_seq_second );   // Sequence
         std::getline( input_second_fastq_file, temp_line3_second ); // Ambiguous
         std::getline( input_second_fastq_file, temp_qual_second );  // Quality
@@ -251,7 +250,6 @@ int main( int argc, char* argv[] )
 
     //---------------------------Write Unique Sequences-----------------------//
     std::cout << "Writing unique sequences to file." << std::endl;
-    final_num_seq = 0;
     final_num_seq = 0;
 
     for ( it = map_unique_paired.begin(); it != map_unique_paired.end(); ++it )
@@ -279,7 +277,7 @@ int main( int argc, char* argv[] )
                     std::setprecision( 4 ) << percent_unique << std::endl;
 
     std::cout << "Out of: " << total_num_records <<
-                    " sequences, NGSXRemoveDuplicates removed: " << total_num_records -
+                    " sequences, NGSXRemoveDuplicatesPairedEnd removed: " << total_num_records -
                     final_num_seq << "." << std::endl;
     std::cout << "Percent Unique Sequences: " << percent_unique << "%" << std::endl;
     return 0;
