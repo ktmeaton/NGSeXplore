@@ -333,9 +333,8 @@ int main(int argc, char* argv[])
 				// Add record map/dict/hash table of filtered reads
 				map_filtered_paired[temp_id_paired] = temp_fastq_paired;
 		  }
-
-		   // Completed reading 1 sequence record
-		  fastq_progress_log.incrementLog( 1 );
+        // Completed reading 1 sequence record
+        fastq_progress_log.incrementLog( 1 );
 	} // end while loop
 
 
